@@ -1,0 +1,141 @@
+{
+  "title": "Help shape Acme Invoicing: 3-minute customer check-in",
+  "description": "Tell us how invoicing with Acme works for you, so we can fix what slows you down.",
+  "kind": "feedback",
+  "audience": "Small-business owners who sent an invoice with Acme in the last 3 months",
+  "purpose": "Decide which two invoicing problems to fix in the next quarter",
+  "sponsor": "Acme product team",
+  "language": "en",
+  "welcome": {
+    "title": "Help shape Acme Invoicing",
+    "description": "We're the Acme product team. Your answers decide what we fix next, and we'll share the results in our May update.\n• Takes about 3 minutes\n• Anonymous: only the product team sees answers\n• Voluntary: you can stop at any time\n• Open until 30 May. Questions? research@acme.example",
+    "button": "Start"
+  },
+  "thank_you": {
+    "title": "Thank you, that's everything",
+    "description": "We read every answer. You'll see what we changed in the May product update. Questions? research@acme.example"
+  },
+  "settings": {
+    "stated_minutes": 3,
+    "progress_bar": true,
+    "anonymous": true
+  },
+  "questions": [
+    {
+      "ref": "Q1",
+      "type": "yes_no",
+      "intent": "screener",
+      "required": true,
+      "label": "Have you sent an invoice with Acme in the last 3 months?",
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "jumps": [
+        {
+          "when": "Q1 is 'No'",
+          "to": "end"
+        }
+      ]
+    },
+    {
+      "ref": "Q2",
+      "type": "multi_choice",
+      "intent": "behaviour",
+      "required": true,
+      "label": "Which of these have you used in the last 3 months? Select all that apply.",
+      "options": [
+        "Recurring invoices",
+        "Payment reminders",
+        "Expense tracking",
+        "Bank sync",
+        "Reports"
+      ],
+      "has_none": true,
+      "randomize_options": true
+    },
+    {
+      "ref": "Q3",
+      "type": "nps",
+      "intent": "outcome",
+      "required": true,
+      "label": "How likely are you to recommend Acme Invoicing to a friend or colleague?",
+      "scale": {
+        "min": 0,
+        "max": 10,
+        "labels": {
+          "0": "Not at all likely",
+          "10": "Extremely likely"
+        }
+      }
+    },
+    {
+      "ref": "Q4",
+      "type": "long_text",
+      "intent": "open_feedback",
+      "required": false,
+      "label": "What is the main reason for your score?",
+      "shown_when": "Q3 <= 6"
+    },
+    {
+      "ref": "Q5",
+      "type": "matrix",
+      "intent": "attitude",
+      "required": true,
+      "label": "How satisfied are you with each of these?",
+      "rows": [
+        "Creating an invoice",
+        "Getting paid on time",
+        "Help from support"
+      ],
+      "columns": [
+        "Very dissatisfied",
+        "Dissatisfied",
+        "Neither",
+        "Satisfied",
+        "Very satisfied"
+      ]
+    },
+    {
+      "ref": "Q6",
+      "type": "long_text",
+      "intent": "open_feedback",
+      "required": false,
+      "label": "What one change would make Acme Invoicing more useful to you?"
+    },
+    {
+      "ref": "Q7",
+      "type": "single_choice",
+      "intent": "demographic",
+      "required": false,
+      "label": "How many people work at your business?",
+      "description": "So we can compare answers across business sizes.",
+      "options": [
+        "Just me",
+        "2–9",
+        "10–49",
+        "50 or more"
+      ],
+      "has_prefer_not_to_answer": true
+    },
+    {
+      "ref": "Q8",
+      "type": "dropdown",
+      "intent": "demographic",
+      "required": false,
+      "label": "Which industry is your business in?",
+      "options": [
+        "Construction",
+        "Creative services",
+        "Consulting",
+        "Health",
+        "Hospitality",
+        "Retail",
+        "Technology",
+        "Trades"
+      ],
+      "has_other": true,
+      "has_prefer_not_to_answer": true
+    }
+  ]
+}
