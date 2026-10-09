@@ -1,0 +1,4 @@
+{
+  "references": ["survey-format.md", "question-types.md"],
+  "scripts": ["survey_common.py", "survey_export.py"]
+}
