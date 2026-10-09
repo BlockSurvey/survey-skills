@@ -30,19 +30,21 @@ Accept any of these, and ask for nothing else unless the survey itself is missin
 | Markdown, or a pasted question list (`1. Question?` then `- option` lines) | Save it to `survey.md` and normalise with `survey_export.py` (step 1). |
 | Google Forms, Typeform, SurveyMonkey, Qualtrics or other tool export, a PDF or a screenshot transcript | Map it by hand to the portable JSON using the field tables in [survey-format.md](references/survey-format.md): portable `type` names only (`single_choice`, `multi_choice`, `rating`, `nps`, `matrix`, `long_text`…), refs `Q1…Qn` in order. |
 
+When pasting text, put each option on its own line (`- option`); options written inline after the question are folded into the label and then trip blocker `S04_options_too_few`.
+
 Useful but optional (ask only if the user offers context; otherwise infer and say so): who the respondents are (`audience`), the decision the survey informs (`purpose`), the promised time (`settings.stated_minutes`). Never invent a welcome screen, privacy line or thank-you that the user did not give you: their absence is a finding.
 
 ## Procedure
 
-Run the commands from this skill's directory (or prefix the paths with it). Scripts need Python 3.9+ and nothing else; if `python` is not found, use `python3`. Keep the working files (`survey.json`, `lint.json`, `judgments.json`, `report.json`) next to the user's survey, or in a temp folder if they gave only pasted text.
+`<skill-dir>` = the folder containing this SKILL.md (for example `~/.claude/skills/survey-score`). Run every command from the **user's** folder, the one holding their survey, so the working files (`survey.json`, `lint.json`, `judgments.json`, `report.md`, `report.json`) land next to the survey and never inside `<skill-dir>` (it may be read-only). If the user only pasted text, use their current working folder. Scripts need Python 3.9+ and nothing else; use `python3` if `python` is missing.
 
 1. **Normalise → `survey.json`.**
    - JSON already: copy it to `survey.json`.
-   - Markdown or pasted text: `python scripts/survey_export.py survey.md --format json --out survey.json`.
+   - Markdown or pasted text: `python <skill-dir>/scripts/survey_export.py survey.md --format json --out survey.json`.
    - Then open `survey.json` and fix every question marked `"inferred": true` whose guessed type is wrong (an "Email" box guessed as `short_text` → `email`; "Any other comments?" → `long_text`; a 1–5 satisfaction list → `rating`). Fill `required`, `shown_when` and `jumps` only from what the source says.
    - Produce: a valid `survey.json` and a one-line list of what you inferred, for the report's assumptions line.
 
-2. **Lint → `lint.json`.** `python scripts/survey_lint.py survey.json --json > lint.json`
+2. **Lint → `lint.json`.** `python <skill-dir>/scripts/survey_lint.py survey.json --json > lint.json`
    - Exit `0` = no blocker/high; `1` = at least one blocker/high finding (not an error, keep going); `2` = invalid input: fix `survey.json` and rerun.
    - Read the findings so your judgments do not contradict them (lint already counted lengths, ranges, duplicates, missing screens). Note the answerable-question count `n` (questions whose `type` is not `statement` or `group`); you need it for C7 and for chunking.
 
@@ -55,8 +57,8 @@ Run the commands from this skill's directory (or prefix the paths with it). Scri
 4. **Judge every applicable rubric item in ONE pass → `judgments.json`.** Open [references/judging-guide.md](references/judging-guide.md) (one line per item) and walk it in this order: classifiers → survey-level A, B, C, E, F → for each question in order, all per-question items and locators that apply. Open [references/rubric.md](references/rubric.md) only for an item whose line leaves you unsure. Write the file exactly in the contract shape below. Produce: one complete `judgments.json`. Never judge item by item in separate passes, and never re-read the survey once per item.
 
 5. **Calculate.** Run both (deterministic, instant):
-   - `python scripts/survey_score_calc.py survey.json judgments.json --lint --md` → the report you present.
-   - `python scripts/survey_score_calc.py survey.json judgments.json --lint --json > report.json` → the machine report the **survey-fix** skill reads.
+   - `python <skill-dir>/scripts/survey_score_calc.py survey.json judgments.json --lint --md > report.md` → the report you present.
+   - `python <skill-dir>/scripts/survey_score_calc.py survey.json judgments.json --lint --json > report.json` → the machine report the **survey-fix** skill reads.
    - Exit `0` = clean or minor issues, `1` = `not_ready` or a blocker/high finding (the report still printed; this is a result, not a failure), `2` = invalid input (read the one-line reason, fix the file, rerun).
    - If the footer says `partial: N item(s) not judged`, read `meta.missing_items` in `report.json` (entries look like `Q1:Q17_negative_wording`), add just those judgments to the same file, and rerun step 5. Do not re-judge the rest.
    - Add `--polite` to both commands when the user wants a neutral tone (no roasts; every fix is kept).
@@ -133,10 +135,10 @@ _Assumptions: kind {kind}, audience {audience}, profile {weight_profile}. {what 
 
 ## Top findings
 1. {severity} · {ref or survey} · {roast} → {fix}   ← up to 10, calculator order
-…and {k} more (ask for the full list).
+…and {k} more (see --json).                       ← the calculator's own line; the full list is in report.json
 
 ## Questions
-| Ref | Type | Label | Score | Findings |      ← every answerable question; for more than 30, only rows with findings, then "{m} more questions with no findings"
+| Ref | Type | Label | Score | Findings |      ← answerable questions only (statements and groups are not listed); Score `—` = no judged evidence; for more than 30, only rows with findings, then "{m} more questions with no findings"
 
 ## What to do first
 - {first fix, made concrete with the survey's own words}
@@ -159,7 +161,7 @@ Before replying, check:
 - [ ] The calculator ran and `meta.partial` is false (or the gaps are listed).
 - [ ] On every question you asked yourself the four classic defects: double-barrelled (`Q2_double_barreled`), leading (`Q3a_leading`), presuming (`Q3b_presuming`), options not exhaustive (`Q6_options_not_exhaustive`).
 - [ ] Every non-trivial judgment has a note quoting the survey; no note invents text the survey lacks.
-- [ ] Blockers (`S01`–`S05`, `S02`) and high findings appear first, as the calculator ranked them.
+- [ ] Blockers (`S01`–`S05`) and high findings appear first, as the calculator ranked them.
 - [ ] All numbers in the report are copied from the calculator; none computed by you.
 - [ ] Roasts stay specific and witty, never cruel; with `--polite`, none appear.
 
@@ -169,10 +171,27 @@ Input (pasted text, normalised in step 1; Q5's guessed `short_text` corrected to
 
 ```text
 # Customer Survey
-1. What is your age? (select one)        - 18-25  - 25-35  - 35+
-2. How much do you love our fast and friendly support? (select one)   - Love it  - Like it  - It's OK
-3. How often do you use the app and the website? (select one)        - Daily  - Weekly  - Monthly
-4. Which premium features do you use most? (select all that apply)   - Export  - Sync  - Teams
+
+1. What is your age? (select one)
+- 18-25
+- 25-35
+- 35+
+
+2. How much do you love our fast and friendly support? (select one)
+- Love it
+- Like it
+- It's OK
+
+3. How often do you use the app and the website? (select one)
+- Daily
+- Weekly
+- Monthly
+
+4. Which premium features do you use most? (select all that apply)
+- Export
+- Sync
+- Teams
+
 5. Any other comments?
 ```
 
@@ -187,7 +206,7 @@ Lint found `S07_no_description`, `S08_no_welcome`, `S09_no_thank_you` and `S12_n
               "Q4": {"Q3b_presuming": {"p": 0.9, "note": "assumes a premium plan"}}}
 ```
 
-Report headline from `survey_score_calc.py --lint --md`:
+Report headline from `python <skill-dir>/scripts/survey_score_calc.py survey.json judgments.json --lint --md`:
 
 ```markdown
 # Survey score: 46/100 · F · not_ready
@@ -203,7 +222,7 @@ What to do first, made concrete: retitle it ("Help us improve Acme support: a 2-
 
 When no code tool can run (plain chat), keep the same judging and output shape, and estimate the score by hand:
 
-1. Apply the static checks by hand from [static-checks.md](references/static-checks.md), starting with the blockers (`S01`–`S05`) and the high checks (`S13`, `S17`, `S21`, `S28`, `S30`, `S41`, `S51`).
+1. Apply the static checks by hand from [static-checks.md](references/static-checks.md), starting with the blockers (`S01`–`S05`) and the high checks (`S13`, `S17`, `S21`, `S28`, `S30`, `S41`, `S51`, and the hybrids `S22`, `S26` once you have judged `Q10`/`Q11`).
 2. Judge the rubric as in step 4 and turn each answer into a finding using the severity column of [rubric.md](references/rubric.md), with the confidence downgrades in [scoring.md](references/scoring.md).
 3. Follow "Manual tally fallback (no Python)" in [scoring.md](references/scoring.md): count blockers B, high H, medium M, low L (each static id once, plus one if it hits 4 or more questions); points = 100 − 6·H − 3·M − 1·L; apply the caps; read grade and verdict from the table.
 4. Headline: `~{points}/100 (manual tally, approximate) · grade {g} · {verdict}`. Replace the category and funnel tables with one line: "Not computed without the calculator." Keep Top findings, Questions (findings only, no scores) and What to do first.

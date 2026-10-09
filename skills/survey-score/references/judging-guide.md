@@ -15,7 +15,31 @@ How to answer:
 | --- | --- | --- |
 | `K_survey_kind` | choice | What is this? `research` · `feedback` · `form` · `quiz` · `assessment` · `information`. Also write it as top-level `survey_kind`. |
 | `X2_audience_kind` | choice | Who answers? `existing_customers` · `prospects_or_general_public` · `employees` · `students` · `experts_or_professionals` · `event_attendees` · `unclear`. Also top-level `audience_kind`. |
-| `C5_gap_topic` | choice | Which expected topic is most clearly absent? `none` or one key from rubric.md §Gap topics (e.g. `pricing`, `satisfaction`, `open_feedback`). |
+| `C5_gap_topic` | choice | Which expected topic is most clearly absent? One key from the gap-topic list below (`none` if nothing important is missing). Below confidence 0.5 the topic is not named. |
+
+Gap-topic keys for `C5_gap_topic`:
+
+| key | meaning |
+| --- | --- |
+| `none` | Nothing obviously missing given the stated purpose |
+| `screening` | A qualifying question that confirms the respondent belongs to the intended audience |
+| `current_behaviour` | What the respondent currently does or uses (frequency, habits, current provider or product) |
+| `satisfaction` | How satisfied they are with the current experience, product or service |
+| `pain_points` | What frustrates them, what goes wrong, or what is hard |
+| `needs` | What they need, expect or value most |
+| `intent` | Whether they would buy, switch, recommend, or continue (likelihood or intent) |
+| `preference` | Which option, feature or design they prefer, or how they compare alternatives |
+| `pricing` | Willingness to pay, budget, or price sensitivity |
+| `awareness` | How they heard about it, or what they already know |
+| `open_feedback` | A free-text question for anything the survey did not cover |
+| `demographics` | Background facts needed to segment the analysis (age, role, region…) |
+| `follow_up_consent` | Permission or contact details for follow-up |
+| `experience_outcome` | How something went for them or what the result was (an experience, visit, event, treatment or course) |
+| `understanding` | What they understood or know about the subject, or what is still unclear to them |
+| `concerns_risks` | Worries, risks, side-effects or safety questions they have |
+| `logistics` | Practical details such as timing, location, access or availability |
+| `suggestions` | What would make it better or what they would change |
+| `other_unlisted` | Something important is missing but it is not one of the topics listed here |
 
 ## A. Purpose & framing (survey level)
 

@@ -1,6 +1,6 @@
 ---
 name: survey-lint
-description: Fast, deterministic survey lint with no AI judgement - runs 44 static checks (missing title or questions, empty options, overlapping or gapped number ranges, duplicate questions, too many open-text boxes, oversized grids, unreachable questions, screeners with no exit, early friction and more) in about a millisecond, prints a findings table with fixes, and returns an exit code for CI. Works on survey JSON, markdown or a pasted question list. Use when the user asks to lint, quick-check, validate or sanity-check a survey or form structurally, wants a repeatable check with no LLM, or wants to gate a survey file in CI or a pre-commit hook. For a full 0-100 quality score with wording and coverage judgements, use survey-score.
+description: Fast, deterministic survey lint with no AI judgement - runs the 44 deterministic static checks (of 48 in the catalogue; the other 4 are hybrids that need AI judgements) (missing title or questions, empty options, overlapping or gapped number ranges, duplicate questions, too many open-text boxes, oversized grids, unreachable questions, screeners with no exit, early friction and more) in about a millisecond, prints a findings table with fixes, and returns an exit code for CI. Works on survey JSON, markdown or a pasted question list. Use when the user asks to lint, quick-check, validate or sanity-check a survey or form structurally, wants a repeatable check with no LLM, or wants to gate a survey file in CI or a pre-commit hook. For a full 0-100 quality score with wording and coverage judgements, use survey-score.
 license: MIT
 metadata:
   author: blocksurvey
@@ -10,7 +10,7 @@ metadata:
 
 # Survey lint
 
-Runs the deterministic half of the survey review: the static checks that need counting, thresholds and structure, never opinion. The same survey always gives the same findings, so the result is safe to automate. It catches the mistakes that break a survey outright (blockers such as no questions, an empty question, a choice with one option) and the ones that quietly cost completions or data quality (number ranges with gaps, five text boxes in a row, a 10-row grid, a screener that never screens anyone out). It does not judge wording, bias or coverage; that is **survey-score**.
+Runs the deterministic half of the survey review: the 44 static checks (the catalogue has 48; the 4 hybrids need AI judgements and run only in survey-score) that need counting, thresholds and structure, never opinion. The same survey always gives the same findings, so the result is safe to automate. It catches the mistakes that break a survey outright (blockers such as no questions, an empty question, a choice with one option) and the ones that quietly cost completions or data quality (number ranges with gaps, five text boxes in a row, a 10-row grid, a screener that never screens anyone out). It does not judge wording, bias or coverage; that is **survey-score**.
 
 ## When to use
 
@@ -28,14 +28,16 @@ Runs the deterministic half of the survey review: the static checks that need co
 | Markdown or a pasted question list | Save to `survey.md`, then normalise (step 1). |
 | A survey-tool export (Google Forms, Typeform, SurveyMonkey, Qualtrics…) | Map it by hand to the portable JSON with the field tables in [survey-format.md](references/survey-format.md), using portable type names. |
 
+When pasting text, put each option on its own line (`- option`); options written inline after the question are folded into the label and then trip blocker `S04_options_too_few`.
+
 Nothing else is needed. Settings such as `settings.stated_minutes`, `jumps`, `shown_when` and `required` make the checks sharper; copy them over when the source has them.
 
 ## Procedure
 
-Run the commands from this skill's directory (or prefix the paths with it). Scripts need Python 3.9+ and nothing else; if `python` is not found, use `python3`.
+`<skill-dir>` = the folder containing this SKILL.md (for example `~/.claude/skills/survey-lint`). Run every command from the **user's** folder, the one holding their survey, so `survey.json` and any output stay next to the survey and never inside `<skill-dir>` (it may be read-only). Scripts need Python 3.9+ and nothing else; use `python3` if `python` is missing.
 
-1. **Normalise → `survey.json`.** JSON input: use it. Markdown or pasted text: `python scripts/survey_export.py survey.md --format json --out survey.json`, then correct any question marked `"inferred": true` whose guessed type is wrong (an "Email" box → `email`, "Any other comments?" → `long_text`). Produce: a valid `survey.json` and a list of inferred types.
-2. **Lint.** `python scripts/survey_lint.py survey.json`
+1. **Normalise → `survey.json`.** JSON input: use it. Markdown or pasted text: `python <skill-dir>/scripts/survey_export.py survey.md --format json --out survey.json`, then correct any question marked `"inferred": true` whose guessed type is wrong (an "Email" box → `email`, "Any other comments?" → `long_text`). Produce: a valid `survey.json` and a list of inferred types.
+2. **Lint.** `python <skill-dir>/scripts/survey_lint.py survey.json`
    - Prints a markdown table (`Severity | Check | Question | Roast | Fix`), or `No static findings.`
    - `--json` prints the findings as a JSON array (for tools); `--polite` drops the roast and keeps the fix.
 3. **Read the exit code.**
@@ -50,8 +52,10 @@ Run the commands from this skill's directory (or prefix the paths with it). Scri
 
 ### CI usage
 
+Vendor the skill into the repository (or install it on the runner) and call the script by the path to the vendored skill; here it is `vendor/survey-lint`.
+
 ```bash
-python skills/survey-lint/scripts/survey_lint.py surveys/onboarding.json || exit 1
+python vendor/survey-lint/scripts/survey_lint.py surveys/onboarding.json || exit 1
 ```
 
 GitHub Actions step (fails the job on exit 1 or 2):
@@ -60,7 +64,7 @@ GitHub Actions step (fails the job on exit 1 or 2):
 - name: Lint surveys
   run: |
     for f in surveys/*.json; do
-      python skills/survey-lint/scripts/survey_lint.py "$f" --polite || exit 1
+      python vendor/survey-lint/scripts/survey_lint.py "$f" --polite || exit 1
     done
 ```
 
@@ -96,13 +100,22 @@ Input (pasted text):
 
 ```text
 # Product Survey v2
-1. What is your annual income? (select one)   - Under 25k  - 26k-50k  - 50k-100k
-2. How much do you love our amazing new dashboard and reporting?   - A lot  - Somewhat
+
+1. What is your annual income? (select one)
+- Under 25k
+- 26k-50k
+- 50k-100k
+
+2. How much do you love our amazing new dashboard and reporting?
+- A lot
+- Somewhat
+
 3. Email address
+
 4. Any comments?
 ```
 
-After step 1 (Q3 corrected to `email`, Q4 to `long_text`), `python scripts/survey_lint.py survey.json` gives, among others:
+After step 1 (Q3 corrected to `email`, Q4 to `long_text`), `python <skill-dir>/scripts/survey_lint.py survey.json` gives, among others:
 
 ```markdown
 | medium | S07_no_description |  | You haven't told people why they're here. No description, no welcome text. | Add a welcome screen that explains the purpose in two sentences. |
