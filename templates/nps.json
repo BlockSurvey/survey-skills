@@ -1,0 +1,79 @@
+{
+  "title": "How likely are you to recommend {product}? A 2-minute check-in",
+  "description": "One score, one reason, and a few quick questions so the {team} knows what to improve next.",
+  "kind": "feedback",
+  "audience": "Customers who have used {product} in the last 3 months",
+  "purpose": "Decide which one or two improvements to {product} to prioritise next quarter, based on what separates promoters from detractors",
+  "sponsor": "{team} at {company}",
+  "language": "en",
+  "welcome": {
+    "title": "Two minutes to shape {product}",
+    "description": "We're the {team} at {company}. Your answers tell us what to improve next, and we'll share what we heard and what we're changing.\n• For anyone who has used {product} in the last 3 months\n• Takes about 2 minutes\n• Anonymous: only the {team} sees answers, in summary\n• Voluntary: you can stop at any time\n• Open until {date}. Questions? {contact}",
+    "button": "Start"
+  },
+  "thank_you": {
+    "title": "Thank you, that's everything",
+    "description": "We read every answer. We'll share a summary of what we heard, and what we'll change, within a month of {date}. Questions? {contact}"
+  },
+  "settings": {
+    "stated_minutes": 2,
+    "progress_bar": true,
+    "anonymous": true
+  },
+  "questions": [
+    {
+      "ref": "Q1",
+      "type": "yes_no",
+      "intent": "screener",
+      "required": true,
+      "label": "Have you used {product} in the last 3 months?",
+      "options": ["Yes", "No"],
+      "jumps": [{ "when": "Q1 is 'No'", "to": "end" }]
+    },
+    {
+      "ref": "Q2",
+      "type": "nps",
+      "intent": "outcome",
+      "required": true,
+      "label": "How likely are you to recommend {product} to a friend or colleague?",
+      "scale": { "min": 0, "max": 10, "labels": { "0": "Not at all likely", "10": "Extremely likely" } }
+    },
+    {
+      "ref": "Q3",
+      "type": "long_text",
+      "intent": "open_feedback",
+      "required": false,
+      "label": "What is the main reason for your score?",
+      "description": "A sentence or two is plenty."
+    },
+    {
+      "ref": "Q4",
+      "type": "single_choice",
+      "intent": "behaviour",
+      "required": true,
+      "label": "In the last 3 months, how often have you used {product}?",
+      "options": ["Every day or almost every day", "A few times a week", "A few times a month", "Less than once a month"]
+    },
+    {
+      "ref": "Q5",
+      "type": "single_choice",
+      "intent": "attitude",
+      "required": false,
+      "label": "Which one of these would improve {product} most for you?",
+      "options": ["Faster performance", "Fewer bugs", "Easier to learn", "More integrations with other tools", "Better help and support", "Lower price"],
+      "has_other": true,
+      "randomize_options": true
+    },
+    {
+      "ref": "Q6",
+      "type": "single_choice",
+      "intent": "demographic",
+      "required": false,
+      "label": "Which best describes how you use {product}?",
+      "description": "So we can compare answers between personal and team use.",
+      "options": ["On my own, for personal use", "On my own, for work", "With a team at work"],
+      "has_other": true,
+      "has_prefer_not_to_answer": true
+    }
+  ]
+}

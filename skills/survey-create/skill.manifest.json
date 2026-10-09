@@ -1,0 +1,4 @@
+{
+  "references": ["playbook.md", "question-types.md", "survey-format.md", "static-checks.md"],
+  "scripts": ["survey_common.py", "survey_lint.py", "survey_export.py"]
+}

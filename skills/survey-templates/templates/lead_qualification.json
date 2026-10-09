@@ -1,0 +1,90 @@
+{
+  "title": "Tell us what you need from {product}: 2 minutes to the right next step",
+  "description": "A few quick questions so the {team} at {company} can send you the right information or set up a demo that fits.",
+  "kind": "form",
+  "audience": "Visitors who asked for a demo or pricing for {product}",
+  "purpose": "Route each request: book a demo for qualified buyers, send self-serve information to early researchers, and redirect customers and job seekers",
+  "sponsor": "{team} at {company}",
+  "language": "en",
+  "welcome": {
+    "title": "Let's find the right next step",
+    "description": "We're the {team} at {company}. A few quick questions help us send you the right information, or set up a demo that's worth your time.\n• Takes about 2 minutes\n• We use your details only to reply to this request, and never sell them\n• Questions? {contact}",
+    "button": "Start"
+  },
+  "thank_you": {
+    "title": "Thanks, we've got it",
+    "description": "Someone from the {team} will reply within one working day. If you asked for a demo, you'll get a link to choose a time. Questions? {contact}"
+  },
+  "settings": {
+    "stated_minutes": 2,
+    "progress_bar": true,
+    "anonymous": false
+  },
+  "questions": [
+    {
+      "ref": "Q1",
+      "type": "single_choice",
+      "intent": "screener",
+      "required": true,
+      "label": "What brings you here today?",
+      "options": ["I'm choosing a tool for my team or company", "I'm researching options for later", "I'm already a customer and need help", "I'm looking for a job or doing a school project"],
+      "jumps": [{ "when": "Q1 is 'I''m already a customer and need help' or Q1 is 'I''m looking for a job or doing a school project'", "to": "end" }]
+    },
+    {
+      "ref": "Q2",
+      "type": "single_choice",
+      "intent": "behaviour",
+      "required": true,
+      "label": "How many people would use {product}?",
+      "options": ["1–10", "11–50", "51–200", "201–1000", "More than 1000", "Not sure yet"]
+    },
+    {
+      "ref": "Q3",
+      "type": "single_choice",
+      "intent": "behaviour",
+      "required": true,
+      "label": "When do you plan to choose a solution?",
+      "options": ["Within the next month", "In one to three months", "In four to twelve months", "No set timeline"]
+    },
+    {
+      "ref": "Q4",
+      "type": "single_choice",
+      "intent": "behaviour",
+      "required": true,
+      "label": "What is your role in choosing a tool like this?",
+      "options": ["I make the final decision", "I recommend options to the decision-maker", "I'll use it but don't choose it", "I'm gathering information for someone else"]
+    },
+    {
+      "ref": "Q5",
+      "type": "short_text",
+      "intent": "attitude",
+      "required": false,
+      "label": "In a sentence, what do you need {product} to help with?",
+      "description": "Optional, but it helps us tailor the demo."
+    },
+    {
+      "ref": "Q6",
+      "type": "single_choice",
+      "intent": "contact_or_admin",
+      "required": true,
+      "label": "What would you like as a next step?",
+      "options": ["A live demo", "Pricing information by email", "A free trial link"]
+    },
+    {
+      "ref": "Q7",
+      "type": "short_text",
+      "intent": "contact_or_admin",
+      "required": true,
+      "collects_pii": true,
+      "label": "What is your name?"
+    },
+    {
+      "ref": "Q8",
+      "type": "email",
+      "intent": "contact_or_admin",
+      "required": true,
+      "label": "What is your work email address?",
+      "description": "We'll send your demo link or information here."
+    }
+  ]
+}

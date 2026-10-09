@@ -1,0 +1,145 @@
+{
+  "title": "How do you {job} today? A 5-minute research survey",
+  "description": "A short research survey about how people {job} today: what triggers it, what you use, and what gets in the way.",
+  "kind": "research",
+  "audience": "People who have {job_past} in the last 3 months",
+  "purpose": "Decide whether the need to {job} is frequent and painful enough to build for, and which unmet need (speed, cost, accuracy, ease, sharing) to solve first",
+  "sponsor": "{team} at {company}",
+  "language": "en",
+  "welcome": {
+    "title": "How do you {job} today?",
+    "description": "We're the {team} at {company}. We're learning how people {job}, so that anything we build fits the way you already work. Nothing is being sold here.\n• Takes about 5 minutes\n• Your answers are only seen by the {team} and reported in summary\n• Taking part is voluntary; you can stop at any time\n• Open until {date}. Questions? {contact}",
+    "button": "Start"
+  },
+  "thank_you": {
+    "title": "Thank you, that's everything",
+    "description": "Your answers shape what we build. If you agreed to a follow-up call, we'll email you within a week. We'll share a summary of what we learned within a month of {date}. Questions? {contact}"
+  },
+  "settings": {
+    "stated_minutes": 5,
+    "progress_bar": true,
+    "anonymous": false
+  },
+  "questions": [
+    {
+      "ref": "Q1",
+      "type": "yes_no",
+      "intent": "screener",
+      "required": true,
+      "label": "Have you {job_past} in the last 3 months?",
+      "options": ["Yes", "No"],
+      "jumps": [{ "when": "Q1 is 'No'", "to": "end" }]
+    },
+    {
+      "ref": "Q2",
+      "type": "single_choice",
+      "intent": "behaviour",
+      "required": true,
+      "label": "How many times have you {job_past} in the last 3 months?",
+      "options": ["Once", "2–3 times", "4–10 times", "More than 10 times"]
+    },
+    {
+      "ref": "Q3",
+      "type": "multi_choice",
+      "intent": "behaviour",
+      "required": false,
+      "label": "The most recent time, which of these did you use to get it done? Select all that apply.",
+      "options": ["A dedicated app or software", "A spreadsheet", "Email or messaging", "Pen and paper", "Someone else did it for me", "An outside service I paid for"],
+      "has_other": true,
+      "randomize_options": true
+    },
+    {
+      "ref": "Q4",
+      "type": "likert",
+      "intent": "outcome",
+      "required": true,
+      "label": "Overall, how satisfied or dissatisfied are you with the way you handle this today?",
+      "scale": {
+        "min": 1,
+        "max": 5,
+        "labels": { "1": "Very dissatisfied", "2": "Dissatisfied", "3": "Neither satisfied nor dissatisfied", "4": "Satisfied", "5": "Very satisfied" }
+      }
+    },
+    {
+      "ref": "Q5",
+      "type": "long_text",
+      "intent": "open_feedback",
+      "required": false,
+      "label": "Thinking about the most recent time, what was happening that made you need to do it?",
+      "description": "The situation, the trigger, the deadline: whatever comes to mind."
+    },
+    {
+      "ref": "Q6",
+      "type": "long_text",
+      "intent": "open_feedback",
+      "required": false,
+      "label": "What is the most frustrating part of how you handle this today?",
+      "shown_when": "Q4 <= 3"
+    },
+    {
+      "ref": "Q7",
+      "type": "matrix",
+      "intent": "attitude",
+      "required": false,
+      "label": "When you do this, how important is each of these to you?",
+      "rows": ["Getting it done quickly", "Keeping the cost low", "Getting it right the first time", "Not having to learn anything new", "Sharing the result with others"],
+      "columns": ["Not at all important", "Slightly important", "Moderately important", "Very important", "Extremely important"]
+    },
+    {
+      "ref": "Q8",
+      "type": "yes_no",
+      "intent": "behaviour",
+      "required": false,
+      "label": "Have you paid for a product or service to help with this in the last 12 months?",
+      "options": ["Yes", "No"]
+    },
+    {
+      "ref": "Q9",
+      "type": "number",
+      "intent": "behaviour",
+      "required": false,
+      "label": "Roughly how much have you spent on it in the last 12 months?",
+      "description": "In {currency}, in total. A rough figure is fine.",
+      "scale": { "min": 0 },
+      "shown_when": "Q8 is 'Yes'"
+    },
+    {
+      "ref": "Q10",
+      "type": "single_choice",
+      "intent": "attitude",
+      "required": false,
+      "label": "If you could improve one thing about how you do this, what would it be?",
+      "options": ["Make it faster", "Make it cheaper", "Make it more accurate", "Make it easier to learn", "Make it easier to share"],
+      "has_other": true,
+      "randomize_options": true
+    },
+    {
+      "ref": "Q11",
+      "type": "single_choice",
+      "intent": "demographic",
+      "required": false,
+      "label": "Who do you usually do this for?",
+      "description": "So we can compare personal and work needs.",
+      "options": ["For myself", "For my employer", "For a business I own", "For clients"],
+      "has_other": true,
+      "has_prefer_not_to_answer": true
+    },
+    {
+      "ref": "Q12",
+      "type": "yes_no",
+      "intent": "contact_or_admin",
+      "required": false,
+      "label": "Would you be open to a 20-minute follow-up call about this?",
+      "options": ["Yes", "No"]
+    },
+    {
+      "ref": "Q13",
+      "type": "email",
+      "intent": "contact_or_admin",
+      "required": false,
+      "label": "Which email address can we use to arrange the call?",
+      "description": "We'll use it only to schedule the call.",
+      "shown_when": "Q12 is 'Yes'"
+    }
+  ]
+}

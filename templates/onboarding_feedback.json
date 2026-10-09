@@ -1,0 +1,105 @@
+{
+  "title": "How was getting started with {product}? A 4-minute check-in",
+  "description": "Tell us how your first weeks with {product} went, so the {team} can make getting started faster for everyone after you.",
+  "kind": "feedback",
+  "audience": "People who signed up for {product} in the last 30 days",
+  "purpose": "Decide which onboarding step to fix first by finding where new users get stuck and what helps them reach value",
+  "sponsor": "{team} at {company}",
+  "language": "en",
+  "welcome": {
+    "title": "How was getting started?",
+    "description": "We're the {team} at {company}. You joined {product} recently, so you know better than anyone where getting started is smooth and where it's not. Your answers decide what we fix first.\n• Takes about 4 minutes\n• Anonymous: only the {team} sees answers, in summary\n• Voluntary: you can stop at any time\n• Open until {date}. Questions? {contact}",
+    "button": "Start"
+  },
+  "thank_you": {
+    "title": "Thank you, that's everything",
+    "description": "We'll use your answers to improve the first-week experience, and share what changed within a month of {date}. Questions? {contact}"
+  },
+  "settings": {
+    "stated_minutes": 4,
+    "progress_bar": true,
+    "anonymous": true
+  },
+  "questions": [
+    {
+      "ref": "Q1",
+      "type": "yes_no",
+      "intent": "screener",
+      "required": true,
+      "label": "Did you sign up for {product} in the last 30 days?",
+      "options": ["Yes", "No"],
+      "jumps": [{ "when": "Q1 is 'No'", "to": "end" }]
+    },
+    {
+      "ref": "Q2",
+      "type": "single_choice",
+      "intent": "behaviour",
+      "required": true,
+      "label": "What was the main thing you wanted to get done when you signed up?",
+      "options": ["Replace a tool I was already using", "Handle a specific project", "Evaluate it for my team", "Explore it to see what it does"],
+      "has_other": true
+    },
+    {
+      "ref": "Q3",
+      "type": "single_choice",
+      "intent": "behaviour",
+      "required": true,
+      "label": "How far have you got with setting up {product}?",
+      "options": ["Finished setup and using it regularly", "Finished setup but not using it much yet", "Started setup but not finished", "Not started setup yet"]
+    },
+    {
+      "ref": "Q4",
+      "type": "likert",
+      "intent": "outcome",
+      "required": true,
+      "label": "Overall, how easy or difficult has it been to get started with {product}?",
+      "scale": {
+        "min": 1,
+        "max": 5,
+        "labels": { "1": "Very difficult", "2": "Difficult", "3": "Neither easy nor difficult", "4": "Easy", "5": "Very easy" }
+      }
+    },
+    {
+      "ref": "Q5",
+      "type": "long_text",
+      "intent": "open_feedback",
+      "required": false,
+      "label": "What made getting started difficult?",
+      "shown_when": "Q4 <= 3"
+    },
+    {
+      "ref": "Q6",
+      "type": "matrix",
+      "intent": "attitude",
+      "required": false,
+      "label": "How helpful was each of these while you were getting started?",
+      "rows": ["The welcome email", "The in-app setup guide", "Help articles", "The support team"],
+      "columns": ["Not at all helpful", "Slightly helpful", "Moderately helpful", "Very helpful", "Didn't use it"]
+    },
+    {
+      "ref": "Q7",
+      "type": "single_choice",
+      "intent": "behaviour",
+      "required": false,
+      "label": "How long did it take before {product} was useful to you?",
+      "options": ["The same day", "Within a week", "Within a month", "It hasn't been useful yet"]
+    },
+    {
+      "ref": "Q8",
+      "type": "long_text",
+      "intent": "open_feedback",
+      "required": false,
+      "label": "What one thing would have made getting started easier?"
+    },
+    {
+      "ref": "Q9",
+      "type": "single_choice",
+      "intent": "demographic",
+      "required": false,
+      "label": "How many people in your team or organisation use {product}?",
+      "description": "So we can compare the experience of solo users and teams.",
+      "options": ["Just me", "2–9", "10–49", "50 or more"],
+      "has_prefer_not_to_answer": true
+    }
+  ]
+}

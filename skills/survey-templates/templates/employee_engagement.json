@@ -1,0 +1,107 @@
+{
+  "title": "How is work at {company}? Your anonymous 5-minute engagement survey",
+  "description": "An anonymous survey for everyone at {company}. Your answers show the {team} what makes {company} a good place to work and what to change first.",
+  "kind": "feedback",
+  "audience": "Everyone employed at {company} for at least one month",
+  "purpose": "Decide the two engagement drivers (clarity, resources, feedback, recognition, growth, safety, respect, leadership, workload) to act on this half-year, using eNPS as the headline measure",
+  "sponsor": "{team} at {company}",
+  "language": "en",
+  "welcome": {
+    "title": "How is work at {company}?",
+    "description": "This survey is run by the {team}. Your honest answers decide which two things we work on this half-year, and every team will see the results and the plan.\n• Takes about 5 minutes\n• Anonymous: no names or emails are collected, and we only report groups of 5 or more people\n• Voluntary: you can skip any question or stop at any time\n• Open until {date}. Questions? {contact}",
+    "button": "Start"
+  },
+  "thank_you": {
+    "title": "Thank you for your honesty",
+    "description": "We'll share company-wide results and the two areas we'll act on within a month of {date}, and check progress in the next survey. Questions? {contact}"
+  },
+  "settings": {
+    "stated_minutes": 5,
+    "progress_bar": true,
+    "anonymous": true
+  },
+  "questions": [
+    {
+      "ref": "Q1",
+      "type": "nps",
+      "intent": "outcome",
+      "required": true,
+      "label": "How likely are you to recommend {company} as a place to work to a friend or colleague?",
+      "scale": { "min": 0, "max": 10, "labels": { "0": "Not at all likely", "10": "Extremely likely" } }
+    },
+    {
+      "ref": "Q2",
+      "type": "long_text",
+      "intent": "open_feedback",
+      "required": false,
+      "label": "What is the main reason for your score?"
+    },
+    {
+      "ref": "Q3",
+      "type": "statement",
+      "role": "information",
+      "label": "Next: what your work is like day to day",
+      "description": "For each statement, choose how much you agree or disagree. There are no right or wrong answers."
+    },
+    {
+      "ref": "Q4",
+      "type": "matrix",
+      "intent": "attitude",
+      "required": false,
+      "label": "How much do you agree or disagree with each statement about your work?",
+      "rows": ["I know what is expected of me at work", "I have the tools and resources to do my job well", "My manager gives me useful feedback", "I am recognised when I do good work", "I can see a path to grow my career here"],
+      "columns": ["Strongly disagree", "Disagree", "Neither agree nor disagree", "Agree", "Strongly agree"]
+    },
+    {
+      "ref": "Q5",
+      "type": "single_choice",
+      "intent": "behaviour",
+      "required": false,
+      "label": "Many people feel stretched at times. In the last 3 months, how often has your workload felt too heavy?",
+      "options": ["Never", "Rarely", "Sometimes", "Often", "All the time"]
+    },
+    {
+      "ref": "Q6",
+      "type": "statement",
+      "role": "information",
+      "label": "Next: your team and leadership"
+    },
+    {
+      "ref": "Q7",
+      "type": "matrix",
+      "intent": "attitude",
+      "required": false,
+      "label": "How much do you agree or disagree with each statement about your team and leaders?",
+      "rows": ["I can raise concerns without fear of negative consequences", "People on my team treat each other with respect", "Senior leaders explain clearly where {company} is going", "I trust the decisions senior leaders make"],
+      "columns": ["Strongly disagree", "Disagree", "Neither agree nor disagree", "Agree", "Strongly agree"]
+    },
+    {
+      "ref": "Q8",
+      "type": "long_text",
+      "intent": "open_feedback",
+      "required": false,
+      "label": "What one change would most improve working at {company}?"
+    },
+    {
+      "ref": "Q9",
+      "type": "dropdown",
+      "intent": "demographic",
+      "required": false,
+      "label": "Which area of {company} do you work in?",
+      "description": "So we can compare results across areas. Areas with fewer than 5 responses are never reported separately.",
+      "options": ["Customer support", "Design", "Engineering", "Finance", "Marketing", "Operations", "People and HR", "Product", "Sales"],
+      "has_other": true,
+      "has_prefer_not_to_answer": true
+    },
+    {
+      "ref": "Q10",
+      "type": "single_choice",
+      "intent": "demographic",
+      "required": false,
+      "label": "How long have you worked at {company}?",
+      "description": "So we can see how the experience changes over time. Reported only in groups of 5 or more.",
+      "options": ["Less than 1 year", "1–2 years", "3–5 years", "More than 5 years"],
+      "has_prefer_not_to_answer": true
+    }
+  ]
+}

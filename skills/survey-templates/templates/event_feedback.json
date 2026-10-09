@@ -1,0 +1,92 @@
+{
+  "title": "How was {event}? 4 minutes to shape the next one",
+  "description": "A short feedback survey for people who attended {event}. Your answers decide what the {team} keeps, changes and drops next time.",
+  "kind": "feedback",
+  "audience": "People who registered for {event}, in person or online",
+  "purpose": "Decide what to keep, change and drop for the next edition of {event} (content, networking, venue or platform, schedule, communication)",
+  "sponsor": "{team} at {company}",
+  "language": "en",
+  "welcome": {
+    "title": "How was {event}?",
+    "description": "Thanks for joining {event}. We're the {team} at {company}, and your answers decide what we keep and what we change for the next one. We'll share the highlights with everyone who took part.\n• Takes about 4 minutes\n• Anonymous: only the {team} sees answers, in summary\n• Voluntary: you can stop at any time\n• Open until {date}. Questions? {contact}",
+    "button": "Start"
+  },
+  "thank_you": {
+    "title": "Thank you, see you next time",
+    "description": "We'll email a summary of the feedback, and what we're changing for the next edition, within a month of {date}. Questions? {contact}"
+  },
+  "settings": {
+    "stated_minutes": 4,
+    "progress_bar": true,
+    "anonymous": true
+  },
+  "questions": [
+    {
+      "ref": "Q1",
+      "type": "single_choice",
+      "intent": "screener",
+      "required": true,
+      "label": "How did you take part in {event}?",
+      "options": ["In person", "Online", "Both in person and online", "I registered but didn't attend"],
+      "jumps": [{ "when": "Q1 is 'I registered but didn''t attend'", "to": "end" }]
+    },
+    {
+      "ref": "Q2",
+      "type": "nps",
+      "intent": "outcome",
+      "required": true,
+      "label": "How likely are you to recommend {event} to a friend or colleague?",
+      "scale": { "min": 0, "max": 10, "labels": { "0": "Not at all likely", "10": "Extremely likely" } }
+    },
+    {
+      "ref": "Q3",
+      "type": "long_text",
+      "intent": "open_feedback",
+      "required": false,
+      "label": "What is the main reason for your score?"
+    },
+    {
+      "ref": "Q4",
+      "type": "matrix",
+      "intent": "attitude",
+      "required": false,
+      "label": "How satisfied or dissatisfied were you with each part of {event}?",
+      "rows": ["The sessions and speakers", "Chances to meet other attendees", "The venue or online platform", "The schedule and pacing", "Information before the event"],
+      "columns": ["Very dissatisfied", "Dissatisfied", "Neither", "Satisfied", "Very satisfied"]
+    },
+    {
+      "ref": "Q5",
+      "type": "single_choice",
+      "intent": "attitude",
+      "required": false,
+      "label": "How did you find the overall length of {event}?",
+      "options": ["Much too short", "A little too short", "About right", "A little too long", "Much too long"]
+    },
+    {
+      "ref": "Q6",
+      "type": "long_text",
+      "intent": "open_feedback",
+      "required": false,
+      "label": "What one thing would most improve the next edition of {event}?"
+    },
+    {
+      "ref": "Q7",
+      "type": "single_choice",
+      "intent": "attitude",
+      "required": false,
+      "label": "How likely are you to attend the next edition of {event}?",
+      "options": ["Very unlikely", "Unlikely", "Not sure", "Likely", "Very likely"]
+    },
+    {
+      "ref": "Q8",
+      "type": "single_choice",
+      "intent": "demographic",
+      "required": false,
+      "label": "Which best describes your role?",
+      "description": "So we can plan content for the people who come.",
+      "options": ["Individual contributor", "Team lead or manager", "Director or executive", "Founder or business owner", "Student or researcher"],
+      "has_other": true,
+      "has_prefer_not_to_answer": true
+    }
+  ]
+}

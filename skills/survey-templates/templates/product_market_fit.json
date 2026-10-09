@@ -1,0 +1,104 @@
+{
+  "title": "How would you feel without {product}? A 3-minute research survey",
+  "description": "A short research survey for active users of {product}. Your answers show the {team} who {product} is essential for, and why.",
+  "kind": "research",
+  "audience": "People who have used {product} at least twice in the last 2 weeks",
+  "purpose": "Decide whether {product} has product-market fit (40 % or more 'Very disappointed') and which user segment and benefit to focus on next",
+  "sponsor": "{team} at {company}",
+  "language": "en",
+  "welcome": {
+    "title": "How would you feel without {product}?",
+    "description": "We're the {team} at {company}. We're learning who gets the most from {product} and why, so we can focus on what matters to people like you.\n• For anyone who has used {product} in the last 2 weeks\n• Takes about 3 minutes\n• Anonymous: only the {team} sees answers, in summary\n• Taking part is voluntary; you can stop at any time\n• Open until {date}. Questions? {contact}",
+    "button": "Start"
+  },
+  "thank_you": {
+    "title": "Thank you, that's everything",
+    "description": "Your answers go straight into our product plan. We'll share a summary of what we learned within a month of {date}. Questions? {contact}"
+  },
+  "settings": {
+    "stated_minutes": 3,
+    "progress_bar": true,
+    "anonymous": true
+  },
+  "questions": [
+    {
+      "ref": "Q1",
+      "type": "single_choice",
+      "intent": "screener",
+      "required": true,
+      "label": "How many times have you used {product} in the last 2 weeks?",
+      "options": ["Not at all", "Once", "2–5 times", "6 or more times"],
+      "jumps": [{ "when": "Q1 is 'Not at all' or Q1 is 'Once'", "to": "end" }]
+    },
+    {
+      "ref": "Q2",
+      "type": "single_choice",
+      "intent": "outcome",
+      "required": true,
+      "label": "How would you feel if you could no longer use {product}?",
+      "options": ["Very disappointed", "Somewhat disappointed", "Not disappointed", "I no longer use it"]
+    },
+    {
+      "ref": "Q3",
+      "type": "multi_choice",
+      "intent": "attitude",
+      "required": false,
+      "label": "Which of these words describe {product} for you? Select up to three.",
+      "options": ["Fast", "Reliable", "Easy to use", "Powerful", "Affordable", "Flexible", "Well supported"],
+      "selection": { "min": null, "max": 3 },
+      "randomize_options": true
+    },
+    {
+      "ref": "Q4",
+      "type": "long_text",
+      "intent": "open_feedback",
+      "required": false,
+      "label": "What is the main benefit you get from {product}?"
+    },
+    {
+      "ref": "Q5",
+      "type": "single_choice",
+      "intent": "behaviour",
+      "required": false,
+      "label": "If {product} were no longer available, what would you most likely use instead?",
+      "options": ["A similar product from another company", "A spreadsheet or document", "A tool we build ourselves", "Nothing, I'd go without"],
+      "has_other": true
+    },
+    {
+      "ref": "Q6",
+      "type": "yes_no",
+      "intent": "behaviour",
+      "required": false,
+      "label": "Have you recommended {product} to anyone in the last 3 months?",
+      "options": ["Yes", "No"]
+    },
+    {
+      "ref": "Q7",
+      "type": "long_text",
+      "intent": "open_feedback",
+      "required": false,
+      "label": "How could we improve {product} to better meet your needs?"
+    },
+    {
+      "ref": "Q8",
+      "type": "single_choice",
+      "intent": "demographic",
+      "required": false,
+      "label": "Which best describes how you use {product}?",
+      "description": "So we can see which kinds of users find {product} essential.",
+      "options": ["For personal use", "For my own work", "With a team at work", "For a business I own"],
+      "has_other": true,
+      "has_prefer_not_to_answer": true
+    },
+    {
+      "ref": "Q9",
+      "type": "single_choice",
+      "intent": "demographic",
+      "required": false,
+      "label": "How many people work at your organisation?",
+      "description": "So we can compare answers across organisation sizes.",
+      "options": ["Just me", "2–9", "10–49", "50–249", "250 or more"],
+      "has_prefer_not_to_answer": true
+    }
+  ]
+}

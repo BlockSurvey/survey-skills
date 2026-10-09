@@ -1,0 +1,140 @@
+{
+  "title": "What would you pay for {product}? A 3-minute pricing survey",
+  "description": "A short research survey about pricing for {product}. There are no right answers; we want your honest sense of value.",
+  "kind": "research",
+  "audience": "People who choose or pay for tools like {product}, for themselves or their team",
+  "purpose": "Set the launch price range for {product} using the Van Westendorp price sensitivity meter, segmented by current spend and who pays",
+  "sponsor": "{team} at {company}",
+  "language": "en",
+  "welcome": {
+    "title": "What would you pay for {product}?",
+    "description": "We're the {team} at {company}. We're setting the price for {product} and want it to be fair to people like you. There are no right or wrong answers.\n• Takes about 3 minutes\n• Anonymous: only the {team} sees answers, in summary\n• Taking part is voluntary; you can stop at any time\n• Open until {date}. Questions? {contact}",
+    "button": "Start"
+  },
+  "thank_you": {
+    "title": "Thank you, that's everything",
+    "description": "Your answers will directly shape the price we launch with. We'll share the outcome within a month of {date}. Questions? {contact}"
+  },
+  "settings": {
+    "stated_minutes": 3,
+    "progress_bar": true,
+    "anonymous": true
+  },
+  "questions": [
+    {
+      "ref": "Q1",
+      "type": "yes_no",
+      "intent": "screener",
+      "required": true,
+      "label": "Do you choose or pay for software tools, for yourself or for a team?",
+      "options": ["Yes", "No"],
+      "jumps": [{ "when": "Q1 is 'No'", "to": "end" }]
+    },
+    {
+      "ref": "Q2",
+      "type": "single_choice",
+      "intent": "behaviour",
+      "required": true,
+      "label": "What do you use today for the job {product} does?",
+      "options": ["A paid product", "A free product", "A spreadsheet or manual process", "Nothing yet"],
+      "has_other": true
+    },
+    {
+      "ref": "Q3",
+      "type": "number",
+      "intent": "behaviour",
+      "required": false,
+      "label": "Roughly how much do you pay for it today, per month?",
+      "description": "In {currency} per month. A rough figure is fine.",
+      "scale": { "min": 0 },
+      "shown_when": "Q2 is 'A paid product'"
+    },
+    {
+      "ref": "Q4",
+      "type": "likert",
+      "intent": "outcome",
+      "required": false,
+      "label": "How satisfied or dissatisfied are you with what you use today?",
+      "scale": {
+        "min": 1,
+        "max": 5,
+        "labels": { "1": "Very dissatisfied", "2": "Dissatisfied", "3": "Neither satisfied nor dissatisfied", "4": "Satisfied", "5": "Very satisfied" }
+      },
+      "shown_when": "Q2 is not 'Nothing yet'"
+    },
+    {
+      "ref": "Q5",
+      "type": "statement",
+      "role": "information",
+      "label": "About {product}",
+      "description": "{product_description} The next four questions ask what you would expect to pay for it, in {currency} per month. Answer with the first figure that comes to mind."
+    },
+    {
+      "ref": "Q6",
+      "type": "number",
+      "intent": "attitude",
+      "required": true,
+      "label": "At what monthly price would {product} be so cheap that you'd doubt its quality?",
+      "description": "In {currency} per month.",
+      "scale": { "min": 0 }
+    },
+    {
+      "ref": "Q7",
+      "type": "number",
+      "intent": "attitude",
+      "required": true,
+      "label": "At what monthly price would {product} be a bargain, a great buy for the money?",
+      "description": "In {currency} per month.",
+      "scale": { "min": 0 }
+    },
+    {
+      "ref": "Q8",
+      "type": "number",
+      "intent": "attitude",
+      "required": true,
+      "label": "At what monthly price would {product} start to feel expensive, so you'd think twice before buying?",
+      "description": "In {currency} per month.",
+      "scale": { "min": 0 }
+    },
+    {
+      "ref": "Q9",
+      "type": "number",
+      "intent": "attitude",
+      "required": true,
+      "label": "At what monthly price would {product} be so expensive that you wouldn't consider buying it?",
+      "description": "In {currency} per month.",
+      "scale": { "min": 0 }
+    },
+    {
+      "ref": "Q10",
+      "type": "likert",
+      "intent": "outcome",
+      "required": false,
+      "label": "Based on the description, how interested are you in trying {product}?",
+      "scale": {
+        "min": 1,
+        "max": 5,
+        "labels": { "1": "Not at all interested", "2": "Slightly interested", "3": "Moderately interested", "4": "Very interested", "5": "Extremely interested" }
+      }
+    },
+    {
+      "ref": "Q11",
+      "type": "single_choice",
+      "intent": "behaviour",
+      "required": false,
+      "label": "Who usually pays for tools like this?",
+      "options": ["I pay personally", "My organisation pays", "It depends on the tool"],
+      "has_other": true
+    },
+    {
+      "ref": "Q12",
+      "type": "single_choice",
+      "intent": "demographic",
+      "required": false,
+      "label": "How many people work at your organisation?",
+      "description": "So we can see whether price expectations differ by organisation size.",
+      "options": ["Just me", "2–9", "10–49", "50–249", "250 or more"],
+      "has_prefer_not_to_answer": true
+    }
+  ]
+}

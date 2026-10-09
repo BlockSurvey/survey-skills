@@ -1,0 +1,170 @@
+{
+  "title": "Using {product} at work: a 5-minute university research study",
+  "description": "A research study by {team} at {institution} on how useful and easy to use people find {product} at work.",
+  "kind": "research",
+  "audience": "Adults (18 or older) who have used {product} for work in the last 3 months",
+  "purpose": "Test whether perceived usefulness and perceived ease of use predict intention to keep using {product} at work (Technology Acceptance Model constructs)",
+  "sponsor": "{team}, {institution}",
+  "language": "en",
+  "welcome": {
+    "title": "Using {product} at work: a research study",
+    "description": "We're {team} at {institution}, studying how people experience {product} at work. Your answers will help researchers and designers understand what makes workplace tools worth using.\n• For adults who have used {product} for work in the last 3 months\n• Takes about 5 minutes\n• Anonymous: no names or contact details are collected\n• Taking part is voluntary; you can stop at any time\n• Approved by the {institution} ethics committee (ref. {ethics_ref})\n• Open until {date}. Questions? {contact}",
+    "button": "Read the consent information"
+  },
+  "thank_you": {
+    "title": "Thank you for taking part",
+    "description": "Your answers have been recorded anonymously. A summary of the findings will be available from {contact} after the study closes on {date}. If you have concerns about this study, contact the {institution} ethics committee and quote ref. {ethics_ref}."
+  },
+  "settings": {
+    "stated_minutes": 5,
+    "progress_bar": true,
+    "anonymous": true
+  },
+  "questions": [
+    {
+      "ref": "Q1",
+      "type": "consent",
+      "role": "consent",
+      "intent": "screener",
+      "required": true,
+      "label": "I have read the study information above and agree to take part.",
+      "description": "What you'll do: answer about 12 short questions on your experience with {product}. Risks: none beyond everyday life. Your data: stored securely by {institution}, reported only in aggregate, kept for {retention}, then deleted. Because answers are anonymous, they cannot be withdrawn once submitted. You may stop at any point before submitting.",
+      "options": ["I agree", "I do not agree"],
+      "jumps": [{ "when": "Q1 is 'I do not agree'", "to": "end" }]
+    },
+    {
+      "ref": "Q2",
+      "type": "yes_no",
+      "intent": "screener",
+      "required": true,
+      "label": "Are you 18 years of age or older?",
+      "options": ["Yes", "No"],
+      "jumps": [{ "when": "Q2 is 'No'", "to": "end" }]
+    },
+    {
+      "ref": "Q3",
+      "type": "yes_no",
+      "intent": "screener",
+      "required": true,
+      "label": "Have you used {product} for work in the last 3 months?",
+      "options": ["Yes", "No"],
+      "jumps": [{ "when": "Q3 is 'No'", "to": "end" }]
+    },
+    {
+      "ref": "Q4",
+      "type": "single_choice",
+      "intent": "behaviour",
+      "required": true,
+      "label": "In a typical week, how often do you use {product} for work?",
+      "options": ["Less than once a week", "1–2 days a week", "3–4 days a week", "Every working day"]
+    },
+    {
+      "ref": "Q5",
+      "type": "statement",
+      "role": "information",
+      "label": "Part 1: how useful {product} is",
+      "description": "For each statement, choose how much you agree or disagree. There are no right or wrong answers."
+    },
+    {
+      "ref": "Q6",
+      "type": "likert",
+      "intent": "attitude",
+      "required": true,
+      "label": "How much do you agree or disagree with each statement about the usefulness of {product}?",
+      "rows": ["Using {product} helps me get my work done more quickly", "Using {product} improves the quality of my work", "Using {product} makes it easier to do my job", "Overall, I find {product} useful in my job"],
+      "scale": {
+        "min": 1,
+        "max": 5,
+        "labels": { "1": "Strongly disagree", "2": "Disagree", "3": "Neither agree nor disagree", "4": "Agree", "5": "Strongly agree" }
+      }
+    },
+    {
+      "ref": "Q7",
+      "type": "likert",
+      "intent": "outcome",
+      "required": true,
+      "label": "Overall, how satisfied or dissatisfied are you with {product}?",
+      "scale": {
+        "min": 1,
+        "max": 5,
+        "labels": { "1": "Very dissatisfied", "2": "Dissatisfied", "3": "Neither satisfied nor dissatisfied", "4": "Satisfied", "5": "Very satisfied" }
+      }
+    },
+    {
+      "ref": "Q8",
+      "type": "statement",
+      "role": "information",
+      "label": "Part 2: how easy {product} is to use"
+    },
+    {
+      "ref": "Q9",
+      "type": "likert",
+      "intent": "attitude",
+      "required": true,
+      "label": "How much do you agree or disagree with each statement about how easy {product} is to use?",
+      "rows": ["Learning to use {product} was easy for me", "I find it easy to get {product} to do what I want", "My interactions with {product} are clear and understandable", "Overall, I find {product} easy to use"],
+      "scale": {
+        "min": 1,
+        "max": 5,
+        "labels": { "1": "Strongly disagree", "2": "Disagree", "3": "Neither agree nor disagree", "4": "Agree", "5": "Strongly agree" }
+      }
+    },
+    {
+      "ref": "Q10",
+      "type": "long_text",
+      "intent": "open_feedback",
+      "required": false,
+      "label": "Is there anything about using {product} at work that these statements did not capture?"
+    },
+    {
+      "ref": "Q11",
+      "type": "likert",
+      "intent": "attitude",
+      "required": true,
+      "label": "How much do you agree or disagree with each statement about your plans for {product}?",
+      "rows": ["I intend to keep using {product} at work over the next 3 months", "I expect to use {product} more often in the future", "I plan to use {product} for more of my tasks"],
+      "scale": {
+        "min": 1,
+        "max": 5,
+        "labels": { "1": "Strongly disagree", "2": "Disagree", "3": "Neither agree nor disagree", "4": "Agree", "5": "Strongly agree" }
+      }
+    },
+    {
+      "ref": "Q12",
+      "type": "statement",
+      "role": "information",
+      "label": "Finally, a few questions about you",
+      "description": "These help us describe who took part. Every question is optional and answers are reported only in summary."
+    },
+    {
+      "ref": "Q13",
+      "type": "single_choice",
+      "intent": "demographic",
+      "required": false,
+      "sensitive": true,
+      "label": "What is your age?",
+      "options": ["18–24", "25–34", "35–44", "45–54", "55–64", "65 or older"],
+      "has_prefer_not_to_answer": true
+    },
+    {
+      "ref": "Q14",
+      "type": "single_choice",
+      "intent": "demographic",
+      "required": false,
+      "sensitive": true,
+      "label": "How do you describe your gender?",
+      "options": ["Woman", "Man", "Non-binary"],
+      "has_other": true,
+      "has_prefer_not_to_answer": true
+    },
+    {
+      "ref": "Q15",
+      "type": "single_choice",
+      "intent": "demographic",
+      "required": false,
+      "label": "How many years of work experience do you have?",
+      "options": ["Less than 2 years", "2–5 years", "6–10 years", "More than 10 years"],
+      "has_prefer_not_to_answer": true
+    }
+  ]
+}

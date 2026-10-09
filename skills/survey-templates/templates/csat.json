@@ -1,0 +1,88 @@
+{
+  "title": "How did we do? Rate your recent support from {company}",
+  "description": "Three minutes to tell us how your recent support conversation went, so the {team} can make the next one better.",
+  "kind": "feedback",
+  "audience": "Customers who contacted {company} support in the last 7 days",
+  "purpose": "Decide which part of the support experience (speed, knowledge, clarity, reachability) to improve first",
+  "sponsor": "{team} at {company}",
+  "language": "en",
+  "welcome": {
+    "title": "How did we do?",
+    "description": "We're the {team} at {company}. You contacted us recently, and your answers help us decide what to fix first in how we support you.\n• Takes about 3 minutes\n• Anonymous: answers aren't linked to your support ticket\n• Voluntary: you can stop at any time\n• Open until {date}. Questions? {contact}",
+    "button": "Start"
+  },
+  "thank_you": {
+    "title": "Thank you for the feedback",
+    "description": "Every answer is read by the {team}. We review results every month and share what we changed on our help centre. Questions? {contact}"
+  },
+  "settings": {
+    "stated_minutes": 3,
+    "progress_bar": true,
+    "anonymous": true
+  },
+  "questions": [
+    {
+      "ref": "Q1",
+      "type": "yes_no",
+      "intent": "screener",
+      "required": true,
+      "label": "Did you contact {company} support in the last 7 days?",
+      "options": ["Yes", "No"],
+      "jumps": [{ "when": "Q1 is 'No'", "to": "end" }]
+    },
+    {
+      "ref": "Q2",
+      "type": "single_choice",
+      "intent": "behaviour",
+      "required": true,
+      "label": "How did you contact us?",
+      "description": "If you used more than one, pick the one you used most.",
+      "options": ["Email", "Live chat", "Phone", "Help-centre form"],
+      "has_other": true
+    },
+    {
+      "ref": "Q3",
+      "type": "likert",
+      "intent": "outcome",
+      "required": true,
+      "label": "Overall, how satisfied or dissatisfied were you with the support you received?",
+      "scale": {
+        "min": 1,
+        "max": 5,
+        "labels": { "1": "Very dissatisfied", "2": "Dissatisfied", "3": "Neither satisfied nor dissatisfied", "4": "Satisfied", "5": "Very satisfied" }
+      }
+    },
+    {
+      "ref": "Q4",
+      "type": "long_text",
+      "intent": "open_feedback",
+      "required": false,
+      "label": "What could we have done better?",
+      "shown_when": "Q3 <= 3"
+    },
+    {
+      "ref": "Q5",
+      "type": "single_choice",
+      "intent": "behaviour",
+      "required": true,
+      "label": "Is the issue you contacted us about now resolved?",
+      "options": ["Yes, fully resolved", "Partly resolved", "Not resolved yet"]
+    },
+    {
+      "ref": "Q6",
+      "type": "matrix",
+      "intent": "attitude",
+      "required": false,
+      "label": "How satisfied or dissatisfied were you with each part of your support experience?",
+      "rows": ["Speed of the first reply", "The agent's knowledge", "How clearly things were explained", "How easy it was to reach us"],
+      "columns": ["Very dissatisfied", "Dissatisfied", "Neither", "Satisfied", "Very satisfied"]
+    },
+    {
+      "ref": "Q7",
+      "type": "long_text",
+      "intent": "open_feedback",
+      "required": false,
+      "label": "Is there anything else you'd like the {team} to know?"
+    }
+  ]
+}

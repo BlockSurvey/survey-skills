@@ -1,0 +1,124 @@
+{
+  "title": "Sorry to see you go: 4 minutes to tell us why you left {product}",
+  "description": "A short exit survey for customers who cancelled or downgraded {product}. Your reasons decide what the {team} fixes first.",
+  "kind": "feedback",
+  "audience": "Customers who cancelled or downgraded their {product} subscription in the last 30 days",
+  "purpose": "Decide which top two churn reasons to address next quarter, and which ones are fixable versus out of our control",
+  "sponsor": "{team} at {company}",
+  "language": "en",
+  "welcome": {
+    "title": "Help us understand why you left",
+    "description": "We're the {team} at {company}. You recently cancelled or downgraded {product}, and knowing why is the most useful thing you can tell us. Your reasons decide what we fix first.\n• Takes about 4 minutes\n• Only the {team} sees your answers; we never share them outside {company}\n• Voluntary: you can stop at any time\n• Open until {date}. Questions? {contact}",
+    "button": "Start"
+  },
+  "thank_you": {
+    "title": "Thank you, that really helps",
+    "description": "We read every answer and review the reasons each month. If you agreed to a call, we'll email you within a week. Questions? {contact}"
+  },
+  "settings": {
+    "stated_minutes": 4,
+    "progress_bar": true,
+    "anonymous": false
+  },
+  "questions": [
+    {
+      "ref": "Q1",
+      "type": "single_choice",
+      "intent": "screener",
+      "required": true,
+      "label": "What did you change about your {product} subscription in the last 30 days?",
+      "options": ["Cancelled it", "Downgraded to a cheaper plan", "Paused it", "Nothing, I'm on the same plan"],
+      "jumps": [{ "when": "Q1 is 'Nothing, I'm on the same plan'", "to": "end" }]
+    },
+    {
+      "ref": "Q2",
+      "type": "single_choice",
+      "intent": "attitude",
+      "required": true,
+      "label": "What was the main reason you made this change?",
+      "description": "Pick the one that mattered most.",
+      "options": ["Too expensive for the value", "Missing a feature I need", "Too hard to use", "Switched to another product", "No longer need it", "Technical problems or bugs", "Poor support experience", "Budget cuts or company changes"],
+      "has_other": true,
+      "randomize_options": true
+    },
+    {
+      "ref": "Q3",
+      "type": "short_text",
+      "intent": "behaviour",
+      "required": false,
+      "label": "Which product did you switch to?",
+      "shown_when": "Q2 is 'Switched to another product'"
+    },
+    {
+      "ref": "Q4",
+      "type": "short_text",
+      "intent": "attitude",
+      "required": false,
+      "label": "Which feature were you missing?",
+      "shown_when": "Q2 is 'Missing a feature I need'"
+    },
+    {
+      "ref": "Q5",
+      "type": "likert",
+      "intent": "outcome",
+      "required": true,
+      "label": "Overall, how satisfied or dissatisfied were you with {product} before you made this change?",
+      "scale": {
+        "min": 1,
+        "max": 5,
+        "labels": { "1": "Very dissatisfied", "2": "Dissatisfied", "3": "Neither satisfied nor dissatisfied", "4": "Satisfied", "5": "Very satisfied" }
+      }
+    },
+    {
+      "ref": "Q6",
+      "type": "multi_choice",
+      "intent": "behaviour",
+      "required": false,
+      "label": "Before deciding, which of these did you try? Select all that apply.",
+      "options": ["Contacted support", "Read the help articles", "Talked to an account manager", "Tried a different plan"],
+      "has_none": true
+    },
+    {
+      "ref": "Q7",
+      "type": "single_choice",
+      "intent": "behaviour",
+      "required": false,
+      "label": "How long had you been a customer, in months?",
+      "options": ["Less than 3", "3–11", "12–24", "More than 24", "Not sure"]
+    },
+    {
+      "ref": "Q8",
+      "type": "long_text",
+      "intent": "open_feedback",
+      "required": false,
+      "label": "What one thing could we have done to keep you as a customer?"
+    },
+    {
+      "ref": "Q9",
+      "type": "yes_no",
+      "intent": "contact_or_admin",
+      "required": false,
+      "label": "Would you be open to a 15-minute call with the {team} about your experience?",
+      "options": ["Yes", "No"]
+    },
+    {
+      "ref": "Q10",
+      "type": "email",
+      "intent": "contact_or_admin",
+      "required": false,
+      "label": "Which email address can we use to arrange the call?",
+      "description": "We'll use it only to schedule this one call.",
+      "shown_when": "Q9 is 'Yes'"
+    },
+    {
+      "ref": "Q11",
+      "type": "single_choice",
+      "intent": "demographic",
+      "required": false,
+      "label": "How many people work at your organisation?",
+      "description": "So we can see whether reasons differ by organisation size.",
+      "options": ["Just me", "2–9", "10–49", "50–249", "250 or more"],
+      "has_prefer_not_to_answer": true
+    }
+  ]
+}

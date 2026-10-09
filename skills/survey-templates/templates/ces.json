@@ -1,0 +1,87 @@
+{
+  "title": "How easy was it? A 3-minute question about your recent task with {product}",
+  "description": "Tell us how much effort your recent task took, so the {team} can remove the steps that slow people down.",
+  "kind": "feedback",
+  "audience": "Customers who completed a task with {product} in the last 7 days, such as setting up an account, changing a plan or getting help",
+  "purpose": "Decide which customer task to simplify first by finding where effort is highest and what causes it",
+  "sponsor": "{team} at {company}",
+  "language": "en",
+  "welcome": {
+    "title": "How easy was it?",
+    "description": "We're the {team} at {company}. We want every task with {product} to take as little effort as possible, and your answers show us where to start.\n• Takes about 3 minutes\n• Anonymous: only the {team} sees answers, in summary\n• Voluntary: you can stop at any time\n• Open until {date}. Questions? {contact}",
+    "button": "Start"
+  },
+  "thank_you": {
+    "title": "Thank you, that's everything",
+    "description": "We'll use your answers to pick the next task we simplify, and we'll share what changed within a month of {date}. Questions? {contact}"
+  },
+  "settings": {
+    "stated_minutes": 3,
+    "progress_bar": true,
+    "anonymous": true
+  },
+  "questions": [
+    {
+      "ref": "Q1",
+      "type": "single_choice",
+      "intent": "screener",
+      "required": true,
+      "label": "Which of these did you most recently do with {product} in the last 7 days?",
+      "options": ["Set up a new account", "Changed a plan or billing details", "Asked for help with a problem", "Requested a refund or cancellation"],
+      "has_other": true,
+      "has_none": true,
+      "jumps": [{ "when": "Q1 is 'None of the above'", "to": "end" }]
+    },
+    {
+      "ref": "Q2",
+      "type": "likert",
+      "intent": "outcome",
+      "required": true,
+      "label": "How much do you agree or disagree: {company} made it easy for me to get this done.",
+      "scale": {
+        "min": 1,
+        "max": 7,
+        "labels": { "1": "Strongly disagree", "2": "Disagree", "3": "Somewhat disagree", "4": "Neither agree nor disagree", "5": "Somewhat agree", "6": "Agree", "7": "Strongly agree" }
+      }
+    },
+    {
+      "ref": "Q3",
+      "type": "long_text",
+      "intent": "open_feedback",
+      "required": false,
+      "label": "What made it difficult?",
+      "shown_when": "Q2 <= 4"
+    },
+    {
+      "ref": "Q4",
+      "type": "single_choice",
+      "intent": "behaviour",
+      "required": true,
+      "label": "Roughly how many minutes did it take from start to finish?",
+      "options": ["Under 5", "5–14", "15–59", "60 or more", "Not sure"]
+    },
+    {
+      "ref": "Q5",
+      "type": "single_choice",
+      "intent": "behaviour",
+      "required": false,
+      "label": "How many attempts did it take before it was done?",
+      "options": ["It worked the first time", "Two attempts", "Three or more attempts", "It still isn't done"]
+    },
+    {
+      "ref": "Q6",
+      "type": "yes_no",
+      "intent": "behaviour",
+      "required": false,
+      "label": "Did you have to switch channels to finish, for example from chat to phone?",
+      "options": ["Yes", "No"]
+    },
+    {
+      "ref": "Q7",
+      "type": "long_text",
+      "intent": "open_feedback",
+      "required": false,
+      "label": "What one change would have made this easier?"
+    }
+  ]
+}
