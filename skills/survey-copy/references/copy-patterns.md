@@ -2,7 +2,7 @@
 
 Reusable lines for the text around a survey. Pick, adapt, and fill the `{variables}`; never keep a promise you cannot honour. Every pattern names the rubric ids it helps satisfy (see the rubric in the score skill, or `playbook.md` §3 and §13 here).
 
-Variables used below: `{sponsor}` (team or organisation), `{audience}`, `{topic}`, `{change}` (what the answers decide), `{minutes}`, `{deadline}`, `{contact}`, `{incentive}`, `{delivery}` (how and when it arrives), `{results_when}`, `{first_name}`, `{link}`, `{sender}`.
+Variables used below: `{sponsor}` (team or organisation), `{audience}`, `{topic}`, `{change}` (what the answers decide), `{minutes}`, `{deadline}`, `{contact}`, `{incentive}`, `{delivery}` (how and when it arrives), `{results_when}`, `{privacy}` (the true handling in one word: "anonymous" only if no PII is collected, else "confidential"; see Privacy one-liners), `{first_name}`, `{link}`, `{sender}`.
 
 ## The welcome skeleton
 
@@ -123,8 +123,8 @@ Thanks + what happens next + incentive delivery + contact (`E3_thank_you_quality
 
 ≤ 160 characters including the link and, for SMS, the opt-out the channel requires.
 
-- "{sponsor}: 3 min survey on {topic}. Your answers decide {change}. {link} Reply STOP to opt out"
-- Chat (Slack / Teams): "Hi team, {sponsor} here. {minutes}-minute anonymous survey on {topic}, open until {deadline}: {link}. Results shared {results_when}."
+- "{sponsor}: {minutes}-min survey on {topic}. Your answers decide {change}. {link} Reply STOP to opt out"
+- Chat (Slack / Teams): "Hi team, {sponsor} here. {minutes}-minute {privacy} survey on {topic}, open until {deadline}: {link}. Results shared {results_when}."
 
 ## Tone
 

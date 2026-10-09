@@ -149,7 +149,7 @@ Subject options:
 ## Reminder 2: closes tonight (last day)
 Subject options: 1. Acme survey closes tonight (26 chars) …
 Body: Hi {first_name}, the Acme Invoicing survey closes at midnight tonight. If you
-haven't had 3 minutes yet, this is the moment: your answers decide what we fix next quarter.
+haven't had 3 minutes yet and you'd like to add your view, your answers decide what we fix next quarter.
 Start the survey: {link}
 If you've already answered, thank you, and please ignore this. Priya, Acme product team
 

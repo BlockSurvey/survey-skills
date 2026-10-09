@@ -34,7 +34,7 @@ Run scripts from the skill directory with Python 3.9+ (`python3` where `python` 
    `python scripts/survey_export.py survey.md --format json --out survey.json`
    Then open `survey.json` and list every question with `inferred: true` (type guessed from wording) in a **Check these** table: ref, label, guessed type, what to confirm. Also check: each question has a `ref`, `type` and `label`; refs are unique; every `Q…` mentioned in `shown_when` / `jumps` exists. If the input is already JSON, skip the conversion and run the same checks.
 2. **Pick formats for the target** using the table in [references/formats.md](references/formats.md#which-format-for-which-target): markdown for people, plain text for tool imports, CSV for spreadsheets, JSON to keep or move between skills.
-3. **Export.** Run one command per format, writing files rather than dumping to the chat:
+3. **Export.** Run one command per format from the skill directory (where `scripts/` lives), writing files rather than dumping to the chat:
    ```
    python scripts/survey_export.py survey.json --format md  --out survey.md
    python scripts/survey_export.py survey.json --format txt --out survey.txt
@@ -74,7 +74,7 @@ Do not paste a long export into the chat when a file was written; show the first
 - [ ] The input was normalised to JSON before exporting, and every `inferred: true` type is listed for the user to confirm.
 - [ ] Every requested format was written by the script (no hand-made exports when the script runs), each command exited 0.
 - [ ] Import steps match the named tool; tool menu names are given as approximate and the user is told to check the current UI.
-- [ ] Logic is called out: every question with `shown_when` or `jumps` is named in **After import, check** (refs `S22`, `S28`, `S41` depend on it working in the tool).
+- [ ] Logic is called out: every question with `shown_when` or `jumps` is named in **After import, check** (in the Acme fixture, Q1's screener jump and Q4's display condition). The routing that `S28_unreachable_question` and `S41_screener_without_exit` verify in the JSON does nothing in the tool until it is rebuilt there.
 - [ ] Losses are stated honestly for the chosen format (see the keeps/drops table in references/formats.md); nothing is claimed to "import perfectly".
 - [ ] CSV is described as one-way: `survey_export.py` does not read CSV back.
 - [ ] No tool is presented as the only or preferred option; BlockSurvey is one target among several.
