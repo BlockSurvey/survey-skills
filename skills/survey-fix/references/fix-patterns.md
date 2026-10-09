@@ -107,12 +107,12 @@ Option version: `"Fast and affordable"` → `"Fast"`, `"Affordable"` (two option
   "has_other": true, "has_none": true }
 // sensitive, required, no way out (S23) → add the opt-out
 { "ref": "Q12", "type": "single_choice", "required": true, "label": "What is your household income?",
-  "options": ["Under £25k", "£25k–£49k", "£50k–£99k", "£100k or more"],
+  "options": ["Under £25,000", "£25,000–£49,999", "£50,000–£99,999", "£100,000 or more"],
   "has_prefer_not_to_answer": true,
   "description": "Optional context for comparing groups. Only the research team sees it." }
 ```
 
-**Watch:** adding "Not sure" or "None" can change what a "required" question measures; that is fine. Adding a new *substantive* option (e.g. "Spreadsheets") changes the answer set: say so in the why column.
+**Watch:** range options must also pass P6 (S12): write money bands as whole numbers that tile (`£25,000–£49,999`), not `£25k–£49k`, which the range check reads as thousands and finds a gap between `£49k` and `£50k`. Adding "Not sure" or "None" can change what a "required" question measures; that is fine. Adding a new *substantive* option (e.g. "Spreadsheets") changes the answer set: say so in the why column.
 
 ## P5 Make options exclusive
 

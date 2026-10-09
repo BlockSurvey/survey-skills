@@ -20,7 +20,7 @@ Every panel must vary these six dimensions. Spread them; never give one persona 
 Rules:
 
 1. **Ground every persona in the survey.** Name a role and situation the audience description implies ("Priya, runs a two-person bakery, invoices weekly from her phone"), not a generic marketing persona.
-2. **One line of profile each**: name, situation, the six dimension values, and the one thing most likely to make them stop.
+2. **One line of profile each**: a first name (used as the persona's only label; never `P1`, `P2`, which clash with survey-fix pattern ids), situation, the six dimension values, and the one thing most likely to make them stop.
 3. **Include the edge persona every time.** It is the persona that exposes missing screeners (C2, S41), presuming questions (Q3b, Q10, S22) and non-exhaustive options (Q6).
 4. **No stereotypes.** Vary expertise and language comfort by situation, not by nationality, age or gender. Do not use real people.
 5. **Keep it honest.** A persona answers as that person plausibly would, including skipping, guessing and quitting. Do not make personas suspiciously cooperative so the survey looks good.
@@ -83,7 +83,7 @@ One line per persona per question, in the persona's voice, under 20 words, sayin
 
 ## Aggregation
 
-1. **Drop-off table**: for each question in order, the cumulative share of the panel that has logged `would_quit` at or before it (personas routed to `end` by a screener are removed from the denominator from that point, and reported separately), plus the dominant state among those shown it.
+1. **Drop-off table**: for each question in order, **Shown to** = personas still active there (not yet dropped, not routed past it or out by logic; `(forced)` rows are excluded), the cumulative share of the panel that has logged `would_quit` at or before it (personas routed to `end` by a screener are removed from the denominator from that point, and reported separately), and the dominant state among the active personas shown it. Forced rows still appear in the walkthrough and still surface problems, but never count in Shown to or the dominant state.
 2. **Time per persona**: total seconds vs stated time.
 3. **Top confusion points**: the questions with the most non-`fine` states, each with two or three verbatim persona lines.
 4. **Prioritised fixes**: one row per problem, ordered by (personas lost, then personas affected, then earliness in the survey). Each fix names the rubric or static id from the "Maps to" column and the survey-fix pattern that resolves it.
@@ -96,23 +96,23 @@ Panel (5):
 
 | Persona | Profile |
 | --- | --- |
-| P1 Priya | Two-person bakery owner; typical; keen; phone; squeezed; native. Stops at: effort on a phone. |
-| P2 Marcus | Freelance accountant; expert; neutral; desktop; relaxed; native. Stops at: vague questions. |
-| P3 Ana | Cleaning-company owner; novice; reluctant; phone; squeezed; second-language. Stops at: jargon, typing. |
-| P4 Tom | Café manager; typical; neutral; phone; relaxed; native. Stops at: personal data early. |
-| P5 Lee (edge) | Tried Acme once a year ago, now uses a spreadsheet; got the link in a newsletter; desktop. Stops at: questions that don't apply. |
+| Priya | Two-person bakery owner; typical; keen; phone; squeezed; native. Stops at: effort on a phone. |
+| Marcus | Freelance accountant; expert; neutral; desktop; relaxed; native. Stops at: vague questions. |
+| Ana | Cleaning-company owner; novice; reluctant; phone; squeezed; second-language. Stops at: jargon, typing. |
+| Tom | Café manager; typical; neutral; phone; relaxed; native. Stops at: personal data early. |
+| Lee (edge) | Tried Acme once a year ago, now uses a spreadsheet; got the link in a newsletter; desktop. Stops at: questions that don't apply. |
 
 Walk (excerpt):
 
 | Q | Persona | Think-aloud | State | s |
 | --- | --- | --- | --- | --- |
-| Q1 | P4 Tom | "Email first? I don't know who's reading this yet." | would_quit | 15 |
-| Q1 | P3 Ana | "Fine, but why do they need it if it's feedback?" | annoyed | 15 |
-| Q2 | P3 Ana | "'AR reconciliation'… I'll just put 3." | confused | 12 |
-| Q2 | P1 Priya | "No idea what AR means, tapping 4 to move on." | satisficed | 4 |
-| Q3 | P2 Marcus | "I never use the app. None of these fit." | not_applicable | 10 |
-| Q3 | P5 Lee | "I don't even use Acme any more." | not_applicable | 10 |
-| Q4 | P1 Priya | "Typing an essay on my phone? Required? Closing." | would_quit | 63 |
+| Q1 | Tom | "Email first? I don't know who's reading this yet." | would_quit | 15 |
+| Q1 | Ana | "Fine, but why do they need it if it's feedback?" | annoyed | 15 |
+| Q2 | Ana | "'AR reconciliation'… I'll just put 3." | confused | 12 |
+| Q2 | Priya | "No idea what AR means, tapping 4 to move on." | satisficed | 4 |
+| Q3 | Marcus | "I never use the app. None of these fit." | not_applicable | 10 |
+| Q3 | Lee | "I don't even use Acme any more." | not_applicable | 10 |
+| Q4 | Priya | "Typing an essay on my phone? Required? Closing." | would_quit | 63 |
 
 Drop-off (cumulative): Q1 20 % (Tom) · Q2 20 % · Q3 20 % · Q4 60 % (Priya, Ana). Dominant state at Q3: `not_applicable` (2 of 4 shown).
 
@@ -120,8 +120,8 @@ Prioritised fixes:
 
 | # | Problem | Personas | Id | survey-fix pattern |
 | --- | --- | --- | --- | --- |
-| 1 | Required essay last, typed on a phone | lost P1, P3 | Q15, B7 | P21 Move friction later (make Q4 optional) |
-| 2 | Email asked before anything else | lost P4 | S51, Q15 | P21 Move friction later |
-| 3 | No screener; lapsed users answer everything | P5 | C2, S41 | P12 Add a screener and an exit |
-| 4 | Q3 presumes app use; no "I don't use it" | P2, P5 | Q3b, Q6, Q19 | P2 De-presume and gate |
-| 5 | "AR reconciliation" is jargon | P1, P3 | Q4 | P19 Plain language |
+| 1 | Required essay last, typed on a phone | lost Priya, Ana | Q15, B7 | P21 Move friction later (make Q4 optional) |
+| 2 | Email asked before anything else | lost Tom | S51, Q15 | P21 Move friction later |
+| 3 | No screener; lapsed users answer everything | Lee | C2, S41 | P12 Add a screener and an exit |
+| 4 | Q3 presumes app use; no "I don't use it" | Marcus, Lee | Q3b, Q6, Q19 | P2 De-presume and gate |
+| 5 | "AR reconciliation" is jargon | Priya, Ana | Q4 | P19 Plain language |

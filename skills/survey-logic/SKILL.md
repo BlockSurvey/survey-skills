@@ -22,13 +22,15 @@ This skill designs the routing of a survey. It starts from the routing intent (w
 
 ## Inputs
 
-1. **Survey**: portable survey JSON (see [survey-format.md](references/survey-format.md)). Convert markdown or a pasted list with `python scripts/survey_export.py survey.md --format json --out survey.json`; from another tool, number questions `Q1…Qn`, infer types, mark guesses `inferred: true`, and transcribe any existing logic into the grammar.
+1. **Survey**: portable survey JSON (see [survey-format.md](references/survey-format.md)). Convert markdown or a pasted list with `python <skill-dir>/scripts/survey_export.py survey.md --format json --out survey.json`; from another tool, number questions `Q1…Qn`, infer types, mark guesses `inferred: true`, and transcribe any existing logic into the grammar.
 2. **Routing intent**, in the user's words: who the survey is for, who should be screened out, which groups see which sections, which questions are follow-ups. If they give none, propose one from the audience, the screener-like questions and any presuming wording, and ask for a yes before writing it.
 3. **Target tool** (optional): some tools cannot do display logic on single questions, or cannot skip to the end; adapt the plain-English table accordingly.
 
 ## Procedure
 
-1. **Lint the current survey.** Run `python scripts/survey_lint.py survey.json --json` (exit code 1 only means findings exist). Note existing S28, S41, S47 findings and any existing `shown_when` / `jumps`.
+**Paths.** `<skill-dir>` = the folder containing this SKILL.md (for example `~/.claude/skills/survey-logic`). Run every script by its full path, `python <skill-dir>/scripts/survey_lint.py survey.json --json`, from wherever the user's survey is; never assume the current directory is the skill folder (it may be read-only). Use `python3` if `python` is missing. Write working files (`survey.json`, `survey.logic.json`) next to the user's survey, not inside `<skill-dir>`.
+
+1. **Lint the current survey.** Run `python <skill-dir>/scripts/survey_lint.py survey.json --json` (exit code 1 only means findings exist). Note existing S28, S41, S47 findings and any existing `shown_when` / `jumps`.
 2. **Elicit the routing intent as a table.** One row per audience segment or condition: who · what they should see · what they skip · where they end. Include "everyone" as a row. Find the candidates yourself: screener-like questions, questions that presume ("your car", "the app", "If so"), follow-ups that only make sense after a score or a choice. Confirm the table with the user before writing logic when you had to infer it.
 3. **Pick patterns.** For each row choose a pattern from [logic-patterns.md](references/logic-patterns.md): L1/L2 screener exits, L3 gated follow-ups, L4 segment branches, L5 section skips, L6 combined conditions, L7 loops (unrolled), L8 quotas (instructions), L9 piping (`{{Q1}}`, tool-dependent), L10 per-branch endings. Prefer `shown_when` for individual questions and `jumps` for exits and whole-block skips.
 4. **Write the logic.** Edit the survey JSON:
@@ -38,9 +40,9 @@ This skill designs the routing of a survey. It starts from the routing intent (w
    - A new gate question gets a sub-ref of the question before it (`Q3.1`) so existing refs and conditions do not move. Never `Q3a`.
    - Drop "If yes," from labels that are now gated.
 5. **Check structure.** Walk every row of the intent table through the survey and confirm the path. Then check by hand what lint cannot: every question that presumes an earlier answer now has a `shown_when`, or a conditional jump leading to it, or follows a question that conditionally jumps elsewhere (otherwise S22 fires once the survey is judged). Check no `when: null` jump leaves a block with nothing leading into it.
-6. **Run lint.** `python scripts/survey_lint.py survey.logic.json --json`. Confirm there are no `S28_unreachable_question` or `S41_screener_without_exit` findings. Fix any that appear and re-run. Report other findings without fixing them (that is survey-fix's job) unless your logic caused them.
+6. **Run lint.** `python <skill-dir>/scripts/survey_lint.py survey.logic.json --json`. Confirm there are no `S28_unreachable_question` or `S41_screener_without_exit` findings. Fix any that appear and re-run. Report other findings without fixing them (that is survey-fix's job) unless your logic caused them.
 7. **Write the plain-English logic** and the hand-off notes for anything outside the schema (loops, quotas, piping tokens, native multiple endings in the user's tool).
-8. **Export if asked.** `python scripts/survey_export.py survey.logic.json --format md`: the markdown shows every rule as `> Shown when:` and `> Jump:` lines, ready to rebuild in another tool.
+8. **Export if asked.** `python <skill-dir>/scripts/survey_export.py survey.logic.json --format md`: the markdown shows every rule as `> Shown when:` and `> Jump:` lines, ready to rebuild in another tool.
 
 ## Output contract
 

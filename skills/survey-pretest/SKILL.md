@@ -21,15 +21,17 @@ This skill pretests a survey with simulated respondents. It builds a small panel
 
 ## Inputs
 
-1. **Survey**: portable survey JSON (see [survey-format.md](references/survey-format.md)). Convert markdown or a pasted list with `python scripts/survey_export.py survey.md --format json --out survey.json`; from another tool, number questions `Q1…Qn`, infer types and mark guesses `inferred: true`.
+1. **Survey**: portable survey JSON (see [survey-format.md](references/survey-format.md)). Convert markdown or a pasted list with `python <skill-dir>/scripts/survey_export.py survey.md --format json --out survey.json`; from another tool, number questions `Q1…Qn`, infer types and mark guesses `inferred: true`.
 2. **Audience** (from `audience`, else ask once, else infer from title and questions and say so): who will really receive it, through which channel (email, in-app, QR code, panel), and roughly what share on phones.
 3. **Optional**: a score report or lint output (to cross-check findings), the panel size the user wants (default 6), personas the user insists on (e.g. "include a manager answering for their team").
 
 ## Procedure
 
+**Paths.** `<skill-dir>` = the folder containing this SKILL.md (for example `~/.claude/skills/survey-pretest`). Run every script by its full path, `python <skill-dir>/scripts/survey_lint.py survey.json --json`, from wherever the user's survey is; never assume the current directory is the skill folder (it may be read-only). Use `python3` if `python` is missing. Write working files (`survey.json`) next to the user's survey, not inside `<skill-dir>`.
+
 Do the whole walk in one pass: build the panel, walk all personas, then aggregate. Do not re-send the survey once per persona.
 
-1. **Lint first.** Run `python scripts/survey_lint.py survey.json --json` (exit code 1 just means it found something). Keep the findings: the walk should confirm or explain them, and any blocker (no questions, empty labels, a grid with no rows) must be fixed before a pretest means anything.
+1. **Lint first.** Run `python <skill-dir>/scripts/survey_lint.py survey.json --json` (exit code 1 just means it found something). Keep the findings: the walk should confirm or explain them, and any blocker (no questions, empty labels, a grid with no rows) must be fixed before a pretest means anything.
 2. **Build the panel.** Read [personas.md](references/personas.md) and create 5–8 personas grounded in the audience. Spread the six dimensions (expertise, motivation, device with at least half on phones, time pressure, language comfort, fit) and always include one edge persona the survey or a section does not apply to. Produce the panel table: one line per persona with the six values and their likely stopping point.
 3. **Map the paths.** From `shown_when` and `jumps` (condition grammar in survey-format.md), note which questions each persona will see given the answers they would plausibly give. A screener jump to `end` stops that persona; that is routing working, not a drop-off.
 4. **Walk every persona through every question they are shown.** For each, write one think-aloud line in the persona's voice (under 20 words, quoting the trouble words), one state from `fine | confused | annoyed | would_quit | satisficed | not_applicable`, and estimated seconds (base seconds per type and persona modifiers in personas.md; same base seconds as question-types.md). After `would_quit`, keep walking that persona marked `(forced)` so later questions are still tested; they stay counted as dropped. Walk the welcome screen too: a persona can quit before Q1 (S50, A9, A5).
@@ -58,20 +60,20 @@ Emit exactly these sections, in this order:
 (one table per persona; questions they were not shown are omitted; forced rows marked "(forced)")
 
 ## Drop-off
-| Question | Shown to | % would_quit (cumulative) | Dominant state |
+| Question | Shown to (active, excludes forced) | % would_quit (cumulative) | Dominant state |
 Routed out by the screener: <n> (<names>), not counted as drop-off.
 
 ## Time per persona
 | Persona | Path length (questions) | Seconds | vs stated <m> min |
 
 ## Top confusion points
-1. **Qn** "<label>": <k> of <shown> personas struggled. "<line>" (P2) · "<line>" (P5)
+1. **Qn** "<label>": <k> of <shown> personas struggled. "<line>" (Marcus) · "<line>" (Lee)
 
 ## Prioritised fixes
 | # | Problem | Personas lost / affected | Finding id | survey-fix pattern |
 ```
 
-Use the persona names consistently across all sections. Keep the walkthrough tables complete: a missing row hides a problem.
+Label personas by first name only (never `P1`, `P2`: those are survey-fix pattern ids) and use the names consistently across all sections. Keep the walkthrough tables complete: a missing row hides a problem.
 
 ## Quality bar
 
@@ -100,7 +102,7 @@ Before replying, check:
 | Q4 | 4 | 60 % | would_quit |
 
 Top confusion: **Q2** "AR reconciliation": "No idea what AR means, tapping 4 to move on." (Priya).
-Fixes: 1 · required essay last, typed on a phone · lost 2 · Q15_abandon_risk, B7_end_loading · P21 Move friction later. 2 · email first · lost 1 · S51_early_friction · P21. 3 · no screener · 1 affected · C2_has_screener, S41 · P12 Add a screener and an exit. 4 · Q3 presumes app use · 2 affected · Q3b_presuming, Q6 · P2 De-presume and gate. 5 · jargon · 2 affected · Q4_jargon · P19 Plain language.
+Fixes: 1 · required essay last, typed on a phone · lost 2 · Q15_abandon_risk, B7_end_loading · P21 Move friction later. 2 · email first · lost 1 · S51_early_friction · P21 Move friction later. 3 · no screener · 1 affected · C2_has_screener, S41 · P12 Add a screener and an exit. 4 · Q3 presumes app use · 2 affected · Q3b_presuming, Q6 · P2 De-presume and gate. 5 · jargon · 2 affected · Q4_jargon · P19 Plain language.
 
 ## No-Python fallback
 

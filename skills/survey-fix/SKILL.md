@@ -23,10 +23,10 @@ This skill turns a list of survey problems into a fixed survey. It takes the sur
 
 Accept, in order of preference:
 
-1. **Survey**: portable survey JSON (see [survey-format.md](references/survey-format.md)). Markdown in the canonical form, or a pasted question list, converts with `python scripts/survey_export.py survey.md --format json --out survey.json`. A survey from another tool (exported text, screenshots transcribed, a Google Forms list) is normalised the same way: number the questions `Q1…Qn`, infer types, and mark guessed values `inferred: true`.
+1. **Survey**: portable survey JSON (see [survey-format.md](references/survey-format.md)). Markdown in the canonical form, or a pasted question list, converts with `python <skill-dir>/scripts/survey_export.py survey.md --format json --out survey.json`. A survey from another tool (exported text, screenshots transcribed, a Google Forms list) is normalised the same way: number the questions `Q1…Qn`, infer types, and mark guessed values `inferred: true`.
 2. **Findings**, any of:
    - a score report JSON: read `findings_by_id[]` (one row per id with `severity`, `question_refs`, `fix`, `checklist`) and `findings[]` (per-occurrence `roast`, `evidence`, `uncertain`);
-   - lint output from `python scripts/survey_lint.py survey.json --json` (a list of findings with `id`, `severity`, `question_ref(s)`, `fix`);
+   - lint output from `python <skill-dir>/scripts/survey_lint.py survey.json --json` (a list of findings with `id`, `severity`, `question_ref(s)`, `fix`);
    - bare ids (`Q3b_presuming on Q6, S12 on Q9`) or plain complaints ("Q2 asks two things"): map each complaint to the closest id in [rubric.md](references/rubric.md) or [static-checks.md](references/static-checks.md) and say which id you chose.
 3. **Constraints** (ask once, only if unclear): may you add questions? may you reorder? must refs stay as they are, or is renumbering fine? which tool will run it (some tools cannot do display logic)?
 
@@ -34,8 +34,10 @@ If no findings are given at all, lint the survey and work from the static findin
 
 ## Procedure
 
+**Paths.** `<skill-dir>` = the folder containing this SKILL.md (for example `~/.claude/skills/survey-fix`). Run every script by its full path, `python <skill-dir>/scripts/survey_lint.py survey.json --json`, from wherever the user's survey is; never assume the current directory is the skill folder (it may be read-only). Use `python3` if `python` is missing. Write working files (`survey.json`, `survey.fixed.json`) next to the user's survey, not inside `<skill-dir>`.
+
 1. **Load the survey and findings.** Convert to JSON if needed. Build one working list of findings: id, severity, refs, uncertain flag. Drop `info` findings (they are notes, not defects). Keep uncertain findings but mark them "applied (judge was unsure)" or skip them if the fix is invasive.
-2. **Baseline lint.** Run `python scripts/survey_lint.py survey.json --json` and save the output as the "before" static findings. (The script exits 1 when it finds anything; that is expected, not an error.) Merge any static findings the report did not list.
+2. **Baseline lint.** Run `python <skill-dir>/scripts/survey_lint.py survey.json --json` and save the output as the "before" static findings. (The script exits 1 when it finds anything; that is expected, not an error.) Merge any static findings the report did not list.
 3. **Group by severity.** Order: blocker → high → medium → low. Within a severity, survey-level and structural fixes (welcome, screener, reachability, order) before per-question wording, so later edits land on the final structure.
 4. **Apply one pattern per finding.** Look the id up in the index of [fix-patterns.md](references/fix-patterns.md) and apply that pattern. For every edit write one row: ref · finding id · before → after · why. Rules:
    - **Never change meaning silently.** Rewording, re-labelling, adding opt-outs, adding units or windows, moving, gating and type changes that match the wording are applied and shown. Cutting a question, merging two, adding a new topic, or changing what is measured goes to "Decisions for you" with your recommendation.
@@ -43,9 +45,9 @@ If no findings are given at all, lint the survey and work from the static findin
    - **Do not invent facts.** Dates, contacts, incentive details, team names the user has not given become `[placeholders]` and are listed as decisions.
    - **One finding, one fix.** If two findings hit the same question (e.g. Q2 and Q19 on Q7), make one combined rewrite and list both ids in its row.
 5. **Re-check what you touched.** For each edit, check the knock-on rules in fix-patterns.md (new options vs S12, moved questions vs `shown_when` pointing backwards and S28, added questions vs S27/S16/S17, new `long_text` vs S34). Set `settings.stated_minutes` to the new estimate if the length changed (seconds per question: `single_choice`/`dropdown`/`yes_no` 10, `multi_choice` 15, `short_text` 30, `long_text` 60, rating-type scales 8, `ranking` 25, matrix 8 × rows; the full list is under P17 in fix-patterns.md).
-6. **Re-run lint.** Save the patched survey and run `python scripts/survey_lint.py survey.fixed.json --json`. Compare with the baseline: list which static ids are gone, which remain, and any new ones. Fix new ones caused by your edits before replying; if one cannot be fixed without a decision, say so.
+6. **Re-run lint.** Save the patched survey and run `python <skill-dir>/scripts/survey_lint.py survey.fixed.json --json`. Compare with the baseline: list which static ids are gone, which remain, and any new ones. Fix new ones caused by your edits before replying; if one cannot be fixed without a decision, say so.
 7. **Estimate the score impact.** Do not compute a new score by hand. Give the direction from the scoring rules: each resolved high finding is worth roughly 4–8 overall points, a medium about half that, a low barely moves it; clearing every blocker lifts the cap of 49. Name the grade band you expect and recommend re-scoring with survey-score for the real number.
-8. **Export if asked.** `python scripts/survey_export.py survey.fixed.json --format md` (or `txt`, `csv`) for pasting into the user's tool.
+8. **Export if asked.** `python <skill-dir>/scripts/survey_export.py survey.fixed.json --format md` (or `txt`, `csv`) for pasting into the user's tool.
 
 ## Output contract
 
@@ -83,7 +85,7 @@ Before replying, check:
 - [ ] No question was cut, merged or given a new meaning without being listed as a decision.
 - [ ] The after-lint has no blockers and no S28_unreachable_question or S41_screener_without_exit introduced by your edits.
 - [ ] Gated questions (P2) have a `shown_when` or a conditional jump into them, so S22_conditional_without_logic cannot fire.
-- [ ] Scales across the survey run one direction (B8) and every 5-point scale is fully labelled (S36, Q8).
+- [ ] Scales across the survey run one direction (B8), are balanced with a midpoint where neutral is real (Q8), label every point on 5-point scales (playbook rule), and label at least the midpoint on 7+ point scales (S36).
 - [ ] `settings.stated_minutes` matches the new estimate within the S16 tolerance.
 - [ ] Placeholders are bracketed and listed as decisions; nothing was invented.
 - [ ] The fixed survey is valid JSON with every original field kept.
