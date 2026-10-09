@@ -101,7 +101,7 @@ Ported from `rubric.py::item_applies`, applied in this order to each per-questio
 4. **`applies`**:
    - `all` → applies.
    - `options`, `with_options_or_columns` → the question has a non-empty `options` or `columns`.
-   - `single_choice` → has options **and** `type` ∈ {`single_choice`, `dropdown`, `yes_no`, `consent`} (bType set `multiplechoice`, `dropdown`, `consent`, `customerexperience`).
+   - `single_choice` → has options **and** `type` ∈ {`single_choice`, `dropdown`, `yes_no`, `consent`}.
    - `scale` → `type` ∈ {`rating`, `nps`, `likert`, `slider`, `matrix`} or (`single_choice`/`dropdown` with 3+ options), **and** has options or columns.
    - `text` → `type` ∈ {`short_text`, `long_text`}.
    - `quantity` (v2) → `type` ∈ {`number`, `slider`, `date`}, or `short_text` (the judge decides whether its label asks for an amount; answer `p = 1` when it does not ask for one).
@@ -305,7 +305,7 @@ For each stage:
 
 ## Manual tally fallback (no Python)
 
-When the calculator cannot run (plain ChatGPT, no code tool), estimate the grade band by hand. **Approximate**: it lands in the same band as the calculator for most surveys, typically within ±8 points; say so in the report.
+When the calculator cannot run (plain ChatGPT, no code tool), estimate the grade band by hand. **Approximate; not yet validated against the calculator.** Say so in the report.
 
 1. Run the static checks by hand (static-checks.md) and judge the rubric items. Write down every finding with its severity, after the confidence downgrades above. Ignore `info` findings and count each static id once however many questions it hits (plus one extra if it hits 4 or more).
 2. Count: **B** blockers, **H** high, **M** medium, **L** low.
