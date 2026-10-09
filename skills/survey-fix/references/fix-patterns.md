@@ -1,0 +1,373 @@
+# Fix patterns
+
+One pattern per family of findings. Each pattern names the finding ids it resolves (from [rubric.md](rubric.md) and [static-checks.md](static-checks.md)), the rule, a before → after example in the portable survey JSON (see [survey-format.md](survey-format.md)), and what to watch for. Look a finding up by its id in the index, apply the pattern, and record the change as before → after.
+
+Every pattern follows three house rules:
+
+1. **Keep the meaning.** A fix changes how something is asked, never what is asked. If the only fix changes what the question measures (cutting it, merging two, changing the construct), do not apply it: list it under "Decisions for you".
+2. **Keep refs stable.** Edit in place. A question you add gets a sub-ref of the question it follows (`Q3.1`, `Q3.2`; a question added before `Q1` is `Q0`): the condition grammar accepts `Q<digits>.<digits>`, so `shown_when` and `jumps` can name it. Never use `Q3a` or `Q3_a`: conditions cannot reference them. If the user wants clean numbering, renumber at the end and publish a mapping table (old → new), rewriting every ref inside `shown_when` and `jumps[].when` / `jumps[].to`.
+3. **Re-check what you touched.** A new option can create a range gap (S12), a new question can break a monotony run or create one (S27), a moved question can become unreachable (S28), a new gate needs an earlier ref (shown_when must point backwards).
+
+## Index
+
+| Finding ids | Pattern |
+| --- | --- |
+| Q2_double_barreled, Q20_option_double_barreled | [P1 Split double-barreled](#p1-split-double-barreled) |
+| Q3b_presuming, Q10_depends_on_prior, S22_conditional_without_logic | [P2 De-presume and gate](#p2-de-presume-and-gate) |
+| Q3a_leading, F4_manipulative_framing, L_pressuring, S35_loaded_words, Q17_negative_wording, Q21_social_desirability | [P3 Neutralise leading wording](#p3-neutralise-leading-wording) |
+| Q6_options_not_exhaustive, S23_sensitive_without_optout, Q12_sensitive, S38_none_not_exclusive, S39_other_without_text | [P4 Exhaust the options](#p4-exhaust-the-options) |
+| Q7_options_overlap | [P5 Make options exclusive](#p5-make-options-exclusive) |
+| S12_numeric_range_gap | [P6 Close numeric range gaps](#p6-close-numeric-range-gaps) |
+| Q8_scale_unbalanced, B8_scale_direction_consistent, S36_scale_endpoints_only, S37_nps_nonstandard | [P7 Balance, label and align scales](#p7-balance-label-and-align-scales) |
+| Q19_recall_period, E2_burden, L_hard_to_recall | [P8 Add a recall window](#p8-add-a-recall-window) |
+| Q22_units_stated | [P9 State units and formats](#p9-state-units-and-formats) |
+| Q9_type_fit, Q25_best_type, S13_selection_hint_type_mismatch, S14_selection_count_unenforced, S45_yesno_type_mismatch, S33_long_radio_list | [P10 Change the type](#p10-change-the-type) |
+| B3_demographics_placement, L_is_demographic, B2_opening_question, C6_demographics_proportionate, Q16_sensitive_reassured | [P11 Demographics last, with a reason](#p11-demographics-last-with-a-reason) |
+| C2_has_screener, S41_screener_without_exit | [P12 Add a screener and an exit](#p12-add-a-screener-and-an-exit) |
+| C3_has_outcome_question, Q18_hypothetical | [P13 Add an outcome question](#p13-add-an-outcome-question) |
+| C4_missing_why, L_needs_why, S19_no_open_ended | [P14 Add a "why" follow-up](#p14-add-a-why-follow-up) |
+| A3_purpose_explained, A5_privacy_stated, A6_audience_stated, A8_respondent_benefit, A9_sponsor_named, A10_deadline_stated, E4_welcome_motivates, E7_welcome_scannable, F2_consent_language, F5_contact_provided, S07_no_description, S08_no_welcome, S15_no_time_expectation, S50_welcome_too_long | [P15 Rewrite the welcome](#p15-rewrite-the-welcome) |
+| E3_thank_you_quality, S09_no_thank_you, F3_incentive_clear, F3b_incentive_delivery_clear | [P16 Thank-you with what happens next](#p16-thank-you-with-what-happens-next) |
+| S17_length_fatigue, E6_length_feels_justified, S16_time_mismatch, S18_all_required_long, S34_open_ended_overload, S47_no_logic_long_survey, Q23_actionable, Q5_relevance, B5_redundant_questions, S10_duplicate_labels | [P17 Cut length](#p17-cut-length) |
+| S30_matrix_too_large, S31_consecutive_matrices, S27_monotony_run, E8_straightlining_risk, S32_ranking_too_many, S40_long_list_not_randomised, S24_no_progress_bar_long, C7_has_attention_check | [P18 Break grids, runs and long lists](#p18-break-grids-runs-and-long-lists) |
+| Q4_jargon, E5_reading_level, L_hard_to_read, Q1_clarity, S43_label_too_long | [P19 Plain language](#p19-plain-language) |
+| Q13_grammar, Q14_options_parallel, S11_duplicate_options, S42_shouting_or_noise, E1_tone_consistent, E9_language_consistent | [P20 Grammar and parallel options](#p20-grammar-and-parallel-options) |
+| S51_early_friction, S46_first_question_open_text, S48_pii_before_content, Q15_abandon_risk, B7_end_loading | [P21 Move friction later](#p21-move-friction-later) |
+| S28_unreachable_question | [P22 Make every question reachable](#p22-make-every-question-reachable) |
+| A1_title_specific, A2_title_respondent_facing, S01_no_title | [P23 Retitle](#p23-retitle) |
+| S21_anonymous_but_pii, Q11_requires_visual, S25_visual_not_described, S26_visual_missing, S02_no_questions, S03_label_empty, S04_options_too_few, S05_matrix_empty, S06_group_empty, S44_group_single_child, B1_logical_order, B4_sections_signposted, L_topic_jump, C1_objective_coverage, C5_obvious_gap, A7_objective_inferable | [P24 Structural and coverage fixes](#p24-structural-and-coverage-fixes) |
+
+Ids not in the index (`K_survey_kind`, `X2_audience_kind`, `R_role`, `Q24_intent`, `C5_gap_topic`, `F1_sensitive_topics`, `F3a_incentive_mentioned`, `L_duplicate_of_earlier`, `L_sensitive_topic`) are classifiers, evidence or locators: they point at another finding's fix (`L_duplicate_of_earlier` → P17, `L_sensitive_topic` and `F1` → P4) and need no change of their own.
+
+---
+
+## P1 Split double-barreled
+
+**Resolves:** Q2_double_barreled, Q20_option_double_barreled.
+**Rule:** one thing per question, one idea per option. Keep the original ref for the first half; add the second half as `Qn.1` directly after it, same type and scale.
+
+```jsonc
+// before
+{ "ref": "Q5", "type": "rating", "label": "How fast and friendly was our support team?",
+  "scale": { "min": 1, "max": 5 } }
+// after
+{ "ref": "Q5", "type": "rating", "label": "How fast was our support team's response?",
+  "scale": { "min": 1, "max": 5, "labels": { "1": "Very slow", "3": "Neither", "5": "Very fast" } } },
+{ "ref": "Q5.1", "type": "rating", "label": "How friendly was our support team?",
+  "scale": { "min": 1, "max": 5, "labels": { "1": "Very unfriendly", "3": "Neither", "5": "Very friendly" } } }
+```
+
+Option version: `"Fast and affordable"` → `"Fast"`, `"Affordable"` (two options), or keep only the half the purpose needs. **Watch:** splitting adds a question; if the survey is near a length limit (S17, S16) say so. If one half is not needed, dropping it changes scope: list it as a decision.
+
+## P2 De-presume and gate
+
+**Resolves:** Q3b_presuming, Q10_depends_on_prior, S22_conditional_without_logic.
+**Rule:** ask the assumption as its own question first, then show the dependent question only to those it applies to. If an earlier question already establishes the fact, just add `shown_when` pointing at it. The cheap alternative, when gating is not possible in the user's tool, is an option for the people it does not apply to ("I don't use it").
+
+```jsonc
+// before
+{ "ref": "Q6", "type": "single_choice", "label": "How often do you use the mobile app?",
+  "options": ["Daily", "Weekly", "Monthly"] }
+// after: the gate is inserted as Q5.1 (sub-ref of the question before), so Q6 keeps its ref
+{ "ref": "Q5.1", "type": "yes_no", "label": "Do you use the Acme mobile app?", "options": ["Yes", "No"] },
+{ "ref": "Q6", "type": "single_choice", "label": "In the last 30 days, how often did you use the mobile app?",
+  "options": ["Every day", "A few times a week", "About once a week", "Less than once a week"],
+  "shown_when": "Q5.1 is 'Yes'" }
+```
+
+**Watch:** an "If yes, …" label becomes "…" once gated: drop the "If yes" prefix. S22 is a hybrid check (judge evidence + code), so lint alone will not show it: confirm by hand that every question you flagged now has a `shown_when` or a conditional jump into it.
+
+## P3 Neutralise leading wording
+
+**Resolves:** Q3a_leading, F4_manipulative_framing, L_pressuring, S35_loaded_words, Q17_negative_wording, Q21_social_desirability.
+**Rule:** name both directions ("satisfied or dissatisfied"), drop loaded words (obviously, clearly, don't you agree, always, never, should, unfortunately), drop flattery and guilt, phrase agree/disagree items positively, and normalise answers people are embarrassed to give.
+
+| Before | After | Why |
+| --- | --- | --- |
+| How much do you love our new dashboard? | How satisfied or dissatisfied are you with the new dashboard? | Q3a: "love" presumes the answer |
+| Don't you agree that checkout should be faster? | How would you rate the speed of checkout? | Q3a, S35 ("don't you agree", "should") |
+| I do not find the settings page hard to use. | The settings page is easy to use. | Q17: agreeing meant disagreeing |
+| Do you recycle? | Some people find time to recycle and some don't. In the last month, how often did you recycle? | Q21 + Q19 |
+| It only takes a second — we're counting on you! | Takes about 3 minutes. Your answers decide what we fix next. | F4: pressure → purpose |
+
+**Watch:** for Q17, flipping the wording reverses the scale meaning; note "reverse-coded item removed" in the why column so trend data is not misread.
+
+## P4 Exhaust the options
+
+**Resolves:** Q6_options_not_exhaustive, S23_sensitive_without_optout, Q12_sensitive, S38_none_not_exclusive, S39_other_without_text.
+**Rule:** everyone must find a true answer. Use the flags, not hand-typed options: `has_other` (adds a text box), `has_none` (adds an exclusive "None of the above"), `has_prefer_not_to_answer`. A typed "None" on a `multi_choice` goes into `exclusive_options`.
+
+```jsonc
+// before
+{ "ref": "Q4", "type": "multi_choice", "label": "Which tools do you use for invoicing?",
+  "options": ["Acme", "QuickBooks", "Xero", "Other", "None"] }
+// after
+{ "ref": "Q4", "type": "multi_choice", "label": "Which tools do you use for invoicing? Select all that apply.",
+  "options": ["Acme", "QuickBooks", "Xero", "Spreadsheets"],
+  "has_other": true, "has_none": true }
+// sensitive, required, no way out (S23) → add the opt-out
+{ "ref": "Q12", "type": "single_choice", "required": true, "label": "What is your household income?",
+  "options": ["Under £25k", "£25k–£49k", "£50k–£99k", "£100k or more"],
+  "has_prefer_not_to_answer": true,
+  "description": "Optional context for comparing groups. Only the research team sees it." }
+```
+
+**Watch:** adding "Not sure" or "None" can change what a "required" question measures; that is fine. Adding a new *substantive* option (e.g. "Spreadsheets") changes the answer set: say so in the why column.
+
+## P5 Make options exclusive
+
+**Resolves:** Q7_options_overlap.
+**Rule:** on a single-select, no respondent can truthfully pick two options. Split overlapping concepts, or switch to `multi_choice` when picking several is genuinely true (that is a type change: P10).
+
+| Before (single_choice) | After |
+| --- | --- |
+| Email · Newsletter · Social media · Instagram | Email newsletter · Instagram · Other social media (has_other) |
+| Student · Employed · Part-time | Student (not working) · Working full time · Working part time · Student and working |
+
+## P6 Close numeric range gaps
+
+**Resolves:** S12_numeric_range_gap.
+**Rule:** every whole value lands in exactly one bucket. Use "Under X" then "X–Y", and an open top "Z or more". Never share a boundary (`18–25`, `25–35`).
+
+```jsonc
+// before: 'Under 25' then '26-35' — where does 25 go?
+"options": ["Under 25", "26-35", "36-50", "50+"]
+// after
+"options": ["Under 25", "25–34", "35–49", "50 or more"]
+```
+
+**Watch:** shifting bucket edges changes comparability with earlier waves of the same survey; mention it if the user tracks trends.
+
+## P7 Balance, label and align scales
+
+**Resolves:** Q8_scale_unbalanced, B8_scale_direction_consistent, S36_scale_endpoints_only, S37_nps_nonstandard.
+**Rule:** equal positive and negative points with a neutral midpoint where neutral is real; label every point on 5-point scales (at least the midpoint on 7+); every scale in the survey runs the same direction (pick negative → positive, left to right); NPS is exactly 0–10 with standard wording.
+
+```jsonc
+// before (Q8: three positive, one negative, no midpoint)
+"options": ["Excellent", "Very good", "Good", "Poor"]
+// after
+"options": ["Very poor", "Poor", "Fair", "Good", "Very good"]
+
+// before (S36: 7 points, endpoints only)
+"scale": { "min": 1, "max": 7, "labels": { "1": "Strongly disagree", "7": "Strongly agree" } }
+// after
+"scale": { "min": 1, "max": 7, "labels": { "1": "Strongly disagree", "4": "Neither agree nor disagree", "7": "Strongly agree" } }
+
+// before (S37)
+{ "type": "rating", "label": "Would you recommend us?", "scale": { "min": 1, "max": 5 } }
+// after
+{ "type": "nps", "label": "How likely are you to recommend Acme to a friend or colleague?",
+  "scale": { "min": 0, "max": 10, "labels": { "0": "Not at all likely", "10": "Extremely likely" } } }
+```
+
+**B8:** list every scale with its direction in the Changes table and flip the odd ones out, options and labels together. Flipping is a change of presentation, not meaning; state it.
+
+## P8 Add a recall window
+
+**Resolves:** Q19_recall_period, E2_burden, L_hard_to_recall.
+**Rule:** anything about behaviour over time gets a window people can actually remember ("in the last 30 days", "at your last visit"). Anything they would have to look up gets ranges or "Not sure".
+
+| Before | After |
+| --- | --- |
+| How often do you shop online? | In the last 30 days, how often did you shop online? |
+| Exactly how much did you spend on software last year? | Roughly how much did your business spend on software in the last 12 months? (ranges + "Not sure") |
+
+Pick a window that fits the behaviour's frequency (daily habits: 7 days; monthly: 30 days–3 months; rare: 12 months). The window is a small change of meaning (from "ever" to "recently"): state it.
+
+## P9 State units and formats
+
+**Resolves:** Q22_units_stated.
+
+| Before | After |
+| --- | --- |
+| How much do you spend on marketing? (`number`) | How much does your business spend on marketing per month, in £? |
+| When did you start? (`date`) | When did you start using Acme? (`description`: "Month and year is fine, e.g. 03/2024") |
+| How long does invoicing take? | How many minutes does it take you to send one invoice? |
+
+## P10 Change the type
+
+**Resolves:** Q9_type_fit, Q25_best_type, S13_selection_hint_type_mismatch, S14_selection_count_unenforced, S45_yesno_type_mismatch, S33_long_radio_list.
+**Rule:** the type does what the wording asks. When `Q25_best_type` names a type, use it. Carry the options over; add what the new type needs.
+
+| Before | After | Id |
+| --- | --- | --- |
+| `single_choice` "Select all that apply" | `multi_choice` (+ `has_none` if "none" is possible) | S13, Q9 |
+| `multi_choice` "Pick up to 3" with no limits | `"selection": { "min": 1, "max": 3 }` | S14 |
+| `yes_no` "How was your visit?" | `rating` 1–5, labelled; or reword to "Was your visit…?" | S45 |
+| `short_text` "Which country are you in?" | `dropdown` with the country list | Q25 |
+| `single_choice` with 14 options | `dropdown` (or trim to ≤ 10) | S33 |
+| `short_text` "How many employees?" | `number` with the unit, or `single_choice` with ranges (P6) | Q25, Q22 |
+
+**Watch:** a type change changes the data shape (one value → many, text → category). That is usually the point, but say it in the why column. Changing `single_choice` → `multi_choice` changes meaning if the user wanted "the main one": in that case reword instead ("Which one do you use most?").
+
+## P11 Demographics last, with a reason
+
+**Resolves:** B3_demographics_placement, L_is_demographic, B2_opening_question, C6_demographics_proportionate, Q16_sensitive_reassured.
+**Rule:** move demographic questions to the end (before any contact question), keep their refs, add a one-line reason in `description`, make them optional, add `has_prefer_not_to_answer`. Reordering does not change refs; it changes position only.
+
+```jsonc
+// before: Q1 age, Q2 income, Q3 role, then the content
+// after: content first; at the end:
+{ "ref": "Q1", "type": "single_choice", "required": false, "intent": "demographic",
+  "label": "How old are you?", "description": "So we can compare answers across age groups.",
+  "options": ["Under 25", "25–34", "35–44", "45–54", "55 or more"], "has_prefer_not_to_answer": true }
+```
+
+Report the new order as a list (`Q4, Q5, …, Q1, Q2, Q3`). **Watch:** if a moved question is referenced by a later `shown_when`, the condition now points forwards: move the gate with it or keep that one question early. If a demographic is a screener (e.g. "Are you 18 or over?"), it stays first: that is P12, not P11. Cutting an unneeded demographic (C6) is a decision for the user.
+
+## P12 Add a screener and an exit
+
+**Resolves:** C2_has_screener, S41_screener_without_exit.
+**Rule:** one qualifying question first, `required: true`, `intent: "screener"` (lint uses the intent to find screeners), and a jump to `end` for non-qualifiers. Insert it as `Q0` only if renumbering is not allowed and the survey has no `Q0`; otherwise renumber with a mapping table. An existing screener with no exit just gets the jump.
+
+```jsonc
+// add (before the first question)
+{ "ref": "Q0", "type": "yes_no", "intent": "screener", "required": true,
+  "label": "Have you sent an invoice with Acme in the last 3 months?", "options": ["Yes", "No"],
+  "jumps": [ { "when": "Q0 is 'No'", "to": "end" } ] }
+```
+
+Want a kind goodbye instead of an abrupt end? Use the exit-statement pattern in survey-logic (a `statement` at the very end reached only by the screener's jump). **Watch:** set the thank-you text so it reads well for both qualifiers and non-qualifiers.
+
+## P13 Add an outcome question
+
+**Resolves:** C3_has_outcome_question, Q18_hypothetical.
+**Rule:** one direct measure of the thing the purpose wants to decide, about actual experience or current opinion, early-middle in the survey, `intent: "outcome"`.
+
+| Purpose | Outcome question |
+| --- | --- |
+| Decide what to fix | Overall, how satisfied or dissatisfied are you with Acme Invoicing? (`likert` 1–5, labelled) |
+| Track loyalty | How likely are you to recommend Acme to a friend or colleague? (`nps`) |
+| Pricing / intent (Q18) | Before: "Would you pay £10 a month for this?" → After: "Which of these best describes your plans for the next 3 months?" (keep / upgrade / downgrade / cancel / not sure) |
+
+Adding a question is a scope change: propose it, insert it as `Qn.1` after the most relevant question, and flag it in "Decisions for you" if the user did not ask for additions.
+
+## P14 Add a "why" follow-up
+
+**Resolves:** C4_missing_why, L_needs_why, S19_no_open_ended.
+**Rule:** one optional `long_text` "What's the main reason for your answer?" after the two or three most decision-relevant closed questions, gated to the answers you most need explained.
+
+```jsonc
+{ "ref": "Q3.1", "type": "long_text", "required": false, "intent": "open_feedback",
+  "label": "What is the main reason for your score?", "shown_when": "Q3 <= 6" }
+```
+
+**Watch:** each `long_text` adds ~60 s to the estimate and counts toward S34 (open text ≤ 30 % of questions, ≤ 3 required). Keep them optional.
+
+## P15 Rewrite the welcome
+
+**Resolves:** A3, A5, A6, A8, A9, A10, E4, E7, F2, F5, S07, S08, S15, S50.
+**Rule:** under 120 words, scannable on a phone: one sentence on who is asking and why it matters, then bullets for time, privacy, (research) consent, deadline and contact. Set `settings.stated_minutes` to the honest estimate. Never invent facts: put `[placeholders]` for anything the user has not told you (date, contact, incentive) and list them under "Decisions for you".
+
+```jsonc
+// before (180 words, no sender, no time, no privacy)
+"welcome": { "title": "Welcome", "description": "Thank you for taking the time to participate in this important survey. As you know, our company has always been committed to … (continues)" }
+// after
+"welcome": { "title": "Help shape Acme Invoicing",
+  "description": "We're the Acme product team. Your answers decide which invoicing problems we fix next, and we'll share what we learn in our [month] update.\n• Takes about 3 minutes\n• Anonymous: only the product team sees answers\n• Voluntary: you can stop at any time\n• Open until [date]. Questions? [contact email]",
+  "button": "Start" },
+"settings": { "stated_minutes": 3 }
+```
+
+## P16 Thank-you with what happens next
+
+**Resolves:** E3_thank_you_quality, S09_no_thank_you, F3_incentive_clear, F3b_incentive_delivery_clear.
+
+```jsonc
+// before
+"thank_you": { "title": "Thanks!" }
+// after
+"thank_you": { "title": "Thank you, that's everything",
+  "description": "We read every answer. You'll see what we changed in our [month] update. [Your £10 voucher arrives by email within 5 working days.] Questions? [contact email]" }
+```
+
+## P17 Cut length
+
+**Resolves:** S17_length_fatigue, E6_length_feels_justified, S16_time_mismatch, S18_all_required_long, S34_open_ended_overload, S47_no_logic_long_survey, Q23_actionable, Q5_relevance, B5_redundant_questions, S10_duplicate_labels.
+**Rule:** do the mechanical parts, propose the judgment parts.
+
+- **Apply:** make non-critical questions optional (S18: required < 80 % of questions when n > 15); turn surplus open text into choices or make it optional (S34); set `stated_minutes` to the estimate (S16; estimate = Σ seconds per question / 60 with `single_choice`/`dropdown`/`yes_no` 10, `multi_choice` 15, `number` 15, `rating`/`nps`/`likert` 8, `slider` 10, `short_text` 30, `long_text` 60, `ranking` 25, matrix 8 × rows, `statement` 8); gate questions that only some people need so most paths are shorter (S47, see survey-logic).
+- **Propose, never apply silently:** cutting questions (Q23 "nice to know", Q5 off-purpose), merging duplicates (B5, S10). List each candidate under "Decisions for you" with the finding that justifies it and the time it saves ("Cut Q14: no decision depends on it (Q23); saves ~10 s").
+
+## P18 Break grids, runs and long lists
+
+**Resolves:** S30_matrix_too_large, S31_consecutive_matrices, S27_monotony_run, E8_straightlining_risk, S32_ranking_too_many, S40_long_list_not_randomised, S24_no_progress_bar_long, C7_has_attention_check.
+
+| Problem | Fix |
+| --- | --- |
+| 12-row × 7-column grid (S30) | Split into two grids of ≤ 8 rows (`Qn`, `Qn.1`) and cut columns to 5 balanced points |
+| Two grids back to back (S31) | Move a different-type question between them, or merge and trim |
+| 9 ratings in a row (S27, E8) | Insert a short `statement` signpost or a different type mid-run; or trim |
+| Rank 12 items (S32) | `multi_choice` "Pick your top 3" with `selection: {min: 1, max: 3}`, or cut to ≤ 7 |
+| 9 unordered options (S40) | `"randomize_options": true` (Other/None stay last) |
+| 25 questions, no progress bar (S24) | `"settings": { "progress_bar": true }` |
+| 30+ questions, no attention check (C7) | Add one row "Select 'Agree' for this row" to a mid-survey grid; tell the user to drop respondents who miss it |
+
+## P19 Plain language
+
+**Resolves:** Q4_jargon, E5_reading_level, L_hard_to_read, Q1_clarity, S43_label_too_long.
+**Rule:** one short sentence a general adult (or the stated audience) reads once; define unavoidable terms in `description`; move context out of the label.
+
+| Before | After |
+| --- | --- |
+| How would you evaluate the efficacy of the AR reconciliation workflow? | How well does matching payments to invoices work for you? (`description`: "Matching = marking an invoice as paid when the money arrives.") |
+| A 48-word label with background, instructions and the question | Label: the question in ≤ 35 words; `description`: the background |
+
+**Watch:** keep the term if the question tests whether people know it (Q4 exception).
+
+## P20 Grammar and parallel options
+
+**Resolves:** Q13_grammar, Q14_options_parallel, S11_duplicate_options, S42_shouting_or_noise, E1_tone_consistent, E9_language_consistent.
+
+| Before | After |
+| --- | --- |
+| "Which feature's do you use most" | "Which feature do you use most?" |
+| Options: "Speed" · "it was cheap" · "Because support helped me." | "Speed" · "Price" · "Support" |
+| "HOW WAS YOUR VISIT??" | "How was your visit?" |
+| Options "😀" · "😐" · "😞" | "Good" · "Okay" · "Bad" (emoji may stay beside the words) |
+| colour (Q2) and color (Q9) | Pick the survey's language variant and use it everywhere |
+
+## P21 Move friction later
+
+**Resolves:** S51_early_friction, S46_first_question_open_text, S48_pii_before_content, Q15_abandon_risk, B7_end_loading.
+**Rule:** the first three questions are easy, closed and on-topic; anything demanding (long text, file, email, phone, grid, ranking) moves after them or becomes optional; contact details come after the outcome question and are optional. Do not pile everything demanding at the very end either (B7): spread it through the middle.
+
+```jsonc
+// before: Q1 email (required), Q2 long_text "Tell us about your business" (required), Q3 rating …
+// after: Q3 first (easy rating), Q2 moved to position 5 and optional, Q1 moved after the outcome question, optional
+```
+
+Report the new order. **Watch:** moving a question can break `shown_when` (must point backwards) and reachability (S28): re-run lint.
+
+## P22 Make every question reachable
+
+**Resolves:** S28_unreachable_question.
+**Rule:** something must lead to every question. Either remove the default jump (`when: null`) that skips the block, or point a jump at the first dead question, or delete the dead block if it is obsolete (a decision for the user).
+
+```jsonc
+// before: Q2 and Q3 can never be shown
+{ "ref": "Q1", "jumps": [ { "when": null, "to": "Q4" } ] }
+// after (the block was meant for people who said Yes)
+{ "ref": "Q1", "jumps": [ { "when": "Q1 is 'No'", "to": "Q4" } ] }
+```
+
+## P23 Retitle
+
+**Resolves:** A1_title_specific, A2_title_respondent_facing, S01_no_title.
+
+| Before | After |
+| --- | --- |
+| Q3 Invoicing Survey v2 | Help shape Acme Invoicing: 3-minute customer check-in |
+| (empty) | [What it's about] — [what's in it for them] |
+
+## P24 Structural and coverage fixes
+
+| Id | Fix |
+| --- | --- |
+| S21_anonymous_but_pii | Decision: drop the identifying questions or set `settings.anonymous: false` and say so in the welcome. Never pick for the user. |
+| Q11, S25, S26 | Describe the visual in the label or `description` so the question stands alone; set `has_image: true` only if the image is really attached. |
+| S02, S03, S04, S05 | Blockers: fill the missing text/options/rows, or delete the empty entry (ask if unsure what it was meant to ask). |
+| S06, S44 | Remove the empty or single-child group; clear `group` on its child. |
+| B1, L_topic_jump, B4 | Reorder by topic, general → specific; add a `statement` signpost ("Next, a few questions about getting paid.") at each topic change. |
+| C1, C5, A7 | Coverage gaps need new questions: propose them (with `C5_gap_topic` as the topic) under "Decisions for you"; draft the wording but do not insert without a yes. |
