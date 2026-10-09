@@ -80,6 +80,15 @@ def test_unreachable_with_unknown_target():
 def test_statements_only_is_blocker():
     s = {"title": "T", "questions": [{"ref": "Q1", "type": "statement", "label": "Hi"}]}
     assert "S02_no_questions" in ids(s)
+    f = one(s, "S02_no_questions")
+    assert f["severity"] == "blocker" and 'kind: "information"' in f["fix"]
+
+
+def test_statements_only_information_kind_is_medium():
+    s = {"title": "T", "kind": "information", "questions": [{"ref": "Q1", "type": "statement", "label": "Hi"}]}
+    f = one(s, "S02_no_questions")
+    assert f["severity"] == "medium"
+    assert f["roast"] == "Nothing here asks for an answer, so no responses will be collected."
 
 
 def test_matrix_too_large():
@@ -143,11 +152,9 @@ def test_finding_shape():
 
 # --- shipped checks ------------------------------------------------------------------------
 
-def test_s02_empty_is_blocker_statements_medium():
-    assert one({"title": "T", "questions": []}, "S02_no_questions")["severity"] == "blocker"
-    f = one({"title": "T", "questions": [{"ref": "Q1", "type": "statement", "label": "Hi"}]}, "S02_no_questions")
-    assert f["severity"] == "medium"
-    assert f["roast"] == "Nothing here asks for an answer, so no responses will be collected."
+def test_s02_empty_is_blocker():
+    f = one({"title": "T", "kind": "information", "questions": []}, "S02_no_questions")
+    assert f["severity"] == "blocker" and f["roast"] == "There is nothing in this survey yet."
 
 
 def test_s03_label_empty():
@@ -515,6 +522,8 @@ def test_s38_none_not_exclusive():
     assert f["severity"] == "medium" and "'None of the above'" in f["roast"]
     s["questions"][0]["exclusive_options"] = ["None of the above"]
     assert "S38_none_not_exclusive" not in ids(s)
+    s = {"title": "T", "questions": [q("Q1", type="multi_choice", options=["A", "Nonetheless useful"])]}
+    assert "S38_none_not_exclusive" not in ids(s)
 
 
 def test_s39_other_without_text():
@@ -648,3 +657,42 @@ def test_cli_exit_codes_and_formats(tmp_path):
     junk = tmp_path / "junk.json"
     junk.write_text("[1,2]")
     assert _cli(str(junk)).returncode == 2
+
+
+# --- non-finite numbers (json.loads accepts 1e999 and NaN) ----------------------------------
+
+@pytest.mark.parametrize("bad", ["1e999", "-1e999", "NaN"])
+def test_non_finite_numbers_never_crash(bad):
+    text = ('{"title": "T", "settings": {"stated_minutes": %s}, "questions": ['
+            '{"ref": "Q1", "type": "multi_choice", "label": "Pick", "required": true, "options": ["A", "B"],'
+            ' "selection": {"min": %s, "max": %s}},'
+            '{"ref": "Q2", "type": "likert", "label": "Agree?", "scale": {"min": %s, "max": %s}},'
+            '{"ref": "Q3", "type": "likert", "label": "Battery", "rows": ["a", "b"], "scale": {"min": 1, "max": %s}},'
+            '{"ref": "Q4", "type": "rating", "label": "Rate", "scale": {"min": 1, "max": %s, "labels": {"1": "x"}}}'
+            ']}') % ((bad,) * 7)
+    s = load_survey(text)
+    n = normalise(s)
+    assert n["settings"]["stated_minutes"] is None
+    assert n["questions"][0]["selection"] == {"min": None, "max": None}
+    assert n["questions"][1]["scale"]["max"] is None
+    run(s)
+
+
+def test_cli_non_finite_exits_cleanly(tmp_path):
+    p = tmp_path / "inf.json"
+    p.write_text('{"title": "T", "questions": [{"ref": "Q1", "type": "likert", "label": "L", "rows": ["a"],'
+                 ' "scale": {"min": 1, "max": 1e999}}]}')
+    r = _cli(str(p), "--json")
+    assert r.returncode in (0, 1) and "Traceback" not in r.stderr
+
+
+def test_cli_unexpected_error_exits_2(monkeypatch, capsys):
+    import survey_lint
+
+    def boom(_):
+        raise RuntimeError("kaboom")
+    monkeypatch.setattr(survey_lint, "run", boom)
+    monkeypatch.setattr(survey_lint, "load_survey", lambda _: {"title": "T", "questions": []})
+    assert survey_lint.main(["x.json"]) == 2
+    err = capsys.readouterr().err
+    assert "kaboom" in err and len(err.strip().splitlines()) == 1

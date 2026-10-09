@@ -9,6 +9,7 @@ Stdlib only, Python >= 3.9. Never crashes on None / wrong types: a field of the 
 import copy
 import html
 import json
+import math
 import os
 import re
 from typing import Any, Dict, List, Optional
@@ -48,8 +49,10 @@ def _text(x: Any) -> str:
 
 
 def _num(x: Any) -> Optional[float]:
-    """A real number (not a bool), else None."""
+    """A finite real number (not a bool), else None. json.loads accepts 1e999 (inf) and NaN; both count as missing."""
     if isinstance(x, bool) or not isinstance(x, (int, float)):
+        return None
+    if isinstance(x, float) and not math.isfinite(x):
         return None
     return x
 

@@ -205,10 +205,16 @@ def run(survey) -> List[Dict]:
     if not qs:
         out.append(_f("S02_no_questions", "blocker", "coverage",
                       "There is nothing in this survey yet.", "Add at least one question."))
-    elif n == 0:
+    elif n == 0 and s["kind"] == "information":
+        # A declared information page is legitimate
         out.append(_f("S02_no_questions", "medium", "coverage",
                       "Nothing here asks for an answer, so no responses will be collected.",
                       "Add a question if you want responses; otherwise this is fine as an information page."))
+    elif n == 0:
+        # Statements only and not declared an information page: it collects nothing, so it must not publish
+        out.append(_f("S02_no_questions", "blocker", "coverage",
+                      "Nothing here asks for an answer, so no responses will be collected.",
+                      "Add at least one question, or set `kind: \"information\"` if this is an information page."))
 
     # Element integrity (S03-S06) --------------------------------------------------------------
     for q in answerable:
@@ -604,10 +610,11 @@ def main(argv: Optional[List[str]] = None) -> int:
         return 2
     try:
         survey = load_survey(paths[0])
-    except ValueError as e:
-        print(str(e), file=sys.stderr)
+        findings = run(survey)
+    except Exception as e:  # noqa: BLE001 - the CLI never tracebacks; run() itself still raises for tests
+        msg = str(e) if isinstance(e, ValueError) else f"survey_lint: unexpected error: {type(e).__name__}: {e}"
+        print(msg.replace("\n", " "), file=sys.stderr)
         return 2
-    findings = run(survey)
     if as_json:
         if polite:
             findings_out = [{k: v for k, v in f.items() if k != "roast"} for f in findings]
