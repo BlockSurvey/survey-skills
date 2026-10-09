@@ -1,0 +1,464 @@
+{
+  "title": "Customer Satisfaction Survey Q3 v2",
+  "kind": "feedback",
+  "settings": {
+    "stated_minutes": 3,
+    "progress_bar": false
+  },
+  "questions": [
+    {
+      "ref": "Q1",
+      "type": "single_choice",
+      "label": "What is your age?",
+      "required": true,
+      "options": [
+        "18-24",
+        "26-35",
+        "36-50",
+        "50+"
+      ]
+    },
+    {
+      "ref": "Q2",
+      "type": "long_text",
+      "label": "Please describe in detail your overall experience with our product and our support team.",
+      "required": true
+    },
+    {
+      "ref": "Q3",
+      "type": "single_choice",
+      "label": "What is your gender?",
+      "required": true,
+      "options": [
+        "Male",
+        "Female"
+      ]
+    },
+    {
+      "ref": "Q4",
+      "type": "single_choice",
+      "label": "What is your annual household income?",
+      "required": true,
+      "options": [
+        "Under $30,000",
+        "$30,000-$49,999",
+        "$60,000-$99,999",
+        "$100,000+"
+      ]
+    },
+    {
+      "ref": "Q5",
+      "type": "short_text",
+      "label": "What is your job title?",
+      "required": true
+    },
+    {
+      "ref": "Q6",
+      "type": "single_choice",
+      "label": "How many employees does your company have?",
+      "required": true,
+      "options": [
+        "1-10",
+        "11-50",
+        "50-200",
+        "200+"
+      ]
+    },
+    {
+      "ref": "Q7",
+      "type": "single_choice",
+      "label": "What is your highest level of education?",
+      "required": true,
+      "options": [
+        "High school",
+        "Bachelor's degree",
+        "Master's degree",
+        "PhD"
+      ]
+    },
+    {
+      "ref": "Q8",
+      "type": "single_choice",
+      "label": "How much do you love our amazing new dashboard?",
+      "required": true,
+      "options": [
+        "Love it",
+        "Really like it",
+        "Like it",
+        "It's okay"
+      ]
+    },
+    {
+      "ref": "Q9",
+      "type": "single_choice",
+      "label": "How fast and reliable is our platform?",
+      "required": true,
+      "options": [
+        "Excellent",
+        "Very good",
+        "Good",
+        "Fair"
+      ]
+    },
+    {
+      "ref": "Q10",
+      "type": "single_choice",
+      "label": "Which features do you use? Select all that apply.",
+      "required": true,
+      "options": [
+        "Dashboards",
+        "Reports",
+        "Integrations",
+        "Mobile app",
+        "API"
+      ]
+    },
+    {
+      "ref": "Q11",
+      "type": "yes_no",
+      "label": "Don't you agree that our pricing is fair and our support is helpful?",
+      "required": true,
+      "options": [
+        "Yes",
+        "No"
+      ]
+    },
+    {
+      "ref": "Q12",
+      "type": "rating",
+      "label": "How satisfied are you with our SSO, SCIM provisioning and RBAC capabilities?",
+      "required": true,
+      "scale": {
+        "min": 1,
+        "max": 7,
+        "labels": {
+          "1": "Bad",
+          "7": "Great"
+        }
+      }
+    },
+    {
+      "ref": "Q13",
+      "type": "matrix",
+      "label": "Please rate the following aspects of our product.",
+      "required": true,
+      "rows": [
+        "Dashboards",
+        "Reports",
+        "Alerts",
+        "Integrations",
+        "Mobile app",
+        "API",
+        "Onboarding",
+        "Documentation",
+        "Billing",
+        "Support"
+      ],
+      "columns": [
+        "Excellent",
+        "Very good",
+        "Good",
+        "Above average",
+        "Average",
+        "Below average",
+        "Poor",
+        "N/A"
+      ]
+    },
+    {
+      "ref": "Q14",
+      "type": "nps",
+      "label": "How likely is it that you would recommend us?",
+      "required": true,
+      "scale": {
+        "min": 1,
+        "max": 10
+      }
+    },
+    {
+      "ref": "Q15",
+      "type": "yes_no",
+      "label": "How often do you use the mobile app?",
+      "required": true,
+      "options": [
+        "Yes",
+        "No"
+      ]
+    },
+    {
+      "ref": "Q16",
+      "type": "single_choice",
+      "label": "How often do you use our API endpoints and webhooks?",
+      "required": true,
+      "options": [
+        "Daily",
+        "Weekly",
+        "Monthly"
+      ]
+    },
+    {
+      "ref": "Q17",
+      "type": "likert",
+      "label": "Our support team is always helpful and responsive.",
+      "required": true,
+      "scale": {
+        "min": 1,
+        "max": 5,
+        "labels": {
+          "1": "Strongly disagree",
+          "5": "Strongly agree"
+        }
+      }
+    },
+    {
+      "ref": "Q18",
+      "type": "likert",
+      "label": "The product is easy to use and has all the features I need.",
+      "required": true,
+      "scale": {
+        "min": 1,
+        "max": 5,
+        "labels": {
+          "1": "Strongly disagree",
+          "5": "Strongly agree"
+        }
+      }
+    },
+    {
+      "ref": "Q19",
+      "type": "likert",
+      "label": "I would never consider switching to a competitor.",
+      "required": true,
+      "scale": {
+        "min": 1,
+        "max": 5,
+        "labels": {
+          "1": "Strongly disagree",
+          "5": "Strongly agree"
+        }
+      }
+    },
+    {
+      "ref": "Q20",
+      "type": "likert",
+      "label": "Our onboarding process was excellent.",
+      "required": true,
+      "scale": {
+        "min": 1,
+        "max": 5,
+        "labels": {
+          "1": "Strongly disagree",
+          "5": "Strongly agree"
+        }
+      }
+    },
+    {
+      "ref": "Q21",
+      "type": "likert",
+      "label": "The documentation is clear.",
+      "required": true,
+      "scale": {
+        "min": 1,
+        "max": 5,
+        "labels": {
+          "1": "Strongly disagree",
+          "5": "Strongly agree"
+        }
+      }
+    },
+    {
+      "ref": "Q22",
+      "type": "likert",
+      "label": "The UI is intuitive.",
+      "required": true,
+      "scale": {
+        "min": 1,
+        "max": 5,
+        "labels": {
+          "1": "Strongly disagree",
+          "5": "Strongly agree"
+        }
+      }
+    },
+    {
+      "ref": "Q23",
+      "type": "likert",
+      "label": "Our release cadence meets my needs.",
+      "required": true,
+      "scale": {
+        "min": 1,
+        "max": 5,
+        "labels": {
+          "1": "Strongly disagree",
+          "5": "Strongly agree"
+        }
+      }
+    },
+    {
+      "ref": "Q24",
+      "type": "likert",
+      "label": "The product clearly provides great value for money.",
+      "required": true,
+      "scale": {
+        "min": 1,
+        "max": 5,
+        "labels": {
+          "1": "Strongly disagree",
+          "5": "Strongly agree"
+        }
+      }
+    },
+    {
+      "ref": "Q25",
+      "type": "rating",
+      "label": "Rate our reporting module.",
+      "required": true,
+      "scale": {
+        "min": 1,
+        "max": 5
+      }
+    },
+    {
+      "ref": "Q26",
+      "type": "rating",
+      "label": "Rate our alerting module.",
+      "required": true,
+      "scale": {
+        "min": 1,
+        "max": 5
+      }
+    },
+    {
+      "ref": "Q27",
+      "type": "rating",
+      "label": "Rate our integrations.",
+      "required": true,
+      "scale": {
+        "min": 1,
+        "max": 5
+      }
+    },
+    {
+      "ref": "Q28",
+      "type": "rating",
+      "label": "Rate our billing experience.",
+      "required": true,
+      "scale": {
+        "min": 1,
+        "max": 5
+      }
+    },
+    {
+      "ref": "Q29",
+      "type": "yes_no",
+      "label": "Would you pay more for advanced analytics?",
+      "required": true,
+      "options": [
+        "Yes",
+        "No"
+      ]
+    },
+    {
+      "ref": "Q30",
+      "type": "single_choice",
+      "label": "You should upgrade to Premium. How likely are you to do so?",
+      "required": true,
+      "options": [
+        "Very likely",
+        "Likely",
+        "Somewhat likely",
+        "Maybe"
+      ]
+    },
+    {
+      "ref": "Q31",
+      "type": "number",
+      "label": "How much time do you spend in the app?",
+      "required": true
+    },
+    {
+      "ref": "Q32",
+      "type": "number",
+      "label": "How many support tickets did you open last year?",
+      "required": true
+    },
+    {
+      "ref": "Q33",
+      "type": "single_choice",
+      "label": "How did you hear about us?",
+      "required": true,
+      "options": [
+        "Search engine",
+        "Friend",
+        "Conference",
+        "Ad"
+      ]
+    },
+    {
+      "ref": "Q34",
+      "type": "single_choice",
+      "label": "Which region are you located in?",
+      "required": true,
+      "options": [
+        "North America",
+        "Europe",
+        "Asia"
+      ]
+    },
+    {
+      "ref": "Q35",
+      "type": "single_choice",
+      "label": "What is your role in purchasing decisions?",
+      "required": true,
+      "options": [
+        "Decision maker",
+        "Influencer",
+        "User"
+      ]
+    },
+    {
+      "ref": "Q36",
+      "type": "likert",
+      "label": "The product is easy to use and has all the features I need.",
+      "required": true,
+      "scale": {
+        "min": 1,
+        "max": 5,
+        "labels": {
+          "1": "Strongly agree",
+          "5": "Strongly disagree"
+        }
+      }
+    },
+    {
+      "ref": "Q37",
+      "type": "single_choice",
+      "label": "How satisfied are you with our ETL pipeline latency SLAs?",
+      "required": true,
+      "options": [
+        "Very satisfied",
+        "Satisfied",
+        "Somewhat satisfied",
+        "Neutral"
+      ]
+    },
+    {
+      "ref": "Q38",
+      "type": "email",
+      "label": "What is your email address?",
+      "required": true
+    },
+    {
+      "ref": "Q39",
+      "type": "phone",
+      "label": "What is your phone number?",
+      "required": true
+    },
+    {
+      "ref": "Q40",
+      "type": "long_text",
+      "label": "Any other comments?",
+      "required": true
+    }
+  ]
+}

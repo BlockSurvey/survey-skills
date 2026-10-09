@@ -1,0 +1,200 @@
+{
+  "score": 94,
+  "grade": "A",
+  "verdict": "ready",
+  "summary": "94/100. Clean, focused, and ready to publish. Nothing worth roasting.",
+  "categories": [
+    {
+      "id": "purpose",
+      "label": "Purpose & framing",
+      "weight": 0.15,
+      "score": 93,
+      "findings": 0
+    },
+    {
+      "id": "structure",
+      "label": "Structure & flow",
+      "weight": 0.1,
+      "score": 96,
+      "findings": 0
+    },
+    {
+      "id": "coverage",
+      "label": "Coverage & gaps",
+      "weight": 0.15,
+      "score": 97,
+      "findings": 0
+    },
+    {
+      "id": "questions",
+      "label": "Question quality",
+      "weight": 0.2,
+      "score": 94,
+      "findings": 0
+    },
+    {
+      "id": "experience",
+      "label": "Respondent experience",
+      "weight": 0.2,
+      "score": 99,
+      "findings": 0
+    },
+    {
+      "id": "trust",
+      "label": "Trust & ethics",
+      "weight": 0.05,
+      "score": 95,
+      "findings": 0
+    },
+    {
+      "id": "conversion",
+      "label": "Conversion",
+      "weight": 0.15,
+      "score": 86,
+      "findings": 0
+    }
+  ],
+  "funnel": {
+    "start": {
+      "score": 93,
+      "drivers": [
+        "A8_respondent_benefit",
+        "A9_sponsor_named",
+        "A10_deadline_stated"
+      ]
+    },
+    "continue": {
+      "score": 93,
+      "drivers": [
+        "Q15_abandon_risk:Q3"
+      ]
+    },
+    "finish": {
+      "score": 97,
+      "drivers": [
+        "B5_redundant_questions",
+        "B4_sections_signposted"
+      ]
+    },
+    "answer_quality": {
+      "score": 95,
+      "drivers": [
+        "Q7_options_overlap:Q2",
+        "Q6_options_not_exhaustive:Q6",
+        "Q20_option_double_barreled:Q2"
+      ]
+    },
+    "actionability": {
+      "score": 96,
+      "drivers": [
+        "Q23_actionable:Q1",
+        "C4_missing_why",
+        "C3_has_outcome_question"
+      ]
+    },
+    "predicted_completion_band": "high"
+  },
+  "findings": [],
+  "findings_by_id": [],
+  "questions": [
+    {
+      "ref": "Q1",
+      "type": "yes_no",
+      "role": "question",
+      "label": "Did you cancel your team's {product} subscription in the last 30 days?",
+      "required": true,
+      "score": 94,
+      "finding_ids": []
+    },
+    {
+      "ref": "Q2",
+      "type": "single_choice",
+      "role": "question",
+      "label": "What was the main reason your team cancelled?",
+      "required": true,
+      "score": 96,
+      "finding_ids": []
+    },
+    {
+      "ref": "Q3",
+      "type": "long_text",
+      "role": "question",
+      "label": "What happened that made this the main reason?",
+      "required": false,
+      "score": 93,
+      "finding_ids": []
+    },
+    {
+      "ref": "Q4",
+      "type": "likert",
+      "role": "question",
+      "label": "Overall, how satisfied or dissatisfied was your team with {product} before you cancelled?",
+      "required": true,
+      "score": 98,
+      "finding_ids": []
+    },
+    {
+      "ref": "Q6",
+      "type": "matrix",
+      "role": "question",
+      "label": "How much did each of these contribute to your decision to cancel?",
+      "required": false,
+      "score": 92,
+      "finding_ids": []
+    },
+    {
+      "ref": "Q7",
+      "type": "single_choice",
+      "role": "question",
+      "label": "What is your team using instead of {product} now?",
+      "required": false,
+      "score": 94,
+      "finding_ids": []
+    },
+    {
+      "ref": "Q9",
+      "type": "single_choice",
+      "role": "question",
+      "label": "How many people on your team used {product}?",
+      "required": false,
+      "score": 94,
+      "finding_ids": []
+    },
+    {
+      "ref": "Q10",
+      "type": "yes_no",
+      "role": "question",
+      "label": "Would you be open to a 15-minute call with our product team?",
+      "required": false,
+      "score": 94,
+      "finding_ids": []
+    },
+    {
+      "ref": "Q11",
+      "type": "email",
+      "role": "question",
+      "label": "Which email address can we use to arrange the call?",
+      "required": false,
+      "score": 88,
+      "finding_ids": []
+    }
+  ],
+  "stats": {
+    "top_level_questions": 11,
+    "answerable_questions": 9,
+    "required_answerable": 3,
+    "open_ended_questions": 1,
+    "pii_questions": 1,
+    "questions_with_logic": 2,
+    "estimated_minutes": 3.1,
+    "stated_minutes": 4
+  },
+  "meta": {
+    "rubric_version": "bs-skills-1.0",
+    "survey_kind": "feedback",
+    "audience_kind": "existing_customers",
+    "weight_profile": "customer_satisfaction",
+    "partial": false,
+    "missing_items": []
+  }
+}

@@ -1,0 +1,1160 @@
+{
+  "rubric_version": "bs-skills-1.0",
+  "survey_kind": "feedback",
+  "audience_kind": "existing_customers",
+  "survey": {
+    "K_survey_kind": {
+      "choice": "feedback",
+      "confidence": 0.9,
+      "note": "exit survey asking why the team cancelled"
+    },
+    "X2_audience_kind": {
+      "choice": "existing_customers",
+      "confidence": 0.8,
+      "note": "'the admin who cancelled' - a customer until 30 days ago"
+    },
+    "C5_gap_topic": {
+      "choice": "none",
+      "confidence": 0.7,
+      "note": "reason, driver weights, satisfaction, replacement, team size all present"
+    },
+    "A1_title_specific": {
+      "level": 2,
+      "confidence": 0.85,
+      "note": "'Why did your team cancel {product}? ... help us fix it' - topic and purpose"
+    },
+    "A2_title_respondent_facing": {
+      "level": 2,
+      "confidence": 0.85,
+      "note": "addressed to 'your team', asks for help"
+    },
+    "A3_purpose_explained": {
+      "level": 3,
+      "confidence": 0.8,
+      "note": "'your answers decide which problem we fix first'"
+    },
+    "A5_privacy_stated": {
+      "p": 0.95,
+      "note": "'Only the product team sees your answers; we never share them outside {company}'"
+    },
+    "A6_audience_stated": {
+      "p": 0.95,
+      "note": "'For the admin who cancelled in the last 30 days'"
+    },
+    "A7_objective_inferable": {
+      "level": 2,
+      "confidence": 0.8,
+      "note": "main reason + per-driver contribution grid make the fix-first decision evident"
+    },
+    "A8_respondent_benefit": {
+      "level": 1,
+      "confidence": 0.7,
+      "note": "benefit is 'decide which problem we fix first' - helps us improve; nothing concrete for a churned admin"
+    },
+    "A9_sponsor_named": {
+      "p": 0.95,
+      "note": "'We're the {company} product team'"
+    },
+    "A10_deadline_stated": {
+      "p": 0.9,
+      "note": "'Open until {date}'"
+    },
+    "B1_logical_order": {
+      "level": 2,
+      "confidence": 0.8,
+      "note": "screener -> main reason -> why -> satisfaction -> driver grid -> replacement -> team size -> call"
+    },
+    "B2_opening_question": {
+      "level": 2,
+      "confidence": 0.85,
+      "note": "Q1 'Did you cancel your team's {product} subscription in the last 30 days?' - one click, on topic"
+    },
+    "B3_demographics_placement": {
+      "level": 2,
+      "confidence": 0.85,
+      "note": "only Q9 team size, at the end, 'So we can see whether reasons differ by team size'"
+    },
+    "B4_sections_signposted": {
+      "p": 0.9,
+      "note": "Q5 'Next: how much each factor mattered', Q8 'Almost done'"
+    },
+    "B5_redundant_questions": {
+      "p": 0.25,
+      "note": "Q2 main reason and Q6 driver grid overlap, but one picks the top driver and the other weights all five"
+    },
+    "B7_end_loading": {
+      "level": 2,
+      "confidence": 0.8,
+      "note": "ends with team size, a yes/no and an optional email"
+    },
+    "B8_scale_direction_consistent": {
+      "p": 0.05,
+      "note": "Q4 dissatisfied->satisfied and Q6 'Not at all'->'Completely' both run low->high"
+    },
+    "C1_objective_coverage": {
+      "level": 3,
+      "confidence": 0.75,
+      "note": "all five drivers rated in Q6, plus main reason Q2 and its why Q3"
+    },
+    "C3_has_outcome_question": {
+      "p": 0.95,
+      "note": "Q4 'Overall, how satisfied or dissatisfied was your team...'"
+    },
+    "C4_missing_why": {
+      "p": 0.1,
+      "note": "Q3 'What happened that made this the main reason?' follows Q2"
+    },
+    "C5_obvious_gap": {
+      "level": 2,
+      "confidence": 0.7,
+      "note": "nothing expected for a churn survey is missing"
+    },
+    "C6_demographics_proportionate": {
+      "level": 2,
+      "confidence": 0.8,
+      "note": "one demographic (team size), used to cut reasons"
+    },
+    "E1_tone_consistent": {
+      "level": 2,
+      "confidence": 0.85,
+      "note": "plain 'we/you' voice on every screen"
+    },
+    "E2_burden": {
+      "p": 0.08,
+      "note": "nothing to look up; team size is bucketed"
+    },
+    "E3_thank_you_quality": {
+      "level": 2,
+      "confidence": 0.9,
+      "note": "'We review every answer ... publish what we changed ... email you within a week'"
+    },
+    "E4_welcome_motivates": {
+      "level": 2,
+      "confidence": 0.8,
+      "note": "'knowing why is the most useful thing you can tell us'"
+    },
+    "E5_reading_level": {
+      "level": 2,
+      "confidence": 0.85,
+      "note": "short plain sentences throughout"
+    },
+    "E6_length_feels_justified": {
+      "level": 2,
+      "confidence": 0.85,
+      "note": "9 answerable questions for a 4-minute exit survey"
+    },
+    "E7_welcome_scannable": {
+      "level": 2,
+      "confidence": 0.8,
+      "note": "one sentence then bullets: audience, time, privacy, voluntary, date, contact"
+    },
+    "E8_straightlining_risk": {
+      "level": 2,
+      "confidence": 0.8,
+      "note": "one 5-row grid; other formats vary"
+    },
+    "E9_language_consistent": {
+      "p": 0.03,
+      "note": "English throughout, one spelling system"
+    },
+    "F1_sensitive_topics": {
+      "p": 0.03,
+      "note": "no finances, health or other sensitive topics"
+    },
+    "F3a_incentive_mentioned": {
+      "p": 0.02,
+      "note": "no incentive anywhere"
+    },
+    "F3b_incentive_delivery_clear": {
+      "p": 0.5,
+      "note": "no incentive, so there is no delivery to describe"
+    },
+    "F4_manipulative_framing": {
+      "p": 0.05,
+      "note": "'Voluntary: you can stop at any time'; no guilt or urgency"
+    },
+    "F5_contact_provided": {
+      "p": 0.95,
+      "note": "'Questions? {contact}' on welcome and thank-you"
+    }
+  },
+  "questions": {
+    "Q1": {
+      "R_role": {
+        "choice": "question"
+      },
+      "Q1_clarity": {
+        "level": 3,
+        "confidence": 0.8
+      },
+      "Q2_double_barreled": {
+        "p": 0.05
+      },
+      "Q3a_leading": {
+        "p": 0.05
+      },
+      "Q3b_presuming": {
+        "p": 0.05
+      },
+      "Q4_jargon": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q5_relevance": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q6_options_not_exhaustive": {
+        "p": 0.1
+      },
+      "Q7_options_overlap": {
+        "p": 0.1
+      },
+      "Q9_type_fit": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q10_depends_on_prior": {
+        "p": 0.05
+      },
+      "Q11_requires_visual": {
+        "p": 0.02
+      },
+      "Q12_sensitive": {
+        "p": 0.03
+      },
+      "Q13_grammar": {
+        "level": 2,
+        "confidence": 0.9
+      },
+      "Q14_options_parallel": {
+        "p": 0.1
+      },
+      "Q15_abandon_risk": {
+        "level": 2,
+        "confidence": 0.8
+      },
+      "Q18_hypothetical": {
+        "p": 0.05
+      },
+      "Q19_recall_period": {
+        "choice": "stated",
+        "confidence": 0.9,
+        "note": "'in the last 30 days'"
+      },
+      "Q20_option_double_barreled": {
+        "p": 0.1
+      },
+      "Q21_social_desirability": {
+        "p": 0.1
+      },
+      "Q23_actionable": {
+        "level": 1,
+        "confidence": 0.7,
+        "note": "screener: routes, does not itself inform the fix"
+      },
+      "Q24_intent": {
+        "choice": "screener",
+        "confidence": 0.9
+      },
+      "Q25_best_type": {
+        "choice": "current_type_is_best",
+        "confidence": 0.8
+      },
+      "L_needs_why": {
+        "p": 0.1
+      },
+      "L_hard_to_recall": {
+        "p": 0.05
+      },
+      "L_topic_jump": {
+        "p": 0.05
+      },
+      "L_is_demographic": {
+        "p": 0.03
+      },
+      "L_pressuring": {
+        "p": 0.02
+      },
+      "L_hard_to_read": {
+        "p": 0.05
+      },
+      "L_sensitive_topic": {
+        "p": 0.03
+      },
+      "L_duplicate_of_earlier": {
+        "p": 0.03
+      }
+    },
+    "Q2": {
+      "R_role": {
+        "choice": "question"
+      },
+      "Q1_clarity": {
+        "level": 3,
+        "confidence": 0.8
+      },
+      "Q2_double_barreled": {
+        "p": 0.05
+      },
+      "Q3a_leading": {
+        "p": 0.05
+      },
+      "Q3b_presuming": {
+        "p": 0.05
+      },
+      "Q4_jargon": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q5_relevance": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q6_options_not_exhaustive": {
+        "p": 0.1
+      },
+      "Q7_options_overlap": {
+        "p": 0.2,
+        "note": "price and missing features can co-occur, but 'Pick the one that mattered most'"
+      },
+      "Q8_scale_unbalanced": {
+        "p": 0.05
+      },
+      "Q9_type_fit": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q10_depends_on_prior": {
+        "p": 0.05
+      },
+      "Q11_requires_visual": {
+        "p": 0.02
+      },
+      "Q12_sensitive": {
+        "p": 0.03
+      },
+      "Q13_grammar": {
+        "level": 2,
+        "confidence": 0.9
+      },
+      "Q14_options_parallel": {
+        "p": 0.4,
+        "note": "mostly clauses; 'Bugs, outages or slow performance' is a noun phrase"
+      },
+      "Q15_abandon_risk": {
+        "level": 2,
+        "confidence": 0.8
+      },
+      "Q17_negative_wording": {
+        "p": 0.05
+      },
+      "Q18_hypothetical": {
+        "p": 0.05
+      },
+      "Q19_recall_period": {
+        "choice": "not_applicable",
+        "confidence": 0.8
+      },
+      "Q20_option_double_barreled": {
+        "p": 0.3,
+        "note": "'Bugs, outages or slow performance' groups one driver's symptoms"
+      },
+      "Q21_social_desirability": {
+        "p": 0.3,
+        "note": "'Our needs changed' is a polite exit some will pick to avoid criticism"
+      },
+      "Q23_actionable": {
+        "level": 2,
+        "confidence": 0.8
+      },
+      "Q24_intent": {
+        "choice": "attitude",
+        "confidence": 0.9
+      },
+      "Q25_best_type": {
+        "choice": "current_type_is_best",
+        "confidence": 0.8
+      },
+      "L_needs_why": {
+        "p": 0.15
+      },
+      "L_hard_to_recall": {
+        "p": 0.05
+      },
+      "L_topic_jump": {
+        "p": 0.05
+      },
+      "L_is_demographic": {
+        "p": 0.03
+      },
+      "L_pressuring": {
+        "p": 0.02
+      },
+      "L_hard_to_read": {
+        "p": 0.05
+      },
+      "L_sensitive_topic": {
+        "p": 0.03
+      },
+      "L_duplicate_of_earlier": {
+        "p": 0.03
+      }
+    },
+    "Q3": {
+      "R_role": {
+        "choice": "question"
+      },
+      "Q1_clarity": {
+        "level": 3,
+        "confidence": 0.8
+      },
+      "Q2_double_barreled": {
+        "p": 0.05
+      },
+      "Q3a_leading": {
+        "p": 0.05
+      },
+      "Q3b_presuming": {
+        "p": 0.08
+      },
+      "Q4_jargon": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q5_relevance": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q9_type_fit": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q10_depends_on_prior": {
+        "p": 0.05
+      },
+      "Q11_requires_visual": {
+        "p": 0.02
+      },
+      "Q12_sensitive": {
+        "p": 0.03
+      },
+      "Q13_grammar": {
+        "level": 2,
+        "confidence": 0.9
+      },
+      "Q15_abandon_risk": {
+        "level": 1,
+        "confidence": 0.8,
+        "note": "long text, but optional"
+      },
+      "Q18_hypothetical": {
+        "p": 0.05
+      },
+      "Q19_recall_period": {
+        "choice": "not_applicable",
+        "confidence": 0.8
+      },
+      "Q21_social_desirability": {
+        "p": 0.1
+      },
+      "Q23_actionable": {
+        "level": 2,
+        "confidence": 0.8
+      },
+      "Q24_intent": {
+        "choice": "open_feedback",
+        "confidence": 0.9
+      },
+      "Q25_best_type": {
+        "choice": "current_type_is_best",
+        "confidence": 0.8
+      },
+      "L_hard_to_recall": {
+        "p": 0.05
+      },
+      "L_topic_jump": {
+        "p": 0.05
+      },
+      "L_is_demographic": {
+        "p": 0.03
+      },
+      "L_pressuring": {
+        "p": 0.02
+      },
+      "L_hard_to_read": {
+        "p": 0.05
+      },
+      "L_sensitive_topic": {
+        "p": 0.03
+      },
+      "L_duplicate_of_earlier": {
+        "p": 0.03
+      }
+    },
+    "Q4": {
+      "R_role": {
+        "choice": "question"
+      },
+      "Q1_clarity": {
+        "level": 3,
+        "confidence": 0.8
+      },
+      "Q2_double_barreled": {
+        "p": 0.05
+      },
+      "Q3a_leading": {
+        "p": 0.05
+      },
+      "Q3b_presuming": {
+        "p": 0.05
+      },
+      "Q4_jargon": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q5_relevance": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q9_type_fit": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q10_depends_on_prior": {
+        "p": 0.05
+      },
+      "Q11_requires_visual": {
+        "p": 0.02
+      },
+      "Q12_sensitive": {
+        "p": 0.03
+      },
+      "Q13_grammar": {
+        "level": 2,
+        "confidence": 0.9
+      },
+      "Q15_abandon_risk": {
+        "level": 2,
+        "confidence": 0.8
+      },
+      "Q18_hypothetical": {
+        "p": 0.05
+      },
+      "Q19_recall_period": {
+        "choice": "stated",
+        "confidence": 0.8,
+        "note": "'before you cancelled'"
+      },
+      "Q21_social_desirability": {
+        "p": 0.15
+      },
+      "Q23_actionable": {
+        "level": 2,
+        "confidence": 0.8
+      },
+      "Q24_intent": {
+        "choice": "outcome",
+        "confidence": 0.9
+      },
+      "Q25_best_type": {
+        "choice": "current_type_is_best",
+        "confidence": 0.8
+      },
+      "L_hard_to_recall": {
+        "p": 0.05
+      },
+      "L_topic_jump": {
+        "p": 0.05
+      },
+      "L_is_demographic": {
+        "p": 0.03
+      },
+      "L_pressuring": {
+        "p": 0.02
+      },
+      "L_hard_to_read": {
+        "p": 0.05
+      },
+      "L_sensitive_topic": {
+        "p": 0.03
+      },
+      "L_duplicate_of_earlier": {
+        "p": 0.03
+      }
+    },
+    "Q5": {
+      "R_role": {
+        "choice": "information"
+      },
+      "Q1_clarity": {
+        "level": 3,
+        "confidence": 0.8
+      },
+      "Q2_double_barreled": {
+        "p": 0.05
+      },
+      "Q3a_leading": {
+        "p": 0.05
+      },
+      "Q3b_presuming": {
+        "p": 0.05
+      },
+      "Q13_grammar": {
+        "level": 2,
+        "confidence": 0.9
+      }
+    },
+    "Q6": {
+      "R_role": {
+        "choice": "question"
+      },
+      "Q1_clarity": {
+        "level": 3,
+        "confidence": 0.8
+      },
+      "Q2_double_barreled": {
+        "p": 0.05
+      },
+      "Q3a_leading": {
+        "p": 0.05
+      },
+      "Q3b_presuming": {
+        "p": 0.05
+      },
+      "Q4_jargon": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q5_relevance": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q6_options_not_exhaustive": {
+        "p": 0.15
+      },
+      "Q8_scale_unbalanced": {
+        "p": 0.1,
+        "note": "unipolar 'Not at all'..'Completely' contribution scale; balance not expected"
+      },
+      "Q9_type_fit": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q10_depends_on_prior": {
+        "p": 0.05
+      },
+      "Q11_requires_visual": {
+        "p": 0.02
+      },
+      "Q12_sensitive": {
+        "p": 0.03
+      },
+      "Q13_grammar": {
+        "level": 2,
+        "confidence": 0.9
+      },
+      "Q14_options_parallel": {
+        "p": 0.1
+      },
+      "Q15_abandon_risk": {
+        "level": 1,
+        "confidence": 0.8,
+        "note": "5x5 grid, optional"
+      },
+      "Q17_negative_wording": {
+        "p": 0.05
+      },
+      "Q18_hypothetical": {
+        "p": 0.05
+      },
+      "Q19_recall_period": {
+        "choice": "not_applicable",
+        "confidence": 0.8
+      },
+      "Q20_option_double_barreled": {
+        "p": 0.3,
+        "note": "row 'Ease of learning and use' joins two ideas"
+      },
+      "Q21_social_desirability": {
+        "p": 0.1
+      },
+      "Q23_actionable": {
+        "level": 2,
+        "confidence": 0.8
+      },
+      "Q24_intent": {
+        "choice": "attitude",
+        "confidence": 0.9
+      },
+      "Q25_best_type": {
+        "choice": "current_type_is_best",
+        "confidence": 0.8
+      },
+      "L_needs_why": {
+        "p": 0.15
+      },
+      "L_hard_to_recall": {
+        "p": 0.05
+      },
+      "L_topic_jump": {
+        "p": 0.05
+      },
+      "L_is_demographic": {
+        "p": 0.03
+      },
+      "L_pressuring": {
+        "p": 0.02
+      },
+      "L_hard_to_read": {
+        "p": 0.05
+      },
+      "L_sensitive_topic": {
+        "p": 0.03
+      },
+      "L_duplicate_of_earlier": {
+        "p": 0.3,
+        "note": "rows mirror Q2's options, but weight all five"
+      }
+    },
+    "Q7": {
+      "R_role": {
+        "choice": "question"
+      },
+      "Q1_clarity": {
+        "level": 3,
+        "confidence": 0.8
+      },
+      "Q2_double_barreled": {
+        "p": 0.05
+      },
+      "Q3a_leading": {
+        "p": 0.05
+      },
+      "Q3b_presuming": {
+        "p": 0.05
+      },
+      "Q4_jargon": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q5_relevance": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q6_options_not_exhaustive": {
+        "p": 0.1
+      },
+      "Q7_options_overlap": {
+        "p": 0.15
+      },
+      "Q8_scale_unbalanced": {
+        "p": 0.05
+      },
+      "Q9_type_fit": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q10_depends_on_prior": {
+        "p": 0.05
+      },
+      "Q11_requires_visual": {
+        "p": 0.02
+      },
+      "Q12_sensitive": {
+        "p": 0.03
+      },
+      "Q13_grammar": {
+        "level": 2,
+        "confidence": 0.9
+      },
+      "Q14_options_parallel": {
+        "p": 0.15
+      },
+      "Q15_abandon_risk": {
+        "level": 2,
+        "confidence": 0.8
+      },
+      "Q17_negative_wording": {
+        "p": 0.05
+      },
+      "Q18_hypothetical": {
+        "p": 0.05
+      },
+      "Q19_recall_period": {
+        "choice": "stated",
+        "confidence": 0.8,
+        "note": "'now'"
+      },
+      "Q20_option_double_barreled": {
+        "p": 0.1
+      },
+      "Q21_social_desirability": {
+        "p": 0.1
+      },
+      "Q23_actionable": {
+        "level": 1,
+        "confidence": 0.7,
+        "note": "competitive loss loosely informs which driver to fix"
+      },
+      "Q24_intent": {
+        "choice": "behaviour",
+        "confidence": 0.9
+      },
+      "Q25_best_type": {
+        "choice": "current_type_is_best",
+        "confidence": 0.8
+      },
+      "L_needs_why": {
+        "p": 0.1
+      },
+      "L_hard_to_recall": {
+        "p": 0.05
+      },
+      "L_topic_jump": {
+        "p": 0.05
+      },
+      "L_is_demographic": {
+        "p": 0.03
+      },
+      "L_pressuring": {
+        "p": 0.02
+      },
+      "L_hard_to_read": {
+        "p": 0.05
+      },
+      "L_sensitive_topic": {
+        "p": 0.03
+      },
+      "L_duplicate_of_earlier": {
+        "p": 0.03
+      }
+    },
+    "Q8": {
+      "R_role": {
+        "choice": "information"
+      },
+      "Q1_clarity": {
+        "level": 3,
+        "confidence": 0.8
+      },
+      "Q2_double_barreled": {
+        "p": 0.05
+      },
+      "Q3a_leading": {
+        "p": 0.05
+      },
+      "Q3b_presuming": {
+        "p": 0.05
+      },
+      "Q13_grammar": {
+        "level": 2,
+        "confidence": 0.9
+      }
+    },
+    "Q9": {
+      "R_role": {
+        "choice": "question"
+      },
+      "Q1_clarity": {
+        "level": 3,
+        "confidence": 0.8
+      },
+      "Q2_double_barreled": {
+        "p": 0.05
+      },
+      "Q3a_leading": {
+        "p": 0.05
+      },
+      "Q3b_presuming": {
+        "p": 0.05
+      },
+      "Q4_jargon": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q5_relevance": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q6_options_not_exhaustive": {
+        "p": 0.1
+      },
+      "Q7_options_overlap": {
+        "p": 0.1
+      },
+      "Q8_scale_unbalanced": {
+        "p": 0.05
+      },
+      "Q9_type_fit": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q10_depends_on_prior": {
+        "p": 0.05
+      },
+      "Q11_requires_visual": {
+        "p": 0.02
+      },
+      "Q12_sensitive": {
+        "p": 0.03
+      },
+      "Q13_grammar": {
+        "level": 2,
+        "confidence": 0.9
+      },
+      "Q14_options_parallel": {
+        "p": 0.1
+      },
+      "Q15_abandon_risk": {
+        "level": 2,
+        "confidence": 0.8
+      },
+      "Q17_negative_wording": {
+        "p": 0.05
+      },
+      "Q18_hypothetical": {
+        "p": 0.05
+      },
+      "Q19_recall_period": {
+        "choice": "not_applicable",
+        "confidence": 0.8
+      },
+      "Q20_option_double_barreled": {
+        "p": 0.1
+      },
+      "Q21_social_desirability": {
+        "p": 0.1
+      },
+      "Q23_actionable": {
+        "level": 1,
+        "confidence": 0.7,
+        "note": "segments the driver ranking by team size"
+      },
+      "Q24_intent": {
+        "choice": "demographic",
+        "confidence": 0.9
+      },
+      "Q25_best_type": {
+        "choice": "current_type_is_best",
+        "confidence": 0.8
+      },
+      "L_needs_why": {
+        "p": 0.1
+      },
+      "L_hard_to_recall": {
+        "p": 0.05
+      },
+      "L_topic_jump": {
+        "p": 0.05
+      },
+      "L_is_demographic": {
+        "p": 0.95
+      },
+      "L_pressuring": {
+        "p": 0.02
+      },
+      "L_hard_to_read": {
+        "p": 0.05
+      },
+      "L_sensitive_topic": {
+        "p": 0.03
+      },
+      "L_duplicate_of_earlier": {
+        "p": 0.03
+      }
+    },
+    "Q10": {
+      "R_role": {
+        "choice": "question"
+      },
+      "Q1_clarity": {
+        "level": 3,
+        "confidence": 0.8
+      },
+      "Q2_double_barreled": {
+        "p": 0.05
+      },
+      "Q3a_leading": {
+        "p": 0.05
+      },
+      "Q3b_presuming": {
+        "p": 0.05
+      },
+      "Q4_jargon": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q5_relevance": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q6_options_not_exhaustive": {
+        "p": 0.1
+      },
+      "Q7_options_overlap": {
+        "p": 0.1
+      },
+      "Q9_type_fit": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q10_depends_on_prior": {
+        "p": 0.05
+      },
+      "Q11_requires_visual": {
+        "p": 0.02
+      },
+      "Q12_sensitive": {
+        "p": 0.03
+      },
+      "Q13_grammar": {
+        "level": 2,
+        "confidence": 0.9
+      },
+      "Q14_options_parallel": {
+        "p": 0.1
+      },
+      "Q15_abandon_risk": {
+        "level": 2,
+        "confidence": 0.8
+      },
+      "Q18_hypothetical": {
+        "p": 0.05
+      },
+      "Q19_recall_period": {
+        "choice": "not_applicable",
+        "confidence": 0.8
+      },
+      "Q20_option_double_barreled": {
+        "p": 0.1
+      },
+      "Q21_social_desirability": {
+        "p": 0.1
+      },
+      "Q23_actionable": {
+        "level": 1,
+        "confidence": 0.7,
+        "note": "admin step for follow-up interviews"
+      },
+      "Q24_intent": {
+        "choice": "contact_or_admin",
+        "confidence": 0.9
+      },
+      "Q25_best_type": {
+        "choice": "current_type_is_best",
+        "confidence": 0.8
+      },
+      "L_needs_why": {
+        "p": 0.1
+      },
+      "L_hard_to_recall": {
+        "p": 0.05
+      },
+      "L_topic_jump": {
+        "p": 0.05
+      },
+      "L_is_demographic": {
+        "p": 0.03
+      },
+      "L_pressuring": {
+        "p": 0.02
+      },
+      "L_hard_to_read": {
+        "p": 0.05
+      },
+      "L_sensitive_topic": {
+        "p": 0.03
+      },
+      "L_duplicate_of_earlier": {
+        "p": 0.03
+      }
+    },
+    "Q11": {
+      "R_role": {
+        "choice": "question"
+      },
+      "Q1_clarity": {
+        "level": 3,
+        "confidence": 0.8
+      },
+      "Q2_double_barreled": {
+        "p": 0.05
+      },
+      "Q3a_leading": {
+        "p": 0.05
+      },
+      "Q4_jargon": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q9_type_fit": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q10_depends_on_prior": {
+        "p": 0.05
+      },
+      "Q11_requires_visual": {
+        "p": 0.02
+      },
+      "Q12_sensitive": {
+        "p": 0.1,
+        "note": "email is an identifier, but the question is optional"
+      },
+      "Q13_grammar": {
+        "level": 2,
+        "confidence": 0.9
+      },
+      "Q15_abandon_risk": {
+        "level": 1,
+        "confidence": 0.8,
+        "note": "asks for an email, optional and gated"
+      },
+      "Q18_hypothetical": {
+        "p": 0.05
+      },
+      "Q19_recall_period": {
+        "choice": "not_applicable",
+        "confidence": 0.8
+      },
+      "Q21_social_desirability": {
+        "p": 0.1
+      },
+      "Q23_actionable": {
+        "level": 1,
+        "confidence": 0.7,
+        "note": "admin: arranges the call"
+      },
+      "Q24_intent": {
+        "choice": "contact_or_admin",
+        "confidence": 0.9
+      },
+      "Q25_best_type": {
+        "choice": "current_type_is_best",
+        "confidence": 0.8
+      },
+      "L_hard_to_recall": {
+        "p": 0.05
+      },
+      "L_topic_jump": {
+        "p": 0.05
+      },
+      "L_is_demographic": {
+        "p": 0.03
+      },
+      "L_pressuring": {
+        "p": 0.02
+      },
+      "L_hard_to_read": {
+        "p": 0.05
+      },
+      "L_sensitive_topic": {
+        "p": 0.03
+      },
+      "L_duplicate_of_earlier": {
+        "p": 0.03
+      }
+    }
+  }
+}

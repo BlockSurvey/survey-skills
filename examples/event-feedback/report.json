@@ -1,0 +1,201 @@
+{
+  "score": 96,
+  "grade": "A",
+  "verdict": "ready",
+  "summary": "96/100. Clean, focused, and ready to publish. Nothing worth roasting.",
+  "categories": [
+    {
+      "id": "purpose",
+      "label": "Purpose & framing",
+      "weight": 0.1,
+      "score": 98,
+      "findings": 0
+    },
+    {
+      "id": "structure",
+      "label": "Structure & flow",
+      "weight": 0.1,
+      "score": 92,
+      "findings": 0
+    },
+    {
+      "id": "coverage",
+      "label": "Coverage & gaps",
+      "weight": 0.15,
+      "score": 97,
+      "findings": 0
+    },
+    {
+      "id": "questions",
+      "label": "Question quality",
+      "weight": 0.2,
+      "score": 95,
+      "findings": 0
+    },
+    {
+      "id": "experience",
+      "label": "Respondent experience",
+      "weight": 0.3,
+      "score": 99,
+      "findings": 0
+    },
+    {
+      "id": "trust",
+      "label": "Trust & ethics",
+      "weight": 0.05,
+      "score": 95,
+      "findings": 0
+    },
+    {
+      "id": "conversion",
+      "label": "Conversion",
+      "weight": 0.1,
+      "score": 90,
+      "findings": 0
+    }
+  ],
+  "funnel": {
+    "start": {
+      "score": 98,
+      "drivers": [
+        "A9_sponsor_named",
+        "A10_deadline_stated",
+        "A5_privacy_stated"
+      ]
+    },
+    "continue": {
+      "score": 93,
+      "drivers": [
+        "Q15_abandon_risk:Q3"
+      ]
+    },
+    "finish": {
+      "score": 93,
+      "drivers": [
+        "B5_redundant_questions",
+        "B7_end_loading",
+        "B4_sections_signposted"
+      ]
+    },
+    "answer_quality": {
+      "score": 96,
+      "drivers": [
+        "Q6_options_not_exhaustive:Q5",
+        "Q7_options_overlap:Q1",
+        "Q20_option_double_barreled:Q11"
+      ]
+    },
+    "actionability": {
+      "score": 97,
+      "drivers": [
+        "Q23_actionable:Q1",
+        "C4_missing_why",
+        "C3_has_outcome_question"
+      ]
+    },
+    "predicted_completion_band": "high"
+  },
+  "findings": [],
+  "findings_by_id": [],
+  "questions": [
+    {
+      "ref": "Q1",
+      "type": "single_choice",
+      "role": "question",
+      "label": "How did you watch {event}?",
+      "required": true,
+      "score": 94,
+      "finding_ids": []
+    },
+    {
+      "ref": "Q2",
+      "type": "nps",
+      "role": "question",
+      "label": "How likely are you to recommend {event} to a friend or colleague?",
+      "required": true,
+      "score": 98,
+      "finding_ids": []
+    },
+    {
+      "ref": "Q3",
+      "type": "long_text",
+      "role": "question",
+      "label": "What is the main reason for your score?",
+      "required": false,
+      "score": 93,
+      "finding_ids": []
+    },
+    {
+      "ref": "Q5",
+      "type": "matrix",
+      "role": "question",
+      "label": "How valuable or not valuable was each type of session to you?",
+      "required": false,
+      "score": 93,
+      "finding_ids": []
+    },
+    {
+      "ref": "Q6",
+      "type": "multi_choice",
+      "role": "question",
+      "label": "Which session types would you drop or shorten next time? Select all that apply.",
+      "required": false,
+      "score": 98,
+      "finding_ids": []
+    },
+    {
+      "ref": "Q8",
+      "type": "likert",
+      "role": "question",
+      "label": "How satisfied or dissatisfied were you with the online event platform?",
+      "required": false,
+      "score": 96,
+      "finding_ids": []
+    },
+    {
+      "ref": "Q9",
+      "type": "single_choice",
+      "role": "question",
+      "label": "If we run {event} again next year, how likely or unlikely are you to attend?",
+      "required": false,
+      "score": 97,
+      "finding_ids": []
+    },
+    {
+      "ref": "Q10",
+      "type": "long_text",
+      "role": "question",
+      "label": "What one change would most improve the next edition?",
+      "required": false,
+      "score": 93,
+      "finding_ids": []
+    },
+    {
+      "ref": "Q11",
+      "type": "single_choice",
+      "role": "question",
+      "label": "Which best describes your role?",
+      "required": false,
+      "score": 95,
+      "finding_ids": []
+    }
+  ],
+  "stats": {
+    "top_level_questions": 11,
+    "answerable_questions": 9,
+    "required_answerable": 2,
+    "open_ended_questions": 2,
+    "pii_questions": 0,
+    "questions_with_logic": 1,
+    "estimated_minutes": 4.1,
+    "stated_minutes": 4
+  },
+  "meta": {
+    "rubric_version": "bs-skills-1.0",
+    "survey_kind": "feedback",
+    "audience_kind": "event_attendees",
+    "weight_profile": "event_feedback",
+    "partial": false,
+    "missing_items": []
+  }
+}

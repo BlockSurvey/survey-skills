@@ -1,0 +1,142 @@
+{
+  "title": "Quarterly pulse: how is work going? 4 anonymous minutes",
+  "description": "A short, anonymous quarterly check-in for everyone at {company}.",
+  "kind": "feedback",
+  "audience": "Everyone employed at {company} (about 120 people) during this quarter",
+  "purpose": "Decide which two engagement drivers HR acts on this quarter",
+  "sponsor": "{company} People team",
+  "language": "en",
+  "welcome": {
+    "title": "How is work going?",
+    "description": "This is the People team's quarterly pulse. Your answers decide the two things we work on this quarter, and we'll share the results and our plan with everyone.\n• For everyone at {company}\n• Takes about 4 minutes\n• Anonymous: we don't collect names or emails, and we only report groups of 5 or more\n• Voluntary: you can skip any question or stop at any time\n• Open until {date}. Questions? {contact}",
+    "button": "Start"
+  },
+  "thank_you": {
+    "title": "Thank you for your honesty",
+    "description": "We'll share the results and the two areas we'll act on at the all-hands on {date}, and report back on progress next quarter. Questions? {contact}"
+  },
+  "settings": {
+    "stated_minutes": 4,
+    "progress_bar": true,
+    "anonymous": true
+  },
+  "questions": [
+    {
+      "ref": "Q1",
+      "type": "nps",
+      "intent": "outcome",
+      "required": false,
+      "label": "How likely are you to recommend {company} as a place to work to a friend or colleague?",
+      "scale": {
+        "min": 0,
+        "max": 10,
+        "labels": {
+          "0": "Not at all likely",
+          "10": "Extremely likely"
+        }
+      }
+    },
+    {
+      "ref": "Q2",
+      "type": "long_text",
+      "intent": "open_feedback",
+      "required": false,
+      "label": "What is the main reason for your score?"
+    },
+    {
+      "ref": "Q3",
+      "type": "single_choice",
+      "intent": "attitude",
+      "required": false,
+      "label": "Compared with three months ago, how is working at {company} for you now?",
+      "options": [
+        "Much worse",
+        "Somewhat worse",
+        "About the same",
+        "Somewhat better",
+        "Much better",
+        "I joined less than three months ago"
+      ]
+    },
+    {
+      "ref": "Q4",
+      "type": "statement",
+      "role": "information",
+      "label": "Next: what shapes your work day to day"
+    },
+    {
+      "ref": "Q5",
+      "type": "matrix",
+      "intent": "attitude",
+      "required": false,
+      "label": "Thinking about the last three months, how much do you agree or disagree with each statement?",
+      "rows": [
+        "I understand how my work contributes to {company}'s goals",
+        "My manager gives me useful feedback",
+        "I have the tools I need to do my job well",
+        "My workload is manageable",
+        "I can see a path to grow my career here",
+        "I am recognised when I do good work",
+        "I can raise concerns without fear of negative consequences"
+      ],
+      "columns": [
+        "Strongly disagree",
+        "Disagree",
+        "Neither agree nor disagree",
+        "Agree",
+        "Strongly agree"
+      ]
+    },
+    {
+      "ref": "Q6",
+      "type": "multi_choice",
+      "intent": "attitude",
+      "required": false,
+      "label": "Which two of these would you most like us to work on this quarter? Choose up to two.",
+      "options": [
+        "Clarity on goals",
+        "Feedback from managers",
+        "Tools",
+        "Workload",
+        "Career growth",
+        "Recognition",
+        "Safety to speak up"
+      ],
+      "has_other": true,
+      "randomize_options": true,
+      "selection": {
+        "min": 1,
+        "max": 2
+      }
+    },
+    {
+      "ref": "Q7",
+      "type": "long_text",
+      "intent": "open_feedback",
+      "required": false,
+      "label": "What one change would make the biggest difference to your work this quarter?"
+    },
+    {
+      "ref": "Q8",
+      "type": "statement",
+      "role": "information",
+      "label": "One last, optional question"
+    },
+    {
+      "ref": "Q9",
+      "type": "single_choice",
+      "intent": "demographic",
+      "required": false,
+      "label": "Which area do you work in?",
+      "description": "So we can see where action is needed. We never report a group with fewer than 5 answers.",
+      "options": [
+        "Engineering",
+        "Product and design",
+        "Sales and marketing",
+        "Customer success and support",
+        "Operations, finance and HR"
+      ],
+      "has_prefer_not_to_answer": true
+    }
+  ]
+}

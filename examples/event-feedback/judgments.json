@@ -1,0 +1,1144 @@
+{
+  "rubric_version": "bs-skills-1.0",
+  "survey_kind": "feedback",
+  "audience_kind": "event_attendees",
+  "survey": {
+    "K_survey_kind": {
+      "choice": "feedback",
+      "confidence": 0.9,
+      "note": "post-event feedback: NPS, session value, platform, next year"
+    },
+    "X2_audience_kind": {
+      "choice": "event_attendees",
+      "confidence": 0.9,
+      "note": "'everyone who registered, live or on recording'"
+    },
+    "C5_gap_topic": {
+      "choice": "none",
+      "confidence": 0.65,
+      "note": "sessions, overall verdict, platform and return intent all covered"
+    },
+    "A1_title_specific": {
+      "level": 2,
+      "confidence": 0.85,
+      "note": "'How was {event}? 4 minutes to decide what we keep next time'"
+    },
+    "A2_title_respondent_facing": {
+      "level": 2,
+      "confidence": 0.85,
+      "note": "asks the attendee directly"
+    },
+    "A3_purpose_explained": {
+      "level": 3,
+      "confidence": 0.85,
+      "note": "'your answers decide which sessions we keep, which we drop, and whether we run {event} again'"
+    },
+    "A5_privacy_stated": {
+      "p": 0.95,
+      "note": "'Anonymous: we only look at answers in summary'"
+    },
+    "A6_audience_stated": {
+      "p": 0.95,
+      "note": "'For everyone who registered, live or on recording'"
+    },
+    "A7_objective_inferable": {
+      "level": 2,
+      "confidence": 0.8,
+      "note": "per-type value grid + drop list + return intent point at keep/drop and run-again"
+    },
+    "A8_respondent_benefit": {
+      "level": 2,
+      "confidence": 0.65,
+      "note": "attendees shape the next edition and get 'a summary of the feedback and our decision about next year'"
+    },
+    "A9_sponsor_named": {
+      "p": 0.95,
+      "note": "'We're the organising team'; sponsor '{event} organising team'"
+    },
+    "A10_deadline_stated": {
+      "p": 0.9,
+      "note": "'Open until {date}'"
+    },
+    "B1_logical_order": {
+      "level": 2,
+      "confidence": 0.8,
+      "note": "attendance -> overall NPS -> sessions -> platform -> next year -> role"
+    },
+    "B2_opening_question": {
+      "level": 2,
+      "confidence": 0.85,
+      "note": "Q1 'How did you watch {event}?' - one click, on topic"
+    },
+    "B3_demographics_placement": {
+      "level": 2,
+      "confidence": 0.85,
+      "note": "single role question last, 'So we can plan sessions for the people who come'"
+    },
+    "B4_sections_signposted": {
+      "p": 0.9,
+      "note": "Q4 'Next: the sessions', Q7 'Next: the online experience and next year'"
+    },
+    "B5_redundant_questions": {
+      "p": 0.3,
+      "note": "Q6 drop list partly follows from Q5 value grid, but asks for an explicit drop decision"
+    },
+    "B7_end_loading": {
+      "level": 1,
+      "confidence": 0.7,
+      "note": "Q10 open 'What one change...' sits second to last (optional)"
+    },
+    "B8_scale_direction_consistent": {
+      "p": 0.05,
+      "note": "value, satisfaction and likelihood scales all run low -> high"
+    },
+    "C1_objective_coverage": {
+      "level": 3,
+      "confidence": 0.75,
+      "note": "keep/drop: Q5, Q6; run again: Q2, Q9; reasons: Q3, Q10"
+    },
+    "C3_has_outcome_question": {
+      "p": 0.95,
+      "note": "Q2 'How likely are you to recommend {event}...'"
+    },
+    "C4_missing_why": {
+      "p": 0.1,
+      "note": "Q3 'What is the main reason for your score?' follows the NPS"
+    },
+    "C5_obvious_gap": {
+      "level": 2,
+      "confidence": 0.65,
+      "note": "scheduling/time zones not asked, but the decision does not hinge on them"
+    },
+    "C6_demographics_proportionate": {
+      "level": 2,
+      "confidence": 0.8,
+      "note": "one demographic (role) used to plan sessions"
+    },
+    "E1_tone_consistent": {
+      "level": 2,
+      "confidence": 0.85,
+      "note": "friendly 'we/you' voice throughout"
+    },
+    "E2_burden": {
+      "p": 0.05,
+      "note": "nothing to recall precisely; rows can be left blank"
+    },
+    "E3_thank_you_quality": {
+      "level": 2,
+      "confidence": 0.9,
+      "note": "'We'll email every registrant a summary ... and our decision about next year by {date}'"
+    },
+    "E4_welcome_motivates": {
+      "level": 2,
+      "confidence": 0.8,
+      "note": "'your answers decide which sessions we keep'"
+    },
+    "E5_reading_level": {
+      "level": 2,
+      "confidence": 0.85,
+      "note": "short, plain labels"
+    },
+    "E6_length_feels_justified": {
+      "level": 2,
+      "confidence": 0.85,
+      "note": "9 answerable questions for a 4-minute event survey"
+    },
+    "E7_welcome_scannable": {
+      "level": 2,
+      "confidence": 0.8,
+      "note": "one sentence, then bullets for audience, time, anonymity, voluntary, date, contact"
+    },
+    "E8_straightlining_risk": {
+      "level": 2,
+      "confidence": 0.75,
+      "note": "one 6-row grid; NPS, multi-select, single scale and text vary the format"
+    },
+    "E9_language_consistent": {
+      "p": 0.03,
+      "note": "English throughout"
+    },
+    "F1_sensitive_topics": {
+      "p": 0.02,
+      "note": "no sensitive topics"
+    },
+    "F3a_incentive_mentioned": {
+      "p": 0.02,
+      "note": "no incentive mentioned"
+    },
+    "F3b_incentive_delivery_clear": {
+      "p": 0.5,
+      "note": "no incentive, so no delivery to describe"
+    },
+    "F4_manipulative_framing": {
+      "p": 0.05,
+      "note": "'Voluntary: you can stop at any time'"
+    },
+    "F5_contact_provided": {
+      "p": 0.95,
+      "note": "'Questions? {contact}' on welcome and thank-you"
+    }
+  },
+  "questions": {
+    "Q1": {
+      "R_role": {
+        "choice": "question"
+      },
+      "Q1_clarity": {
+        "level": 3,
+        "confidence": 0.8
+      },
+      "Q2_double_barreled": {
+        "p": 0.05
+      },
+      "Q3a_leading": {
+        "p": 0.05
+      },
+      "Q3b_presuming": {
+        "p": 0.05
+      },
+      "Q4_jargon": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q5_relevance": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q6_options_not_exhaustive": {
+        "p": 0.1
+      },
+      "Q7_options_overlap": {
+        "p": 0.1
+      },
+      "Q8_scale_unbalanced": {
+        "p": 0.05
+      },
+      "Q9_type_fit": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q10_depends_on_prior": {
+        "p": 0.05
+      },
+      "Q11_requires_visual": {
+        "p": 0.02
+      },
+      "Q12_sensitive": {
+        "p": 0.03
+      },
+      "Q13_grammar": {
+        "level": 2,
+        "confidence": 0.9
+      },
+      "Q14_options_parallel": {
+        "p": 0.1
+      },
+      "Q15_abandon_risk": {
+        "level": 2,
+        "confidence": 0.8
+      },
+      "Q17_negative_wording": {
+        "p": 0.05
+      },
+      "Q18_hypothetical": {
+        "p": 0.05
+      },
+      "Q19_recall_period": {
+        "choice": "not_applicable",
+        "confidence": 0.8
+      },
+      "Q20_option_double_barreled": {
+        "p": 0.1
+      },
+      "Q21_social_desirability": {
+        "p": 0.1
+      },
+      "Q23_actionable": {
+        "level": 1,
+        "confidence": 0.7,
+        "note": "routes non-viewers out; viewing mode only loosely informs the decision"
+      },
+      "Q24_intent": {
+        "choice": "screener",
+        "confidence": 0.9
+      },
+      "Q25_best_type": {
+        "choice": "current_type_is_best",
+        "confidence": 0.8
+      },
+      "L_needs_why": {
+        "p": 0.1
+      },
+      "L_hard_to_recall": {
+        "p": 0.05
+      },
+      "L_topic_jump": {
+        "p": 0.05
+      },
+      "L_is_demographic": {
+        "p": 0.03
+      },
+      "L_pressuring": {
+        "p": 0.02
+      },
+      "L_hard_to_read": {
+        "p": 0.05
+      },
+      "L_sensitive_topic": {
+        "p": 0.03
+      },
+      "L_duplicate_of_earlier": {
+        "p": 0.03
+      }
+    },
+    "Q2": {
+      "R_role": {
+        "choice": "question"
+      },
+      "Q1_clarity": {
+        "level": 3,
+        "confidence": 0.8
+      },
+      "Q2_double_barreled": {
+        "p": 0.05
+      },
+      "Q3a_leading": {
+        "p": 0.05
+      },
+      "Q3b_presuming": {
+        "p": 0.05
+      },
+      "Q4_jargon": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q5_relevance": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q9_type_fit": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q10_depends_on_prior": {
+        "p": 0.05
+      },
+      "Q11_requires_visual": {
+        "p": 0.02
+      },
+      "Q12_sensitive": {
+        "p": 0.03
+      },
+      "Q13_grammar": {
+        "level": 2,
+        "confidence": 0.9
+      },
+      "Q15_abandon_risk": {
+        "level": 2,
+        "confidence": 0.8
+      },
+      "Q18_hypothetical": {
+        "p": 0.05
+      },
+      "Q19_recall_period": {
+        "choice": "not_applicable",
+        "confidence": 0.8
+      },
+      "Q21_social_desirability": {
+        "p": 0.1
+      },
+      "Q23_actionable": {
+        "level": 2,
+        "confidence": 0.8
+      },
+      "Q24_intent": {
+        "choice": "outcome",
+        "confidence": 0.9
+      },
+      "Q25_best_type": {
+        "choice": "current_type_is_best",
+        "confidence": 0.8
+      },
+      "L_hard_to_recall": {
+        "p": 0.05
+      },
+      "L_topic_jump": {
+        "p": 0.05
+      },
+      "L_is_demographic": {
+        "p": 0.03
+      },
+      "L_pressuring": {
+        "p": 0.02
+      },
+      "L_hard_to_read": {
+        "p": 0.05
+      },
+      "L_sensitive_topic": {
+        "p": 0.03
+      },
+      "L_duplicate_of_earlier": {
+        "p": 0.03
+      }
+    },
+    "Q3": {
+      "R_role": {
+        "choice": "question"
+      },
+      "Q1_clarity": {
+        "level": 3,
+        "confidence": 0.8
+      },
+      "Q2_double_barreled": {
+        "p": 0.05
+      },
+      "Q3a_leading": {
+        "p": 0.05
+      },
+      "Q3b_presuming": {
+        "p": 0.05
+      },
+      "Q4_jargon": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q5_relevance": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q9_type_fit": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q10_depends_on_prior": {
+        "p": 0.05
+      },
+      "Q11_requires_visual": {
+        "p": 0.02
+      },
+      "Q12_sensitive": {
+        "p": 0.03
+      },
+      "Q13_grammar": {
+        "level": 2,
+        "confidence": 0.9
+      },
+      "Q15_abandon_risk": {
+        "level": 1,
+        "confidence": 0.8,
+        "note": "long text, optional"
+      },
+      "Q18_hypothetical": {
+        "p": 0.05
+      },
+      "Q19_recall_period": {
+        "choice": "not_applicable",
+        "confidence": 0.8
+      },
+      "Q21_social_desirability": {
+        "p": 0.1
+      },
+      "Q23_actionable": {
+        "level": 2,
+        "confidence": 0.8
+      },
+      "Q24_intent": {
+        "choice": "open_feedback",
+        "confidence": 0.9
+      },
+      "Q25_best_type": {
+        "choice": "current_type_is_best",
+        "confidence": 0.8
+      },
+      "L_hard_to_recall": {
+        "p": 0.05
+      },
+      "L_topic_jump": {
+        "p": 0.05
+      },
+      "L_is_demographic": {
+        "p": 0.03
+      },
+      "L_pressuring": {
+        "p": 0.02
+      },
+      "L_hard_to_read": {
+        "p": 0.05
+      },
+      "L_sensitive_topic": {
+        "p": 0.03
+      },
+      "L_duplicate_of_earlier": {
+        "p": 0.03
+      }
+    },
+    "Q4": {
+      "R_role": {
+        "choice": "information"
+      },
+      "Q1_clarity": {
+        "level": 3,
+        "confidence": 0.8
+      },
+      "Q2_double_barreled": {
+        "p": 0.05
+      },
+      "Q3a_leading": {
+        "p": 0.05
+      },
+      "Q3b_presuming": {
+        "p": 0.05
+      },
+      "Q13_grammar": {
+        "level": 2,
+        "confidence": 0.9
+      }
+    },
+    "Q5": {
+      "R_role": {
+        "choice": "question"
+      },
+      "Q1_clarity": {
+        "level": 3,
+        "confidence": 0.8
+      },
+      "Q2_double_barreled": {
+        "p": 0.05
+      },
+      "Q3a_leading": {
+        "p": 0.05
+      },
+      "Q3b_presuming": {
+        "p": 0.05
+      },
+      "Q4_jargon": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q5_relevance": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q6_options_not_exhaustive": {
+        "p": 0.2,
+        "note": "no 'didn't watch' column, but 'Leave a row blank if you didn't watch that type'"
+      },
+      "Q8_scale_unbalanced": {
+        "p": 0.15,
+        "note": "unipolar 'Not at all valuable'..'Extremely valuable' scale"
+      },
+      "Q9_type_fit": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q10_depends_on_prior": {
+        "p": 0.05
+      },
+      "Q11_requires_visual": {
+        "p": 0.02
+      },
+      "Q12_sensitive": {
+        "p": 0.03
+      },
+      "Q13_grammar": {
+        "level": 2,
+        "confidence": 0.9
+      },
+      "Q14_options_parallel": {
+        "p": 0.05
+      },
+      "Q15_abandon_risk": {
+        "level": 1,
+        "confidence": 0.8,
+        "note": "6-row grid, optional"
+      },
+      "Q17_negative_wording": {
+        "p": 0.05
+      },
+      "Q18_hypothetical": {
+        "p": 0.05
+      },
+      "Q19_recall_period": {
+        "choice": "not_applicable",
+        "confidence": 0.8
+      },
+      "Q20_option_double_barreled": {
+        "p": 0.05
+      },
+      "Q21_social_desirability": {
+        "p": 0.1
+      },
+      "Q23_actionable": {
+        "level": 2,
+        "confidence": 0.8
+      },
+      "Q24_intent": {
+        "choice": "attitude",
+        "confidence": 0.9
+      },
+      "Q25_best_type": {
+        "choice": "current_type_is_best",
+        "confidence": 0.8
+      },
+      "L_needs_why": {
+        "p": 0.1
+      },
+      "L_hard_to_recall": {
+        "p": 0.05
+      },
+      "L_topic_jump": {
+        "p": 0.05
+      },
+      "L_is_demographic": {
+        "p": 0.03
+      },
+      "L_pressuring": {
+        "p": 0.02
+      },
+      "L_hard_to_read": {
+        "p": 0.05
+      },
+      "L_sensitive_topic": {
+        "p": 0.03
+      },
+      "L_duplicate_of_earlier": {
+        "p": 0.03
+      }
+    },
+    "Q6": {
+      "R_role": {
+        "choice": "question"
+      },
+      "Q1_clarity": {
+        "level": 3,
+        "confidence": 0.8
+      },
+      "Q2_double_barreled": {
+        "p": 0.05
+      },
+      "Q3a_leading": {
+        "p": 0.05
+      },
+      "Q3b_presuming": {
+        "p": 0.05
+      },
+      "Q4_jargon": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q5_relevance": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q6_options_not_exhaustive": {
+        "p": 0.05
+      },
+      "Q9_type_fit": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q10_depends_on_prior": {
+        "p": 0.05
+      },
+      "Q11_requires_visual": {
+        "p": 0.02
+      },
+      "Q12_sensitive": {
+        "p": 0.03
+      },
+      "Q13_grammar": {
+        "level": 2,
+        "confidence": 0.9
+      },
+      "Q14_options_parallel": {
+        "p": 0.1
+      },
+      "Q15_abandon_risk": {
+        "level": 2,
+        "confidence": 0.8
+      },
+      "Q18_hypothetical": {
+        "p": 0.4,
+        "note": "'would you drop or shorten next time' - a preference about a future edition"
+      },
+      "Q19_recall_period": {
+        "choice": "not_applicable",
+        "confidence": 0.8
+      },
+      "Q20_option_double_barreled": {
+        "p": 0.1
+      },
+      "Q21_social_desirability": {
+        "p": 0.1
+      },
+      "Q23_actionable": {
+        "level": 2,
+        "confidence": 0.8
+      },
+      "Q24_intent": {
+        "choice": "attitude",
+        "confidence": 0.9
+      },
+      "Q25_best_type": {
+        "choice": "current_type_is_best",
+        "confidence": 0.8
+      },
+      "L_needs_why": {
+        "p": 0.1
+      },
+      "L_hard_to_recall": {
+        "p": 0.05
+      },
+      "L_topic_jump": {
+        "p": 0.05
+      },
+      "L_is_demographic": {
+        "p": 0.03
+      },
+      "L_pressuring": {
+        "p": 0.02
+      },
+      "L_hard_to_read": {
+        "p": 0.05
+      },
+      "L_sensitive_topic": {
+        "p": 0.03
+      },
+      "L_duplicate_of_earlier": {
+        "p": 0.3,
+        "note": "related to Q5's value ratings but asks for an explicit drop choice"
+      }
+    },
+    "Q7": {
+      "R_role": {
+        "choice": "information"
+      },
+      "Q1_clarity": {
+        "level": 3,
+        "confidence": 0.8
+      },
+      "Q2_double_barreled": {
+        "p": 0.05
+      },
+      "Q3a_leading": {
+        "p": 0.05
+      },
+      "Q3b_presuming": {
+        "p": 0.05
+      },
+      "Q13_grammar": {
+        "level": 2,
+        "confidence": 0.9
+      }
+    },
+    "Q8": {
+      "R_role": {
+        "choice": "question"
+      },
+      "Q1_clarity": {
+        "level": 3,
+        "confidence": 0.8
+      },
+      "Q2_double_barreled": {
+        "p": 0.05
+      },
+      "Q3a_leading": {
+        "p": 0.05
+      },
+      "Q3b_presuming": {
+        "p": 0.05
+      },
+      "Q4_jargon": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q5_relevance": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q9_type_fit": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q10_depends_on_prior": {
+        "p": 0.05
+      },
+      "Q11_requires_visual": {
+        "p": 0.02
+      },
+      "Q12_sensitive": {
+        "p": 0.03
+      },
+      "Q13_grammar": {
+        "level": 2,
+        "confidence": 0.9
+      },
+      "Q15_abandon_risk": {
+        "level": 2,
+        "confidence": 0.8
+      },
+      "Q18_hypothetical": {
+        "p": 0.05
+      },
+      "Q19_recall_period": {
+        "choice": "not_applicable",
+        "confidence": 0.8
+      },
+      "Q21_social_desirability": {
+        "p": 0.1
+      },
+      "Q23_actionable": {
+        "level": 1,
+        "confidence": 0.6,
+        "note": "platform satisfaction loosely informs whether to run it again online"
+      },
+      "Q24_intent": {
+        "choice": "attitude",
+        "confidence": 0.9
+      },
+      "Q25_best_type": {
+        "choice": "current_type_is_best",
+        "confidence": 0.8
+      },
+      "L_hard_to_recall": {
+        "p": 0.05
+      },
+      "L_topic_jump": {
+        "p": 0.05
+      },
+      "L_is_demographic": {
+        "p": 0.03
+      },
+      "L_pressuring": {
+        "p": 0.02
+      },
+      "L_hard_to_read": {
+        "p": 0.05
+      },
+      "L_sensitive_topic": {
+        "p": 0.03
+      },
+      "L_duplicate_of_earlier": {
+        "p": 0.03
+      }
+    },
+    "Q9": {
+      "R_role": {
+        "choice": "question"
+      },
+      "Q1_clarity": {
+        "level": 3,
+        "confidence": 0.8
+      },
+      "Q2_double_barreled": {
+        "p": 0.05
+      },
+      "Q3a_leading": {
+        "p": 0.05
+      },
+      "Q3b_presuming": {
+        "p": 0.05
+      },
+      "Q4_jargon": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q5_relevance": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q6_options_not_exhaustive": {
+        "p": 0.1
+      },
+      "Q7_options_overlap": {
+        "p": 0.1
+      },
+      "Q8_scale_unbalanced": {
+        "p": 0.15,
+        "note": "two negative, 'Not sure', two positive - balanced"
+      },
+      "Q9_type_fit": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q10_depends_on_prior": {
+        "p": 0.05
+      },
+      "Q11_requires_visual": {
+        "p": 0.02
+      },
+      "Q12_sensitive": {
+        "p": 0.03
+      },
+      "Q13_grammar": {
+        "level": 2,
+        "confidence": 0.9
+      },
+      "Q14_options_parallel": {
+        "p": 0.1
+      },
+      "Q15_abandon_risk": {
+        "level": 2,
+        "confidence": 0.8
+      },
+      "Q17_negative_wording": {
+        "p": 0.05
+      },
+      "Q18_hypothetical": {
+        "p": 0.9,
+        "note": "'If we run {event} again next year, how likely ... to attend?'"
+      },
+      "Q19_recall_period": {
+        "choice": "not_applicable",
+        "confidence": 0.8
+      },
+      "Q20_option_double_barreled": {
+        "p": 0.1
+      },
+      "Q21_social_desirability": {
+        "p": 0.15
+      },
+      "Q23_actionable": {
+        "level": 2,
+        "confidence": 0.8
+      },
+      "Q24_intent": {
+        "choice": "outcome",
+        "confidence": 0.9
+      },
+      "Q25_best_type": {
+        "choice": "current_type_is_best",
+        "confidence": 0.8
+      },
+      "L_needs_why": {
+        "p": 0.1
+      },
+      "L_hard_to_recall": {
+        "p": 0.05
+      },
+      "L_topic_jump": {
+        "p": 0.05
+      },
+      "L_is_demographic": {
+        "p": 0.03
+      },
+      "L_pressuring": {
+        "p": 0.02
+      },
+      "L_hard_to_read": {
+        "p": 0.05
+      },
+      "L_sensitive_topic": {
+        "p": 0.03
+      },
+      "L_duplicate_of_earlier": {
+        "p": 0.03
+      }
+    },
+    "Q10": {
+      "R_role": {
+        "choice": "question"
+      },
+      "Q1_clarity": {
+        "level": 3,
+        "confidence": 0.8
+      },
+      "Q2_double_barreled": {
+        "p": 0.05
+      },
+      "Q3a_leading": {
+        "p": 0.05
+      },
+      "Q3b_presuming": {
+        "p": 0.05
+      },
+      "Q4_jargon": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q5_relevance": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q9_type_fit": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q10_depends_on_prior": {
+        "p": 0.05
+      },
+      "Q11_requires_visual": {
+        "p": 0.02
+      },
+      "Q12_sensitive": {
+        "p": 0.03
+      },
+      "Q13_grammar": {
+        "level": 2,
+        "confidence": 0.9
+      },
+      "Q15_abandon_risk": {
+        "level": 1,
+        "confidence": 0.8,
+        "note": "long text, optional"
+      },
+      "Q18_hypothetical": {
+        "p": 0.3
+      },
+      "Q19_recall_period": {
+        "choice": "not_applicable",
+        "confidence": 0.8
+      },
+      "Q21_social_desirability": {
+        "p": 0.1
+      },
+      "Q23_actionable": {
+        "level": 2,
+        "confidence": 0.8
+      },
+      "Q24_intent": {
+        "choice": "open_feedback",
+        "confidence": 0.9
+      },
+      "Q25_best_type": {
+        "choice": "current_type_is_best",
+        "confidence": 0.8
+      },
+      "L_hard_to_recall": {
+        "p": 0.05
+      },
+      "L_topic_jump": {
+        "p": 0.05
+      },
+      "L_is_demographic": {
+        "p": 0.03
+      },
+      "L_pressuring": {
+        "p": 0.02
+      },
+      "L_hard_to_read": {
+        "p": 0.05
+      },
+      "L_sensitive_topic": {
+        "p": 0.03
+      },
+      "L_duplicate_of_earlier": {
+        "p": 0.03
+      }
+    },
+    "Q11": {
+      "R_role": {
+        "choice": "question"
+      },
+      "Q1_clarity": {
+        "level": 3,
+        "confidence": 0.8
+      },
+      "Q2_double_barreled": {
+        "p": 0.05
+      },
+      "Q3a_leading": {
+        "p": 0.05
+      },
+      "Q3b_presuming": {
+        "p": 0.05
+      },
+      "Q4_jargon": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q5_relevance": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q6_options_not_exhaustive": {
+        "p": 0.05
+      },
+      "Q7_options_overlap": {
+        "p": 0.45,
+        "note": "a 'DevOps or platform engineer' is also a 'Software developer or engineer'"
+      },
+      "Q8_scale_unbalanced": {
+        "p": 0.05
+      },
+      "Q9_type_fit": {
+        "level": 2,
+        "confidence": 0.85
+      },
+      "Q10_depends_on_prior": {
+        "p": 0.05
+      },
+      "Q11_requires_visual": {
+        "p": 0.02
+      },
+      "Q12_sensitive": {
+        "p": 0.03
+      },
+      "Q13_grammar": {
+        "level": 2,
+        "confidence": 0.9
+      },
+      "Q14_options_parallel": {
+        "p": 0.1
+      },
+      "Q15_abandon_risk": {
+        "level": 2,
+        "confidence": 0.8
+      },
+      "Q17_negative_wording": {
+        "p": 0.05
+      },
+      "Q18_hypothetical": {
+        "p": 0.05
+      },
+      "Q19_recall_period": {
+        "choice": "not_applicable",
+        "confidence": 0.8
+      },
+      "Q20_option_double_barreled": {
+        "p": 0.3,
+        "note": "'Data or ML engineer' joins two roles"
+      },
+      "Q21_social_desirability": {
+        "p": 0.1
+      },
+      "Q23_actionable": {
+        "level": 1,
+        "confidence": 0.7,
+        "note": "segments session value by role"
+      },
+      "Q24_intent": {
+        "choice": "demographic",
+        "confidence": 0.9
+      },
+      "Q25_best_type": {
+        "choice": "current_type_is_best",
+        "confidence": 0.8
+      },
+      "L_needs_why": {
+        "p": 0.1
+      },
+      "L_hard_to_recall": {
+        "p": 0.05
+      },
+      "L_topic_jump": {
+        "p": 0.05
+      },
+      "L_is_demographic": {
+        "p": 0.95
+      },
+      "L_pressuring": {
+        "p": 0.02
+      },
+      "L_hard_to_read": {
+        "p": 0.05
+      },
+      "L_sensitive_topic": {
+        "p": 0.03
+      },
+      "L_duplicate_of_earlier": {
+        "p": 0.03
+      }
+    }
+  }
+}
