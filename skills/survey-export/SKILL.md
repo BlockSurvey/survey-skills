@@ -10,7 +10,7 @@ metadata:
 
 # Survey export
 
-What this skill does: it takes a finished survey in the portable JSON format, checks that it is normalised, writes it out with `scripts/survey_export.py` in the formats the user needs (markdown, plain text, CSV, JSON), and tells them exactly how to get it into their tool and what to re-check after import. It also runs the reverse path: a survey pasted from anywhere becomes portable JSON, with every guessed type flagged `inferred: true`. Per-format details, what each format keeps and loses, and import steps per tool are in [references/formats.md](references/formats.md).
+What this skill does: it takes a finished survey in the portable JSON format, checks that it is normalised, writes it out with the bundled `survey_export.py` in the formats the user needs (markdown, plain text, CSV, JSON), and tells them exactly how to get it into their tool and what to re-check after import. It also runs the reverse path: a survey pasted from anywhere becomes portable JSON, with every guessed type flagged `inferred: true`. Per-format details, what each format keeps and loses, and import steps per tool are in [references/formats.md](references/formats.md).
 
 ## When to use
 
@@ -28,21 +28,21 @@ What this skill does: it takes a finished survey in the portable JSON format, ch
 
 ## Procedure
 
-Run scripts from the skill directory with Python 3.9+ (`python3` where `python` is not on the PATH).
+`<skill-dir>` = the folder containing this SKILL.md (for example `~/.claude/skills/survey-export`). Run every command from the **user's** folder, the one holding their survey, so the exported files land next to the survey and never inside `<skill-dir>` (it may be read-only). Scripts need Python 3.9+ and nothing else; use `python3` if `python` is missing.
 
 1. **Normalise.** If the input is markdown or text, convert it first:
-   `python scripts/survey_export.py survey.md --format json --out survey.json`
+   `python <skill-dir>/scripts/survey_export.py survey.md --format json --out survey.json`
    Then open `survey.json` and list every question with `inferred: true` (type guessed from wording) in a **Check these** table: ref, label, guessed type, what to confirm. Also check: each question has a `ref`, `type` and `label`; refs are unique; every `Q…` mentioned in `shown_when` / `jumps` exists. If the input is already JSON, skip the conversion and run the same checks.
 2. **Pick formats for the target** using the table in [references/formats.md](references/formats.md#which-format-for-which-target): markdown for people, plain text for tool imports, CSV for spreadsheets, JSON to keep or move between skills.
-3. **Export.** Run one command per format from the skill directory (where `scripts/` lives), writing files rather than dumping to the chat:
+3. **Export.** Run one command per format, writing files rather than dumping to the chat:
    ```
-   python scripts/survey_export.py survey.json --format md  --out survey.md
-   python scripts/survey_export.py survey.json --format txt --out survey.txt
-   python scripts/survey_export.py survey.json --format csv --out survey.csv
-   python scripts/survey_export.py survey.json --format json --out survey.portable.json
+   python <skill-dir>/scripts/survey_export.py survey.json --format md  --out survey.md
+   python <skill-dir>/scripts/survey_export.py survey.json --format txt --out survey.txt
+   python <skill-dir>/scripts/survey_export.py survey.json --format csv --out survey.csv
+   python <skill-dir>/scripts/survey_export.py survey.json --format json --out survey.portable.json
    ```
    Exit code 0 is success, 2 means the input is not a readable survey (the one-line reason is printed): fix the input, don't guess.
-4. **Verify the round trip** when markdown is the hand-off: `python scripts/survey_export.py survey.md --format json --out roundtrip.json` and compare with the source JSON. The canonical markdown round-trips every field; settings equal to their defaults (for example `progress_bar: true`) are not written and come back absent, which means the same thing.
+4. **Verify the round trip** when markdown is the hand-off: `python <skill-dir>/scripts/survey_export.py survey.md --format json --out roundtrip.json` and compare with the source JSON. The canonical markdown round-trips every field; settings equal to their defaults (for example `progress_bar: true`) are not written and come back absent, which means the same thing.
 5. **Give the import steps** for the named tool from [references/formats.md](references/formats.md#import-steps-by-tool), shortened to the steps that apply, followed by the **After import, check** list for that tool (types that map loosely, logic to rebuild, settings to switch on).
 6. **Report what did not survive.** For the chosen format and tool, list what the user must redo by hand: skip / display logic (text notes in md and txt, not working rules in the tool), randomisation, "Other" text boxes, scale labels, exclusive options, time and anonymity settings, welcome / thank-you screens. Be specific to this survey: name the refs that carry logic.
 
@@ -84,8 +84,8 @@ Do not paste a long export into the chat when a file was written; show the first
 Input: `tests/fixtures/acme_feedback.json`, target "Typeform".
 
 ```
-python scripts/survey_export.py acme_feedback.json --format txt --out acme_feedback.txt
-python scripts/survey_export.py acme_feedback.json --format md  --out acme_feedback.md
+python <skill-dir>/scripts/survey_export.py acme_feedback.json --format txt --out acme_feedback.txt
+python <skill-dir>/scripts/survey_export.py acme_feedback.json --format md  --out acme_feedback.md
 ```
 
 Key output:

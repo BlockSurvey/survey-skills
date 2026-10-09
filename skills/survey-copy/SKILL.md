@@ -24,7 +24,7 @@ What this skill does: it writes every piece of text a respondent reads outside t
 Accept either:
 
 1. **A survey JSON** in the portable format ([references/survey-format.md](references/survey-format.md)). Read `title`, `description`, `kind`, `audience`, `purpose`, `sponsor`, `language`, `welcome`, `thank_you`, `settings.stated_minutes`, `settings.anonymous`, and scan the questions for `email` / `phone` / `collects_pii` (it decides what you may say about anonymity).
-2. **A survey in markdown or pasted text.** Normalise it first: save it to a file and run `python scripts/survey_export.py survey.md --format json --out survey.json`. Types it guessed carry `inferred: true`; they don't matter for copy, but mention that the file was normalised.
+2. **A survey in markdown or pasted text.** Normalise it first: save it to a file and run `python <skill-dir>/scripts/survey_export.py survey.md --format json --out survey.json`. Types it guessed carry `inferred: true`; they don't matter for copy, but mention that the file was normalised.
 3. **Just the facts**, no survey: title, purpose (the decision or what changes), audience, time in minutes, sponsor, incentive (what, how, when), deadline, contact, privacy handling, and whether it is research with people (consent needed).
 
 Optional: `--tone warm|neutral|formal` (default: warm for customer and event surveys, neutral for employee and feedback, formal for academic research, healthcare, government and senior B2B audiences), channel (email, in-app, SMS, Slack/Teams), sender name, and the survey link (otherwise `{link}`).
@@ -33,7 +33,7 @@ Facts you must not make up: sponsor, incentive, deadline, contact, privacy handl
 
 ## Procedure
 
-Run scripts from the skill directory with Python 3.9+ (`python3` where `python` is not on the PATH).
+`<skill-dir>` = the folder containing this SKILL.md (for example `~/.claude/skills/survey-copy`). Run every command from the **user's** folder, the one holding their survey, so `survey.json` stays next to the user's own files and never inside `<skill-dir>` (it may be read-only). Scripts need Python 3.9+ and nothing else; use `python3` if `python` is missing.
 
 1. **Collect the facts.** Produce a short fact sheet: sponsor, audience, purpose (what changes because of the answers), time (from `settings.stated_minutes`; if absent, use the estimate from a `survey-lint` or `survey-score` report, or ask; never round down), privacy (anonymous only if `settings.anonymous` is true **and** no question collects PII, else say who sees the answers), consent needed (`kind: research` or human-subjects study), incentive (what / how / when, or none), deadline (or none), contact, results-sharing promise. Mark each as given or `[placeholder]`.
 2. **Pick the tone and the angle.** Choose the tone (input or default above) and the WIIFM angle for the audience from [references/copy-patterns.md](references/copy-patterns.md) (customer, employee, event, research, lead-gen). Load that file now; you need its openers, privacy lines and words to avoid.
@@ -43,7 +43,7 @@ Run scripts from the skill directory with Python 3.9+ (`python3` where `python` 
 6. **Write two reminders.** Reminder 1, around day 3 ("halfway": the survey is still open, here is why it matters). Reminder 2, on the last day ("closes tonight" or "closes tomorrow", only if that is true). Three subject lines each (≤ 50 characters), body ≤ 80 words. Send only to non-respondents; if the tool cannot filter, add "If you've already answered, thank you, and please ignore this." No fake urgency, no guilt, no "last chance" when it is not (`F4_manipulative_framing`). If there is no deadline, reminder 2 becomes a plain final reminder with no time claim.
 7. **Write the SMS / chat variant.** ≤ 160 characters including `{link}` (count `{link}` as 23 characters, a typical short link) and, for SMS, the opt-out text the channel requires ("Reply STOP to opt out"). Sponsor, ask, time, link.
 8. **Check every piece in one pass** against the Quality bar below and build the checklist table. Count words with `len(text.split())` and characters with `len(text)`; fix anything over a limit before replying.
-9. **Update the JSON** (when one was given): replace `welcome` (`title`, `description`, `button`) and `thank_you` (`title`, `description`) with the new text, keep every other key untouched, set `settings.stated_minutes` if you stated a time it lacked. Write it back (as `survey.json` or the user's filename), then run `python scripts/survey_export.py survey.json --format md` and show the `## Welcome` and `## Thank you` sections so the user sees the result in place. Placeholders stay in the JSON as `[…]`; say so.
+9. **Update the JSON** (when one was given): replace `welcome` (`title`, `description`, `button`) and `thank_you` (`title`, `description`) with the new text, keep every other key untouched, set `settings.stated_minutes` if you stated a time it lacked. Write it back (as `survey.json` or the user's filename), then run `python <skill-dir>/scripts/survey_export.py survey.json --format md` and show the `## Welcome` and `## Thank you` sections so the user sees the result in place. Placeholders stay in the JSON as `[…]`; say so.
 
 ## Output contract
 
