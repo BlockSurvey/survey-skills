@@ -37,9 +37,15 @@ Success looks like: a user types "create a churn survey for a B2B SaaS" and gets
 
 ---
 
+## 1b. Owner decisions during the build (2026-10-09)
+
+- **Generic-first.** "It has to be generic for any survey to allow create anyone." Every skill, example, type name and template is tool-agnostic. BlockSurvey appears only as one export target, in the footer/CTA line, and in the type-mapping table.
+- **Optional API keys.** A `.env.example` carries placeholders for TypeSafe Jev (`TYPESAFE_API_KEY`, `TYPESAFE_MODEL`), OpenAI and Anthropic keys. An optional stdlib script `survey_judge.py` can run the rubric through one of those providers (one batched request, cost estimate printed first) for CI/batch use. Skills never require a key.
+- **Repo is live** at github.com/BlockSurvey/blocksurvey-skills; `main` is pushed after each completed task.
+
 ## 2. Non-goals (v1)
 
-- Calling any LLM API from scripts (no keys, no cost, no vendor lock).
+- Calling any LLM API from skills by default (no keys, no cost, no vendor lock). The optional `survey_judge.py` is opt-in via explicit `--provider`.
 - Reproducing BlockSurvey's **structural audit** of its raw JSON (logic-row states, stale keys). That is product-internal.
 - Running surveys, collecting responses, or analysing results.
 - A web UI. The repo is markdown + scripts.
