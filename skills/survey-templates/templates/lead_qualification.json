@@ -1,5 +1,5 @@
 {
-  "title": "Tell us what you need from {product}: 2 minutes to the right next step",
+  "title": "Tell us what you need from {product}: 3 minutes to the right next step",
   "description": "A few quick questions so the {team} at {company} can send you the right information or set up a demo that fits.",
   "kind": "form",
   "audience": "Visitors who asked for a demo or pricing for {product}",
@@ -8,7 +8,7 @@
   "language": "en",
   "welcome": {
     "title": "Let's find the right next step",
-    "description": "We're the {team} at {company}. A few quick questions help us send you the right information, or set up a demo that's worth your time.\n• Takes about 2 minutes\n• We use your details only to reply to this request, and never sell them\n• Questions? {contact}",
+    "description": "We're the {team} at {company}. A few quick questions help us send you the right information, or set up a demo that's worth your time.\n• Takes about 3 minutes\n• We use your details only to reply to this request, and never sell them\n• Questions? {contact}",
     "button": "Start"
   },
   "thank_you": {
@@ -16,7 +16,7 @@
     "description": "Someone from the {team} will reply within one working day. If you asked for a demo, you'll get a link to choose a time. Questions? {contact}"
   },
   "settings": {
-    "stated_minutes": 2,
+    "stated_minutes": 3,
     "progress_bar": true,
     "anonymous": false
   },

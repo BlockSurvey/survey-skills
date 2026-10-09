@@ -1,5 +1,5 @@
 {
-  "title": "How would you feel without {product}? A 3-minute research survey",
+  "title": "How would you feel without {product}? A 4-minute research survey",
   "description": "A short research survey for active users of {product}. Your answers show the {team} who {product} is essential for, and why.",
   "kind": "research",
   "audience": "People who have used {product} at least twice in the last 2 weeks",
@@ -8,7 +8,7 @@
   "language": "en",
   "welcome": {
     "title": "How would you feel without {product}?",
-    "description": "We're the {team} at {company}. We're learning who gets the most from {product} and why, so we can focus on what matters to people like you.\n• For anyone who has used {product} in the last 2 weeks\n• Takes about 3 minutes\n• Anonymous: only the {team} sees answers, in summary\n• Taking part is voluntary; you can stop at any time\n• Open until {date}. Questions? {contact}",
+    "description": "We're the {team} at {company}. We're learning who gets the most from {product} and why, so we can focus on what matters to people like you.\n• For anyone who has used {product} in the last 2 weeks\n• Takes about 4 minutes\n• Anonymous: only the {team} sees answers, in summary\n• Taking part is voluntary; you can stop at any time\n• Open until {date}. Questions? {contact}",
     "button": "Start"
   },
   "thank_you": {
@@ -16,7 +16,7 @@
     "description": "Your answers go straight into our product plan. We'll share a summary of what we learned within a month of {date}. Questions? {contact}"
   },
   "settings": {
-    "stated_minutes": 3,
+    "stated_minutes": 4,
     "progress_bar": true,
     "anonymous": true
   },

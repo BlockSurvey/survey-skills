@@ -1,6 +1,6 @@
 {
   "title": "How did we do? Rate your recent support from {company}",
-  "description": "Three minutes to tell us how your recent support conversation went, so the {team} can make the next one better.",
+  "description": "Four minutes to tell us how your recent support conversation went, so the {team} can make the next one better.",
   "kind": "feedback",
   "audience": "Customers who contacted {company} support in the last 7 days",
   "purpose": "Decide which part of the support experience (speed, knowledge, clarity, reachability) to improve first",
@@ -8,7 +8,7 @@
   "language": "en",
   "welcome": {
     "title": "How did we do?",
-    "description": "We're the {team} at {company}. You contacted us recently, and your answers help us decide what to fix first in how we support you.\n• Takes about 3 minutes\n• Anonymous: answers aren't linked to your support ticket\n• Voluntary: you can stop at any time\n• Open until {date}. Questions? {contact}",
+    "description": "We're the {team} at {company}. You contacted us recently, and your answers help us decide what to fix first in how we support you.\n• Takes about 4 minutes\n• Anonymous: answers aren't linked to your support ticket\n• Voluntary: you can stop at any time\n• Open until {date}. Questions? {contact}",
     "button": "Start"
   },
   "thank_you": {
@@ -16,7 +16,7 @@
     "description": "Every answer is read by the {team}. We review results every month and share what we changed on our help centre. Questions? {contact}"
   },
   "settings": {
-    "stated_minutes": 3,
+    "stated_minutes": 4,
     "progress_bar": true,
     "anonymous": true
   },

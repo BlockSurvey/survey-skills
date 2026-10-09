@@ -27,8 +27,18 @@
       "intent": "screener",
       "required": true,
       "label": "How did you take part in {event}?",
-      "options": ["In person", "Online", "Both in person and online", "I registered but didn't attend"],
-      "jumps": [{ "when": "Q1 is 'I registered but didn''t attend'", "to": "end" }]
+      "options": [
+        "In person",
+        "Online",
+        "Both in person and online",
+        "I registered but didn't attend"
+      ],
+      "jumps": [
+        {
+          "when": "Q1 is 'I registered but didn''t attend'",
+          "to": "end"
+        }
+      ]
     },
     {
       "ref": "Q2",
@@ -36,7 +46,14 @@
       "intent": "outcome",
       "required": true,
       "label": "How likely are you to recommend {event} to a friend or colleague?",
-      "scale": { "min": 0, "max": 10, "labels": { "0": "Not at all likely", "10": "Extremely likely" } }
+      "scale": {
+        "min": 0,
+        "max": 10,
+        "labels": {
+          "0": "Not at all likely",
+          "10": "Extremely likely"
+        }
+      }
     },
     {
       "ref": "Q3",
@@ -51,8 +68,20 @@
       "intent": "attitude",
       "required": false,
       "label": "How satisfied or dissatisfied were you with each part of {event}?",
-      "rows": ["The sessions and speakers", "Chances to meet other attendees", "The venue or online platform", "The schedule and pacing", "Information before the event"],
-      "columns": ["Very dissatisfied", "Dissatisfied", "Neither", "Satisfied", "Very satisfied"]
+      "rows": [
+        "The sessions and speakers",
+        "Chances to meet other attendees",
+        "The venue or online platform",
+        "The schedule and pacing",
+        "Information before the event"
+      ],
+      "columns": [
+        "Very dissatisfied",
+        "Dissatisfied",
+        "Neither",
+        "Satisfied",
+        "Very satisfied"
+      ]
     },
     {
       "ref": "Q5",
@@ -60,7 +89,13 @@
       "intent": "attitude",
       "required": false,
       "label": "How did you find the overall length of {event}?",
-      "options": ["Much too short", "A little too short", "About right", "A little too long", "Much too long"]
+      "options": [
+        "Much too short",
+        "A little too short",
+        "About right",
+        "A little too long",
+        "Much too long"
+      ]
     },
     {
       "ref": "Q6",
@@ -75,7 +110,14 @@
       "intent": "attitude",
       "required": false,
       "label": "How likely are you to attend the next edition of {event}?",
-      "options": ["Very unlikely", "Unlikely", "Not sure", "Likely", "Very likely"]
+      "options": [
+        "Very unlikely",
+        "Unlikely",
+        "Neither likely nor unlikely",
+        "Likely",
+        "Very likely",
+        "Not sure yet"
+      ]
     },
     {
       "ref": "Q8",
@@ -84,7 +126,13 @@
       "required": false,
       "label": "Which best describes your role?",
       "description": "So we can plan content for the people who come.",
-      "options": ["Individual contributor", "Team lead or manager", "Director or executive", "Founder or business owner", "Student or researcher"],
+      "options": [
+        "Individual contributor",
+        "Team lead or manager",
+        "Director or executive",
+        "Founder or business owner",
+        "Student or researcher"
+      ],
       "has_other": true,
       "has_prefer_not_to_answer": true
     }

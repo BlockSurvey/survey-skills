@@ -4,13 +4,16 @@
 No LLM: counts, thresholds and structure. The only source of blockers. Hybrid checks (S22, S23, S25, S26)
 need judge evidence and live in the score calculator, not here.
 
-    python survey_lint.py survey.json [--json] [--polite]
+    python survey_lint.py survey.json [--json] [--polite] [--stats]
+
+--stats prints survey stats (counts, open-ended share, estimated minutes) instead of findings, exit 0.
 
 Exit codes: 0 ok, 1 any blocker/high finding, 2 invalid input.
 Stdlib only, Python >= 3.9.
 """
 
 import json
+import math
 import os
 import re
 import sys
@@ -27,7 +30,7 @@ SEVERITY_ORDER = {"blocker": 0, "high": 1, "medium": 2, "low": 3, "info": 4}
 
 # --- numeric ranges (S12): port of static_checks.parse_range / numeric_range_issues -----------
 
-_NUM = r"(?:£|\$|€)?\s*(\d+(?:[.,]\d+)?)\s*(k|m)?"
+_NUM = r"(?:£|\$|€)?\s*(\d+(?:[.,]\d+)?)\s*(?:(k|m)\b)?"  # \b: "5 minutes" is not 5 million
 _RANGE = re.compile(rf"^\s*{_NUM}\s*(?:-|–|—|to)\s*{_NUM}\s*(?:\w+)?\s*$", re.I)
 _UNDER = re.compile(rf"^\s*(?:under|below|less than|fewer than|<)\s*{_NUM}", re.I)
 _UP_TO = re.compile(rf"^\s*(?:up to|<=|≤)\s*{_NUM}", re.I)
@@ -580,6 +583,23 @@ def _shouting(label: str, opts: List[str]) -> bool:
     return any(o and not _HAS_ALNUM.search(o) for o in opts)
 
 
+STATS_KEYS = ("answerable_questions", "required_answerable", "open_ended_questions", "open_ended_share",
+              "pii_questions", "questions_with_logic", "estimated_minutes", "estimated_minutes_rounded_up",
+              "stated_minutes")
+
+
+def stats(survey) -> Dict:
+    """Survey stats for authors (--stats): counts, open-ended share, estimated and stated minutes.
+
+    `estimated_minutes_rounded_up` (ceil) is the time a welcome screen should promise."""
+    st = normalise(survey)["stats"]
+    n = st["answerable_questions"]
+    est = st["estimated_minutes"]
+    extra = {"open_ended_share": round(st["open_ended_questions"] / n, 2) if n else 0.0,
+             "estimated_minutes_rounded_up": int(math.ceil(est)) if est else 0}
+    return {k: st.get(k, extra.get(k)) for k in STATS_KEYS}
+
+
 # --- CLI ------------------------------------------------------------------------------------
 
 def _cell(x) -> str:
@@ -604,12 +624,21 @@ def main(argv: Optional[List[str]] = None) -> int:
     args = list(sys.argv[1:] if argv is None else argv)
     as_json = "--json" in args
     polite = "--polite" in args
+    want_stats = "--stats" in args
     paths = [a for a in args if not a.startswith("--")]
     if len(paths) != 1:
-        print("usage: survey_lint.py survey.json [--json] [--polite]", file=sys.stderr)
+        print("usage: survey_lint.py survey.json [--json] [--polite] [--stats]", file=sys.stderr)
         return 2
     try:
         survey = load_survey(paths[0])
+        if want_stats:
+            st = stats(survey)
+            if as_json:
+                print(json.dumps(st, indent=2, ensure_ascii=False))
+            else:
+                print("| stat | value |\n| --- | --- |")
+                print("\n".join(f"| {k} | {'-' if v is None else v} |" for k, v in st.items()))
+            return 0
         findings = run(survey)
     except Exception as e:  # noqa: BLE001 - the CLI never tracebacks; run() itself still raises for tests
         msg = str(e) if isinstance(e, ValueError) else f"survey_lint: unexpected error: {type(e).__name__}: {e}"

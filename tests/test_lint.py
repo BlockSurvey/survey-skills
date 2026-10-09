@@ -696,3 +696,52 @@ def test_cli_unexpected_error_exits_2(monkeypatch, capsys):
     assert survey_lint.main(["x.json"]) == 2
     err = capsys.readouterr().err
     assert "kaboom" in err and len(err.strip().splitlines()) == 1
+
+
+# --- unit words after numbers are not k/m suffixes (S12) -----------------------------------
+
+def test_unit_word_starting_with_m_is_not_millions():
+    assert numeric_range_issues(["5–14 minutes", "15–29 minutes", "30+ minutes"]) == []
+    assert numeric_range_issues(["Less than 3 months", "3–11 months", "12–24 months", "More than 24 months"]) == []
+    assert parse_range("5–14 minutes")[:2] == (5.0, 14.0)
+
+
+def test_millions_and_thousands_suffixes_still_parse():
+    assert parse_range("£25-40k")[:2] == (25000.0, 40000.0)
+    assert parse_range("5m+")[:2] == (5000000.0, None)
+    issues = numeric_range_issues(["0–1m", "1–5m", "5m+"])
+    assert issues and all("000000" in i for i in issues)
+
+
+# --- --stats ---------------------------------------------------------------------------------
+
+STATS_KEYS = {"answerable_questions", "required_answerable", "open_ended_questions", "open_ended_share",
+              "pii_questions", "questions_with_logic", "estimated_minutes", "estimated_minutes_rounded_up",
+              "stated_minutes"}
+
+
+def test_stats_cli_json_keys_and_values():
+    r = subprocess.run([sys.executable, str(LINT), str(FIXTURES / "acme_feedback.json"), "--stats", "--json"],
+                       capture_output=True, text=True)
+    assert r.returncode == 0
+    st = json.loads(r.stdout)
+    assert set(st) == STATS_KEYS
+    # survey-format.md: 10 + 15 + 8 + 60 + 8*3 + 60 + 10 + 10 = 197 s ≈ 3.3 min
+    assert st["estimated_minutes"] == 3.3
+    assert st["estimated_minutes_rounded_up"] == 4
+    assert st["stated_minutes"] == 3
+    assert st["answerable_questions"] == 8 and st["open_ended_questions"] == 2
+    assert st["open_ended_share"] == 0.25
+
+
+def test_stats_cli_table():
+    r = subprocess.run([sys.executable, str(LINT), str(FIXTURES / "acme_feedback.json"), "--stats"],
+                       capture_output=True, text=True)
+    assert r.returncode == 0
+    assert "| estimated_minutes_rounded_up | 4 |" in r.stdout
+
+
+def test_stats_empty_survey():
+    from survey_lint import stats
+    st = stats({"title": "x", "questions": []})
+    assert st["open_ended_share"] == 0.0 and st["estimated_minutes_rounded_up"] == 0

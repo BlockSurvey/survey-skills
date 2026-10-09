@@ -26,9 +26,17 @@
       "type": "yes_no",
       "intent": "screener",
       "required": true,
-      "label": "Do you choose or pay for software tools, for yourself or for a team?",
-      "options": ["Yes", "No"],
-      "jumps": [{ "when": "Q1 is 'No'", "to": "end" }]
+      "label": "Do you choose or pay for tools like {product}, for yourself or for a team?",
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "jumps": [
+        {
+          "when": "Q1 is 'No'",
+          "to": "end"
+        }
+      ]
     },
     {
       "ref": "Q2",
@@ -36,7 +44,12 @@
       "intent": "behaviour",
       "required": true,
       "label": "What do you use today for the job {product} does?",
-      "options": ["A paid product", "A free product", "A spreadsheet or manual process", "Nothing yet"],
+      "options": [
+        "A paid product",
+        "A free product",
+        "A spreadsheet or manual process",
+        "Nothing yet"
+      ],
       "has_other": true
     },
     {
@@ -46,7 +59,9 @@
       "required": false,
       "label": "Roughly how much do you pay for it today, per month?",
       "description": "In {currency} per month. A rough figure is fine.",
-      "scale": { "min": 0 },
+      "scale": {
+        "min": 0
+      },
       "shown_when": "Q2 is 'A paid product'"
     },
     {
@@ -58,7 +73,13 @@
       "scale": {
         "min": 1,
         "max": 5,
-        "labels": { "1": "Very dissatisfied", "2": "Dissatisfied", "3": "Neither satisfied nor dissatisfied", "4": "Satisfied", "5": "Very satisfied" }
+        "labels": {
+          "1": "Very dissatisfied",
+          "2": "Dissatisfied",
+          "3": "Neither satisfied nor dissatisfied",
+          "4": "Satisfied",
+          "5": "Very satisfied"
+        }
       },
       "shown_when": "Q2 is not 'Nothing yet'"
     },
@@ -76,7 +97,9 @@
       "required": true,
       "label": "At what monthly price would {product} be so cheap that you'd doubt its quality?",
       "description": "In {currency} per month.",
-      "scale": { "min": 0 }
+      "scale": {
+        "min": 0
+      }
     },
     {
       "ref": "Q7",
@@ -85,7 +108,9 @@
       "required": true,
       "label": "At what monthly price would {product} be a bargain, a great buy for the money?",
       "description": "In {currency} per month.",
-      "scale": { "min": 0 }
+      "scale": {
+        "min": 0
+      }
     },
     {
       "ref": "Q8",
@@ -94,7 +119,9 @@
       "required": true,
       "label": "At what monthly price would {product} start to feel expensive, so you'd think twice before buying?",
       "description": "In {currency} per month.",
-      "scale": { "min": 0 }
+      "scale": {
+        "min": 0
+      }
     },
     {
       "ref": "Q9",
@@ -103,7 +130,9 @@
       "required": true,
       "label": "At what monthly price would {product} be so expensive that you wouldn't consider buying it?",
       "description": "In {currency} per month.",
-      "scale": { "min": 0 }
+      "scale": {
+        "min": 0
+      }
     },
     {
       "ref": "Q10",
@@ -114,7 +143,13 @@
       "scale": {
         "min": 1,
         "max": 5,
-        "labels": { "1": "Not at all interested", "2": "Slightly interested", "3": "Moderately interested", "4": "Very interested", "5": "Extremely interested" }
+        "labels": {
+          "1": "Not at all interested",
+          "2": "Slightly interested",
+          "3": "Moderately interested",
+          "4": "Very interested",
+          "5": "Extremely interested"
+        }
       }
     },
     {
@@ -123,7 +158,11 @@
       "intent": "behaviour",
       "required": false,
       "label": "Who usually pays for tools like this?",
-      "options": ["I pay personally", "My organisation pays", "It depends on the tool"],
+      "options": [
+        "I pay personally",
+        "My organisation pays",
+        "It depends on the tool"
+      ],
       "has_other": true
     },
     {
@@ -133,7 +172,13 @@
       "required": false,
       "label": "How many people work at your organisation?",
       "description": "So we can see whether price expectations differ by organisation size.",
-      "options": ["Just me", "2–9", "10–49", "50–249", "250 or more"],
+      "options": [
+        "Just me",
+        "2–9",
+        "10–49",
+        "50–249",
+        "250 or more"
+      ],
       "has_prefer_not_to_answer": true
     }
   ]

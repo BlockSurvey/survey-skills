@@ -33,12 +33,15 @@ Accept any of: a one-line brief, a longer brief, notes, a list of draft question
 | Incentive | no | none (never invent one) |
 | Anonymous or not | no | anonymous, unless the survey needs contact details |
 | Language | no | the brief's language |
+| **Audience of one** ("we just lost a customer", one account, one person) | no | Say that a 20-minute interview is the better instrument and offer an interview guide; if they still want a survey: no screener, not anonymous (you know who it is), shareables written as themes not percentages, ≤ 8 questions, mostly closed with 2–3 optional open questions |
 
 **Clarifying questions: at most 3, in one message, and only for decision, audience or channel when they truly cannot be inferred.** Otherwise state your assumptions in the brief and proceed. A brief like "a churn survey for a B2B SaaS" needs zero questions: the decision, audience and channel are all inferable.
 
-If the input is a pasted list of questions, normalise it first: `python scripts/survey_export.py draft.md --format json --out draft.json` (guessed types are marked `inferred: true`; confirm them).
+If the input is a pasted list of questions, normalise it first: `python <skill-dir>/scripts/survey_export.py draft.md --format json --out draft.json` (guessed types are marked `inferred: true`; confirm them).
 
 ## Procedure
+
+`<skill-dir>` = the folder containing this SKILL.md (for example `~/.claude/skills/survey-create`). Run every command from the **user's** folder, so `survey.json`, `survey.md` and any drafts are written next to the user's own files and never inside `<skill-dir>`. Scripts need Python 3.9+ and nothing else; use `python3` if `python` is missing.
 
 Work in one pass. Load [playbook.md](references/playbook.md) once (it holds the rules and the pre-flight checklist); open [question-types.md](references/question-types.md), [survey-format.md](references/survey-format.md) or [static-checks.md](references/static-checks.md) only when a step needs a detail they hold. For worked examples, see [examples.md](references/examples.md).
 
@@ -63,12 +66,12 @@ Work in one pass. Load [playbook.md](references/playbook.md) once (it holds the 
    - **Demographics last**, only those you will cut the data by (≤ 25 % of questions), each optional with a one-line reason in `description` ("So we can compare answers across team sizes") and `has_prefer_not_to_answer`. Sensitive questions (age, gender, income, health…) also set `sensitive: true`. (B3, C6, Q12, Q16, S23)
    - **Contact details** only when needed, optional, after the content, gated by a "Would you be open to a call?" `yes_no`; never on an anonymous survey. (S21, S48)
    - **Every entry has a role**: questions collect, `statement`s inform (`role: information`), `consent` asks for agreement (`role: consent`). (R_role)
-6. **Set honest settings.** Estimate time from [question-types.md](references/question-types.md#seconds-per-type) (closed ≈ 10 s, matrix 8 s per row, `long_text` 60 s, `short_text` 30 s, statement 8 s). Set `settings.stated_minutes` to the estimate rounded to the nearest whole minute (round up when in doubt), and use the same number in the welcome and title. Set `anonymous` (false if you collect contact details) and `progress_bar: true`. (S15, S16, S21, S24)
+6. **Set honest settings.** Save the draft as `survey.json` and run `python <skill-dir>/scripts/survey_lint.py survey.json --stats --json`. It prints the question counts, `open_ended_share`, `estimated_minutes` (from the seconds per type in [question-types.md](references/question-types.md#seconds-per-type)) and `estimated_minutes_rounded_up`. Set `settings.stated_minutes` to `estimated_minutes_rounded_up`, and use that same number in the welcome and title; never estimate by hand when the script can run. Re-run `--stats` after any change to the questions. Set `anonymous` (false if you collect contact details) and `progress_bar: true`. (S15, S16, S21, S24)
 7. **Self-check.**
-   - Save the survey as `survey.json` and run `python scripts/survey_lint.py survey.json --json`. Exit code 0 means no blocker or high finding. Fix every **blocker** and **high** finding, then re-run until clean. Fix medium and low findings too unless the brief justifies them; list any you keep, with the reason.
+   - Run `python <skill-dir>/scripts/survey_lint.py survey.json --json`. Exit code 0 means no blocker or high finding. Fix every **blocker** and **high** finding, then re-run until clean. Fix medium and low findings too unless the brief justifies them; list any you keep, with the reason.
    - Walk the playbook's **Pre-flight checklist** (Decide, Start, Continue, Finish, Answer quality, Actionability) in one pass. Record the ids you satisfied per stage, and any rule you bent with the reason (for example "C2: no screener, the audience is everyone on the mailing list").
 8. **Score, if available.** If the `survey-score` skill is installed, score `survey.json` with it and revise against its top findings until the score is **≥ 85 or after two revision passes**, whichever comes first. Re-run lint after each revision. If it is not installed, skip this step and say so in the self-check.
-9. **Export and hand over.** Run `python scripts/survey_export.py survey.json --format md --out survey.md` and emit the output contract below. Keep `survey.json` and `survey.md` on disk when you have file access.
+9. **Export and hand over.** Run `python <skill-dir>/scripts/survey_export.py survey.json --format md --out survey.md` and emit the output contract below. Keep `survey.json` and `survey.md` on disk when you have file access.
 
 ## Output contract
 
@@ -94,7 +97,7 @@ Emit exactly these sections, in this order, with these headings:
 
 ## Self-check
 - **Lint:** 0 blocker · 0 high · N medium · N low (each remaining finding: id, ref, why it stays)
-- **Time:** estimated X.X min, stated M min
+- **Time:** `--stats`: estimated X.X min, rounded up M, stated M min (stated must equal rounded up)
 - **Checklist:** Decide: ids … · Start: ids … · Continue: ids … · Finish: ids … · Answer quality: ids … · Actionability: ids …
 - **Bent rules:** id: reason (or "None.")
 - **Score:** NN/100 after K passes (or "survey-score not installed; not scored.")
@@ -120,8 +123,8 @@ Before replying, confirm every line:
 - [ ] First question closed and easy; nothing required and demanding in the first three; outcome question in the first half. (B2, S46, S51, Q24)
 - [ ] Open-ended ≤ 30 % and late; demographics last, optional, with reasons and "Prefer not to answer". (S34, B7, B3, C6, S23)
 - [ ] Options exhaustive, exclusive, parallel; scales balanced, labelled, one direction; NPS standard. (Q6, Q7, Q14, Q8, B8, S36, S37)
-- [ ] `stated_minutes` matches the estimate and the welcome; no PII on an anonymous survey. (S16, S21)
-- [ ] `python scripts/survey_lint.py survey.json --json` shows no blocker or high finding; the JSON validates against the schema (only `title`, `questions`, and each question's `ref`, `type`, `label` are required; types are from the 20 portable types).
+- [ ] `stated_minutes`, the welcome and the title all equal `estimated_minutes_rounded_up` from `--stats`; no PII on an anonymous survey. (S16, S21)
+- [ ] `python <skill-dir>/scripts/survey_lint.py survey.json --json` shows no blocker or high finding; the JSON validates against the schema (only `title`, `questions`, and each question's `ref`, `type`, `label` are required; types are from the 20 portable types).
 - [ ] Output has exactly the five contract sections, and the markdown is the script's output, not hand-written (unless in fallback).
 
 ## Example
@@ -133,8 +136,8 @@ Before replying, confirm every line:
 - **Decision:** After this survey we will decide which two churn drivers to address in next quarter's roadmap.
 - **Shareables:** "The top reason teams leave is …"; "X % were satisfied right up to leaving, so price or fit, not quality, drove it"; "Teams that left for a competitor went to …"; "Churn reasons differ (or don't) by team size".
 - **Assumptions:** audience = account admins who cancelled or downgraded in the last 30 days; channel = email one day after cancellation; not anonymous (optional follow-up call).
-- **Questions (11):** Q1 screener "What happened to your team's subscription in the last 30 days?" → end if nothing changed · Q2 main reason (8 randomised options + Other) · Q3/Q4 gated follow-ups (which tool, which features) · Q5 satisfaction before leaving (outcome, 5-point labelled) · … · demographics last with reasons · optional call `yes_no` gating an email.
-- **Self-check:** Lint 0 blocker · 0 high · 0 medium · 0 low; estimated 3.3 min, stated 4.
+- **Questions (12):** Q1 screener "What happened to your team's subscription in the last 30 days?" → end if nothing changed · Q2 main reason (7 randomised options + Other) · Q3 "Did your team move to another tool?" gating Q4 "Which tool?" · Q5 missing features, gated on Q2 · Q6 satisfaction before leaving (outcome, 5-point labelled) · … · demographics last with reasons · optional call `yes_no` gating an email.
+- **Self-check:** Lint 0 blocker · 0 high · 0 medium · 0 low; `--stats` estimated 3.4 min, rounded up 4, stated 4.
 - **Why this will convert, line 2:** "Continue: one-click screener with an exit, then the main reason as a closed question; no required typing in the first three (B2, S41, S46, S51)."
 
 ## No-Python fallback
@@ -143,7 +146,7 @@ If scripts cannot run (plain chat, no shell):
 
 1. Write the JSON by hand following [survey-format.md](references/survey-format.md); check that `title` and `questions` exist and every question has `ref`, `type` (one of the 20 portable types) and `label`.
 2. Lint by hand against these thresholds from [static-checks.md](references/static-checks.md): title present (S01); ≥ 2 options on every choice question (S04); no numeric range gaps or overlaps (S12); "select all" only on `multi_choice` (S13); screener has an exit (S41); first answerable question not open text (S46); nothing required and demanding in the first three (S51); no PII before the outcome question (S48); open-ended ≤ 30 % (S34); grids ≤ 5 × 8 (S30), no two grids adjacent (S31); labels ≤ 35 words (S43); welcome ≤ 120 words (S50); no PII when anonymous (S21); `yes_no` labels start with Do/Are/Have… (S45); NPS 0–10 with "likely" (S37).
-3. Estimate time by hand: Σ seconds per type ÷ 60.
+3. Estimate time by hand: Σ seconds per type ÷ 60 (closed ≈ 10 s, matrix 8 s per row, `long_text` 60 s, `short_text` 30 s, statement 8 s), rounded up.
 4. Write the markdown by hand using the template in [survey-format.md](references/survey-format.md#markdown-form).
 5. In the self-check, write "Lint: manual (scripts unavailable)" and list the checks you walked.
 

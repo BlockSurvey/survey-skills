@@ -27,8 +27,18 @@
       "intent": "screener",
       "required": true,
       "label": "What did you change about your {product} subscription in the last 30 days?",
-      "options": ["Cancelled it", "Downgraded to a cheaper plan", "Paused it", "Nothing, I'm on the same plan"],
-      "jumps": [{ "when": "Q1 is 'Nothing, I'm on the same plan'", "to": "end" }]
+      "options": [
+        "Cancelled it",
+        "Downgraded to a cheaper plan",
+        "Paused it",
+        "Nothing, I'm on the same plan"
+      ],
+      "jumps": [
+        {
+          "when": "Q1 is 'Nothing, I'm on the same plan'",
+          "to": "end"
+        }
+      ]
     },
     {
       "ref": "Q2",
@@ -37,20 +47,39 @@
       "required": true,
       "label": "What was the main reason you made this change?",
       "description": "Pick the one that mattered most.",
-      "options": ["Too expensive for the value", "Missing a feature I need", "Too hard to use", "Switched to another product", "No longer need it", "Technical problems or bugs", "Poor support experience", "Budget cuts or company changes"],
+      "options": [
+        "Too expensive for the value",
+        "Missing a feature I need",
+        "Too hard to use",
+        "No longer need it",
+        "Technical problems or bugs",
+        "Poor support experience",
+        "Budget cuts or company changes"
+      ],
       "has_other": true,
       "randomize_options": true
     },
     {
       "ref": "Q3",
-      "type": "short_text",
+      "type": "yes_no",
       "intent": "behaviour",
       "required": false,
-      "label": "Which product did you switch to?",
-      "shown_when": "Q2 is 'Switched to another product'"
+      "label": "Did you move to another product instead of {product}?",
+      "options": [
+        "Yes",
+        "No"
+      ]
     },
     {
       "ref": "Q4",
+      "type": "short_text",
+      "intent": "behaviour",
+      "required": false,
+      "label": "Which product did you move to?",
+      "shown_when": "Q3 is 'Yes'"
+    },
+    {
+      "ref": "Q5",
       "type": "short_text",
       "intent": "attitude",
       "required": false,
@@ -58,7 +87,7 @@
       "shown_when": "Q2 is 'Missing a feature I need'"
     },
     {
-      "ref": "Q5",
+      "ref": "Q6",
       "type": "likert",
       "intent": "outcome",
       "required": true,
@@ -66,58 +95,84 @@
       "scale": {
         "min": 1,
         "max": 5,
-        "labels": { "1": "Very dissatisfied", "2": "Dissatisfied", "3": "Neither satisfied nor dissatisfied", "4": "Satisfied", "5": "Very satisfied" }
+        "labels": {
+          "1": "Very dissatisfied",
+          "2": "Dissatisfied",
+          "3": "Neither satisfied nor dissatisfied",
+          "4": "Satisfied",
+          "5": "Very satisfied"
+        }
       }
     },
     {
-      "ref": "Q6",
+      "ref": "Q7",
       "type": "multi_choice",
       "intent": "behaviour",
       "required": false,
       "label": "Before deciding, which of these did you try? Select all that apply.",
-      "options": ["Contacted support", "Read the help articles", "Talked to an account manager", "Tried a different plan"],
+      "options": [
+        "Contacted support",
+        "Read the help articles",
+        "Talked to an account manager",
+        "Tried a different plan"
+      ],
       "has_none": true
     },
     {
-      "ref": "Q7",
+      "ref": "Q8",
       "type": "single_choice",
       "intent": "behaviour",
       "required": false,
       "label": "How long had you been a customer, in months?",
-      "options": ["Less than 3", "3–11", "12–24", "More than 24", "Not sure"]
+      "options": [
+        "Less than 3",
+        "3–11",
+        "12–24",
+        "More than 24",
+        "Not sure"
+      ]
     },
     {
-      "ref": "Q8",
+      "ref": "Q9",
       "type": "long_text",
       "intent": "open_feedback",
       "required": false,
       "label": "What one thing could we have done to keep you as a customer?"
     },
     {
-      "ref": "Q9",
+      "ref": "Q10",
       "type": "yes_no",
       "intent": "contact_or_admin",
       "required": false,
       "label": "Would you be open to a 15-minute call with the {team} about your experience?",
-      "options": ["Yes", "No"]
+      "options": [
+        "Yes",
+        "No"
+      ]
     },
     {
-      "ref": "Q10",
+      "ref": "Q11",
       "type": "email",
       "intent": "contact_or_admin",
       "required": false,
       "label": "Which email address can we use to arrange the call?",
       "description": "We'll use it only to schedule this one call.",
-      "shown_when": "Q9 is 'Yes'"
+      "shown_when": "Q10 is 'Yes'"
     },
     {
-      "ref": "Q11",
+      "ref": "Q12",
       "type": "single_choice",
       "intent": "demographic",
       "required": false,
       "label": "How many people work at your organisation?",
       "description": "So we can see whether reasons differ by organisation size.",
-      "options": ["Just me", "2–9", "10–49", "50–249", "250 or more"],
+      "options": [
+        "Just me",
+        "2–9",
+        "10–49",
+        "50–249",
+        "250 or more"
+      ],
       "has_prefer_not_to_answer": true
     }
   ]
