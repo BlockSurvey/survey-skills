@@ -384,6 +384,30 @@ Add `.env` to `.gitignore` (keep `.env.example` tracked).
 
 ---
 
+### Task 15: End-to-end user acceptance test (owner request, 2026-10-09)
+
+Owner: "Once you build the complete skills, I want you to test it once. Is it working well as designed? ... when the users are using, this should work for them and they should see the value of this."
+
+**Method:** a FRESH agent with no project context plays a public user. It gets only: the repo path, the README, and a one-line brief ("Create a churn survey for a B2B SaaS that just lost a customer"). It must install the skills the way README says (copy `skills/*` into a temp `~/.claude/skills`-style folder or `npx skills add ./`), then follow SKILL.md instructions literally, without reading the spec/plan.
+
+**Scenarios (each must pass):**
+1. `survey-create`: brief → survey JSON + markdown; no clarifying-question loop longer than 3; self-check runs `survey_lint.py` with zero blocker/high.
+2. `survey-score`: score that survey; judgments.json validates against the contract; `survey_score_calc.py` returns a report; score ≥ 85 for the freshly created survey (the create skill promised it), otherwise the gap is a defect in create or score.
+3. Score a deliberately bad survey (`examples/bad-survey.json` — leading, double-barreled, demographics first, no welcome, 40 questions, matrix 10×8): expect verdict `not_ready`/`needs_work`, ≥ 8 distinct finding ids including Q2, Q3a, B3, S30, S17.
+4. `survey-fix` on the bad survey's report → re-score improves by ≥ 20 points.
+5. `survey-pretest` on the good survey → produces a drop-off table and ≥ 3 prioritised issues or an explicit "no issues".
+6. `survey-logic` adds a screener + exit; lint shows no S28/S41.
+7. `survey-copy` → welcome ≤ 80 words containing time, privacy, who-is-asking.
+8. `survey-export` → md/csv/txt produced; md round-trips through `survey_export.py --format json` losslessly (types, options, logic).
+9. `survey-lint` CLI on `examples/*/survey.json` exits 0; on bad-survey exits 1; on garbage exits 2.
+10. Readability: the tester rates (1–5) "would a first-time user understand what to do and see value?" for README and each SKILL.md, with one concrete improvement each.
+
+**Output:** `docs/superpowers/acceptance/2026-10-09-e2e-report.md` with pass/fail per scenario, exact commands/outputs, defects found. Defects → ONE fix dispatch → re-run failed scenarios only. Then Task 13.
+
+- [ ] Dispatch tester (opus, fresh context) → report → fix round → re-test → commit `test: end-to-end acceptance report`.
+
+---
+
 ### Task 13: Final review and acceptance
 
 - [ ] `pytest -q`, `python scripts/validate_skills.py`, `python scripts/build.py --check`, `python scripts/build_catalog.py --check` all green.
