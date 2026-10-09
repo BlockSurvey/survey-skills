@@ -302,7 +302,7 @@ def _assign_parents_and_refs(qs: List[Dict], flat: List[Dict], nested_owner: Dic
 
 
 def _apply_flow(qs: List[Dict], shuffled: bool) -> None:
-    """Jump graph -> reached_from / unreachable / has_logic (shared/static-checks.md#reachability-s28).
+    """Jump graph -> reached_from / follows_unless / unreachable / has_logic (shared/static-checks.md#reachability-s28).
 
     After a question the first matching conditional jump wins, else the default (`when: null`), else the next
     question. Conditions are not evaluated: every conditional jump is a possible path. A jump to `end` or to an
@@ -315,6 +315,17 @@ def _apply_flow(qs: List[Dict], shuffled: bool) -> None:
             target = by_ref.get(j["to"])
             if target is not None and target is not q:
                 target["reached_from"].append({"from": q["ref"], "when": j["when"]})
+    # follows_unless: the previous top-level question's conditional jumps that go somewhere else, i.e. "this
+    # question follows Qn unless that jump fires" (top-level questions only; children and the first get []).
+    prev_top: Optional[Dict] = None
+    for q in qs:
+        q["follows_unless"] = []
+        if q["parent"] is not None:
+            continue
+        if prev_top is not None:
+            q["follows_unless"] = [{"from": prev_top["ref"], "when": j["when"]} for j in prev_top["jumps"]
+                                   if j["when"] is not None and j["to"] != q["ref"]]
+        prev_top = q
     for q in qs:
         q["has_logic"] = bool(q["shown_when"] or q["jumps"] or q["reached_from"])
         q["unreachable"] = False
