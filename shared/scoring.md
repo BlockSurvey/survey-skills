@@ -107,6 +107,8 @@ Ported from `rubric.py::item_applies`, applied in this order to each per-questio
    - `quantity` (v2) → `type` ∈ {`number`, `slider`, `date`}, or `short_text` (the judge decides whether its label asks for an amount; answer `p = 1` when it does not ask for one).
 5. **Gates** (v2): `C7_has_attention_check` counts only when answerable questions `> 25`; `Q16_sensitive_reassured` counts only when that question's `Q12_sensitive` `p ≥ 0.7`; `F3b_incentive_delivery_clear` counts only when `F3a_incentive_mentioned` `p ≥ 0.7`; `F3_incentive_clear` is ignored when F3a and F3b are both present.
 
+Known limitation: scale items (Q8, Q17) are judged only when the question has options or columns; a rating/nps defined solely by `scale.min/max` is not judged for balance.
+
 **Kinds gating.** Items carry a `kinds` list (rubric.md); default is every kind. The survey kind is: top-level `survey_kind` in the judgments, else `K_survey_kind` when its confidence ≥ 0.5, else the survey's `kind` field, else unknown. When the kind is known and not in an item's list, the item is skipped entirely (no finding, no score): a form is not marked down for research coverage it was never meant to have. Unknown kind → nothing is skipped. Kinds-gated items: `A7` (research, feedback), `C2` (research), `C3`, `C4`, `C6` (research, feedback), `C5_obvious_gap` (research, feedback, assessment), `F2` (research). Static `S19_no_open_ended` is gated to research and feedback the same way.
 
 ## Findings from judgments

@@ -2505,7 +2505,7 @@ def item_finding(ctx: _Ctx, iid: str, ans: Optional[Dict], q: Optional[Dict] = N
             rctx["choice"] = choice
         else:
             return None
-        evidence = {"kind": "choice", "choice": choice, "confidence": conf}
+        evidence = {"kind": "choice", "choice": choice, "confidence": conf, "current_type": q["type"] if q else None}
     role = ctx.role.get(q["ref"]) if q else None
     fix = render(item["fix_by_role"].get(role) or item["fix"], rctx)
     return _finding(iid, sev, item["category"], item["scope"], render(roast_t, rctx) + suffix, fix, q,
@@ -2727,7 +2727,9 @@ def static_deduction(findings: List[Dict], category: Optional[str] = None) -> fl
 
 
 def _per_id_deduction(group: List[Dict]) -> float:
-    base = STATIC_DEDUCTION.get(group[0].get("severity"), 0.0)
+    """Base deduction of the most severe finding in the group (order-independent), times the repeat factor."""
+    worst = min((f.get("severity") for f in group), key=lambda s: SEVERITY_RANK.get(s, 9))
+    base = STATIC_DEDUCTION.get(worst, 0.0)
     return base * min(STATIC_REPEAT_CAP, 1 + STATIC_REPEAT_FACTOR * (len(group) - 1))
 
 
@@ -2879,9 +2881,10 @@ def findings_by_id(findings: List[Dict]) -> List[Dict[str, Any]]:
     return list(rows.values())
 
 
-def summary_line(ctx: _Ctx, score: int, verdict: str, findings: List[Dict], key: str = "roast") -> str:
-    n_info = sum(1 for q in ctx.answerable if ctx.role[q["ref"]] != "question")
-    n_q = len(ctx.answerable) - n_info
+def summary_line(score: int, verdict: str, findings: List[Dict], questions: List[Dict], key: str = "roast") -> str:
+    """scoring.md#findings-order-grouping-and-summary. `questions` = the report's answerable-question rows."""
+    n_info = sum(1 for q in questions if q.get("role") != "question")
+    n_q = len(questions) - n_info
     n = f"{n_q} question{'s' if n_q != 1 else ''}" + \
         (f" and {n_info} information step{'s' if n_info != 1 else ''}" if n_info else "")
     counts = {s: sum(1 for f in findings if f["severity"] == s) for s in ("blocker", "high", "medium")}
@@ -2955,21 +2958,22 @@ def calc(survey: Any, judgments: Any, lint_findings: Any) -> Dict[str, Any]:
             n = sum(1 for f in findings if f["category"] == cat and f["severity"] != "info")
         categories.append({"id": cat, "label": label, "weight": ctx.weights[cat],
                            "score": round(100 * cat_values[cat]), "findings": n})
-    summary = summary_line(ctx, overall, verdict, findings)
     for f in findings:
         f.pop("_weight", None)
+    questions = [{"ref": q["ref"], "type": q["type"], "role": ctx.role[q["ref"]], "label": q["label"],
+                  "required": q["required"],
+                  "score": None if q_scores.get(q["ref"]) is None else round(100 * q_scores[q["ref"]]),
+                  "finding_ids": [f["id"] for f in findings if f["question_ref"] == q["ref"]]}
+                 for q in ctx.answerable]
     missing = ctx.missing_items()
     return {
-        "score": overall, "grade": grade, "verdict": verdict, "summary": summary,
+        "score": overall, "grade": grade, "verdict": verdict,
+        "summary": summary_line(overall, verdict, findings, questions),
         "categories": categories,
         "funnel": funnel,
         "findings": findings,
         "findings_by_id": findings_by_id(findings),
-        "questions": [{"ref": q["ref"], "type": q["type"], "role": ctx.role[q["ref"]], "label": q["label"],
-                       "required": q["required"],
-                       "score": None if q_scores.get(q["ref"]) is None else round(100 * q_scores[q["ref"]]),
-                       "finding_ids": [f["id"] for f in findings if f["question_ref"] == q["ref"]]}
-                      for q in ctx.answerable],
+        "questions": questions,
         "stats": ctx.s["stats"],
         "meta": {"rubric_version": RUBRIC_VERSION, "survey_kind": ctx.kind, "audience_kind": ctx.audience,
                  "weight_profile": ctx.profile, "partial": bool(missing) or ctx.bad_judgments,
@@ -3006,17 +3010,115 @@ def _cell(x: Any) -> str:
     return "" if x is None else str(x).replace("|", "\\|").replace("\n", " ")
 
 
+# Neutral one-line problem descriptions for --polite (scoring.md#report-shape). Score items use the criterion
+# text of the judged level; these cover Nouls, Choices, code rules, hybrids and static checks.
+NEUTRAL_ITEMS = {
+    "A5_privacy_stated": "The survey does not say how responses are handled (privacy, anonymity, retention).",
+    "A6_audience_stated": "The introduction does not say who the survey is for.",
+    "A9_sponsor_named": "The survey does not name who is running it.",
+    "A10_deadline_stated": "The survey does not say when it closes.",
+    "B4_sections_signposted": "Topic changes are not signposted with a section title or statement.",
+    "B5_redundant_questions": "Two or more questions collect the same information.",
+    "B8_scale_direction_consistent": "Rating scales run in opposite directions.",
+    "C2_has_screener": "No question checks that the respondent belongs to the intended audience.",
+    "C3_has_outcome_question": "No question directly measures the key outcome of the stated purpose.",
+    "C4_missing_why": "Decision-relevant closed questions have no follow-up asking why.",
+    "C7_has_attention_check": "A long survey has no attention or consistency check.",
+    "E2_burden": "Some questions ask for recall or calculation respondents are unlikely to manage offhand.",
+    "E9_language_consistent": "The survey mixes languages or spelling systems.",
+    "F2_consent_language": "The introduction has no consent language (voluntary, can stop at any time).",
+    "F3_incentive_clear": "An incentive is mentioned without saying how it is delivered.",
+    "F3b_incentive_delivery_clear": "An incentive is mentioned without saying how it is delivered.",
+    "F4_manipulative_framing": "Some wording pressures respondents through guilt, urgency or flattery.",
+    "F5_contact_provided": "The survey gives no way to contact its owner.",
+    "Q2_double_barreled": "{ref} asks about more than one thing in a single question.",
+    "Q3a_leading": "{ref} is worded in a way that favours one answer.",
+    "Q3b_presuming": "{ref} assumes something about the respondent that earlier questions do not establish.",
+    "Q6_options_not_exhaustive": "{ref}'s options may not cover every respondent.",
+    "Q7_options_overlap": "{ref}'s options overlap.",
+    "Q8_scale_unbalanced": "{ref}'s answer scale is unbalanced.",
+    "Q14_options_parallel": "{ref}'s options are written in inconsistent forms.",
+    "Q16_sensitive_reassured": "{ref} asks for sensitive information without saying why or who sees it.",
+    "Q17_negative_wording": "{ref} is worded negatively, so agreement is easy to misread.",
+    "Q20_option_double_barreled": "An option in {ref} combines two separate things.",
+    "Q21_social_desirability": "{ref} has a socially favoured answer.",
+    "Q22_units_stated": "{ref} does not state the unit or format of the expected answer.",
+    "Q19_recall_period": "{ref} asks about behaviour over time without a time window.",
+    "Q25_best_type": "{ref} is a {type} question; a {choice} question would capture the answer better.",
+}
+NEUTRAL_RULES = {
+    "only_outcome_hypothetical": "Every outcome question asks about hypothetical behaviour.",
+    "no_outcome": "No question measures the outcome the survey's purpose implies.",
+    "demographics_heavy": "{k} of {n} questions are demographic.",
+    "outcome_buried": "The main outcome question is in the last fifth of the survey.",
+}
+NEUTRAL_STATIC = {
+    "S01": "The survey has no title.", "S02": "The survey has no answerable questions.",
+    "S03": "{ref} has no question text.", "S04": "{ref} has too few options (or an impossible selection minimum).",
+    "S05": "{ref} is a grid without rows or columns.", "S06": "Group {ref} contains no questions.",
+    "S07": "There is no description or welcome text.", "S08": "There is no welcome screen.",
+    "S09": "There is no thank-you screen.", "S10": "{refs} have identical question text.",
+    "S11": "{ref} lists the same option more than once.", "S12": "{ref}'s numeric ranges have gaps or overlaps.",
+    "S13": "{ref}'s wording and question type disagree about how many options can be picked.",
+    "S14": "{ref} states a number of picks that is not enforced.",
+    "S15": "Respondents are not told how long the survey takes.",
+    "S16": "The stated duration differs from the estimated duration.",
+    "S17": "The survey is long.", "S18": "Most questions are required.",
+    "S19": "There is no open-ended question.", "S21": "The survey is marked anonymous but collects identifying data.",
+    "S22": "{ref} depends on an earlier answer but is shown to everyone.",
+    "S23": "{ref} asks for sensitive information, is required, and has no opt-out.",
+    "S24": "The progress bar is hidden on a long survey.", "S25": "{ref} depends on an image that is not described.",
+    "S26": "{ref} refers to a visual that is not attached.",
+    "S27": "{refs} are a long run of questions of the same type.", "S28": "{refs} cannot be reached.",
+    "S30": "{ref} is a large grid.", "S31": "{refs} are consecutive grids.",
+    "S32": "{ref} asks respondents to rank many items.", "S33": "{ref} is a long single-choice list.",
+    "S34": "Many questions require typed answers.", "S35": "{ref} contains a loaded word.",
+    "S36": "{ref}'s scale labels only the endpoints.", "S37": "{ref} is a recommend question that is not standard NPS.",
+    "S38": "A 'none' option in {ref} is not exclusive.", "S39": "{ref} has an 'Other' option without a text box.",
+    "S40": "{ref}'s long option list is not randomised.", "S41": "Screener {ref} has no exit for non-qualifiers.",
+    "S42": "{ref} uses capitals, repeated punctuation or symbol-only options.",
+    "S43": "{ref}'s label is very long.", "S44": "Group {ref} contains a single question.",
+    "S45": "{ref} is a yes/no question that is not phrased as one.",
+    "S46": "The first question is open-ended.", "S47": "A long survey has no branching logic.",
+    "S48": "{ref} asks for personal details before the first outcome question.",
+    "S50": "The welcome text is long.", "S51": "{ref} asks for demanding input among the first questions.",
+}
+
+
+def neutral_description(f: Dict[str, Any]) -> str:
+    """A neutral one-line description of a finding's problem (the --polite replacement for its roast)."""
+    ev = _d(f.get("evidence"))
+    ref = f.get("question_ref") or ""
+    refs = [r for r in _l(f.get("question_refs")) if isinstance(r, str)]
+    ctx = {"ref": ref or ", ".join(refs) or "A question", "refs": ", ".join(refs) or ref or "Several questions",
+           "type": ev.get("current_type") or "different", "choice": ev.get("choice") or "different",
+           "k": ev.get("k", "?"), "n": ev.get("n", "?")}
+    fid = _text(f.get("id"))
+    if ev.get("rule") in NEUTRAL_RULES:
+        text = NEUTRAL_RULES[ev["rule"]]
+    elif fid in ITEMS and ev.get("kind") == "score" and isinstance(ev.get("criterion"), str):
+        text = (f"{ref}: " if ref else "") + ev["criterion"].rstrip(".") + "."
+    elif fid in NEUTRAL_ITEMS:
+        text = NEUTRAL_ITEMS[fid]
+    elif fid[:3] in NEUTRAL_STATIC:
+        text = NEUTRAL_STATIC[fid[:3]]
+    else:
+        text = f"Check {fid} flagged {ctx['refs']}." if refs else f"Check {fid} flagged the survey."
+    text = render(text, ctx)
+    if f.get("scope") == "survey" and fid in ITEMS and refs and not ev.get("rule"):
+        text += " Questions: " + ", ".join(refs) + "."
+    if f.get("uncertain"):
+        text += " (uncertain)"
+    return text
+
+
 def polite_report(report: Dict[str, Any]) -> Dict[str, Any]:
-    """The report with every roast removed (fixes only); the summary names the top fix instead."""
+    """The report with every roast replaced by a neutral description; fixes and the finding shape are kept, and
+    the summary is rebuilt with the same summary-line forms."""
     r = copy.deepcopy(report)
     for f in r["findings"]:
-        f.pop("roast", None)
-    top = next((f for f in r["findings"] if f["severity"] != "info" and not f["uncertain"]), None) or \
-        next((f for f in r["findings"] if f["severity"] != "info"), None)
-    if top:
-        r["summary"] = f"{r['score']}/100 · grade {r['grade']} · {r['verdict']}. Start with: {top['fix']}"
-    else:
-        r["summary"] = f"{r['score']}/100 · grade {r['grade']} · {r['verdict']}. Nothing to fix."
+        f["roast"] = neutral_description(f)
+    r["summary"] = summary_line(r["score"], r["verdict"], r["findings"], r["questions"])
     return r
 
 
@@ -3035,8 +3137,7 @@ def to_markdown(report: Dict[str, Any], polite: bool = False) -> str:
         out.append("Nothing to report.")
     for i, f in enumerate(top, 1):
         ref = f["question_ref"] or ", ".join(f["question_refs"]) or "survey"
-        body = f["fix"] if polite else f"{f['roast']} → {f['fix']}"
-        out.append(f"{i}. {f['severity']} · {ref} · {body}")
+        out.append(f"{i}. {f['severity']} · {ref} · {f['roast']} → {f['fix']}")
     if len(r["findings"]) > 10:
         out.append(f"\n…and {len(r['findings']) - 10} more (see --json).")
     out += ["", "## Questions", "", "| Ref | Type | Label | Score | Findings |", "| --- | --- | --- | --- | --- |"]

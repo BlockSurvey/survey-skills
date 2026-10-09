@@ -7,8 +7,9 @@ import sys
 
 import pytest
 
-from survey_score_calc import (ITEMS, WEIGHT_PROFILES, calc, grade_for, normalise_noul, normalise_score,
-                               run_lint, static_deduction, to_markdown, weight_profile)
+from survey_score_calc import (ITEMS, NEUTRAL_ITEMS, WEIGHT_PROFILES, calc, grade_for, neutral_description,
+                               normalise_noul, normalise_score, polite_report, run_lint, static_deduction,
+                               to_markdown, weight_profile)
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 CALC = ROOT / "shared" / "scripts" / "survey_score_calc.py"
@@ -799,7 +800,9 @@ def test_markdown_render(survey_min, judgments_perfect):
                  "high · Q1 · Q1 asks two things at once", "→ Split Q1 into one question per thing."):
         assert part in md, part
     polite = to_markdown(r, polite=True)
-    assert "asks two things at once" not in polite and "Split Q1 into one question per thing." in polite
+    assert "asks two things at once" not in polite
+    assert "high · Q1 · Q1 asks about more than one thing in a single question. → Split Q1 into one question per " \
+        "thing." in polite
 
 
 # --- CLI ------------------------------------------------------------------------------------------
@@ -835,7 +838,11 @@ def test_cli_markdown_polite_and_print_items(tmp_path):
     assert p.stdout.startswith("# Survey score:") and "## What to do first" in p.stdout
     pj = run_cli(FIXTURES / "acme_feedback.json", FIXTURES / "judgments_acme.json", "--lint", "--json", "--polite")
     data = json.loads(pj.stdout)
-    assert all("roast" not in f for f in data["findings"])
+    roasty = json.loads(run_cli(FIXTURES / "acme_feedback.json", FIXTURES / "judgments_acme.json", "--lint",
+                                "--json").stdout)
+    assert data["findings"] and len(data["findings"]) == len(roasty["findings"])
+    for f, g in zip(data["findings"], roasty["findings"]):
+        assert set(f) == set(g) and f["fix"] == g["fix"] and f["roast"] and f["roast"] != g["roast"]
     p = run_cli("--print-items")
     assert p.returncode == 0
     items = json.loads(p.stdout)
@@ -852,3 +859,55 @@ def test_fixture_judgments(tmp_path):
     bad = json.loads((FIXTURES / "judgments_malformed.json").read_text())
     r = calc(s, bad, [])
     assert r["meta"]["partial"] is True and 0 <= r["score"] <= 100
+
+
+# --- fix round 1: polite mode keeps the finding shape; consistent repeat deduction ---------------
+
+def test_mixed_severity_repeats_deduct_the_same_everywhere():
+    s = hybrid_survey()
+    s["questions"].append({"ref": "Q5", "type": "single_choice", "label": "If so, how often?",
+                           "options": ["A", "B"], "required": True})
+    j = with_q(perfect_judgments(s), "Q2", Q10_depends_on_prior={"p": 0.75})      # medium after the band
+    j = with_q(j, "Q5", Q10_depends_on_prior={"p": 0.95})                          # high
+    r = calc(s, j, [])
+    assert sorted(f["severity"] for f in findings(r, "S22_conditional_without_logic")) == ["high", "medium"]
+    expected = round(100 * (1 - 0.12 * 1.25))                                      # most severe sets the base
+    assert {c["id"]: c["score"] for c in r["categories"]}["structure"] == expected
+    assert r["funnel"]["answer_quality"]["score"] == expected
+    a = static("S11_duplicate_options", "medium", ref="Q1")
+    b = static("S11_duplicate_options", "high", ref="Q2")
+    assert static_deduction([a, b]) == static_deduction([b, a]) == pytest.approx(0.12 * 1.25)
+
+
+def test_polite_report_keeps_shape_and_neutral_text(survey_min, judgments_perfect):
+    j = with_survey(judgments_perfect, A1_title_specific={"level": 0, "confidence": 0.9},
+                    B5_redundant_questions={"p": 0.95})
+    j = with_q(j, "Q2", L_duplicate_of_earlier={"p": 0.9}, Q25_best_type={"choice": "nps", "confidence": 0.9})
+    r = calc(survey_min, j, [static("S11_duplicate_options", "medium", ref="Q1"), {"id": "S99_new", "severity": "low"}])
+    pr = polite_report(r)
+    assert [set(f) for f in pr["findings"]] == [set(f) for f in r["findings"]]
+    assert [f["fix"] for f in pr["findings"]] == [f["fix"] for f in r["findings"]]
+    by_id = {f["id"]: f["roast"] for f in pr["findings"]}
+    assert by_id["A1_title_specific"] == ("Generic or internal-sounding; a respondent could not guess the topic "
+                                          "from it.")
+    assert by_id["B5_redundant_questions"] == "Two or more questions collect the same information. Questions: Q2."
+    assert by_id["Q25_best_type"] == "Q2 is a rating question; a nps question would capture the answer better."
+    assert by_id["S11_duplicate_options"] == "Q1 lists the same option more than once."
+    assert by_id["S99_new"] == "Check S99_new flagged the survey."
+    # summary rebuilt with the same forms, from the neutral text
+    assert pr["summary"].startswith(f"{r['score']}/100. ")
+    assert "Your title" not in pr["summary"] and by_id["A1_title_specific"] in pr["summary"]
+    assert r["findings"][0]["roast"] != pr["findings"][0]["roast"]                  # input not mutated
+
+
+def test_every_finding_source_has_neutral_text():
+    for iid, it in ITEMS.items():
+        if it["informational"] or it["primitive"] == "score":
+            continue
+        assert iid in NEUTRAL_ITEMS, iid
+    hyb = {"id": "S22_conditional_without_logic", "question_ref": "Q4", "question_refs": ["Q4"], "scope": "question",
+           "evidence": {"kind": "hybrid"}, "uncertain": True}
+    assert neutral_description(hyb) == "Q4 depends on an earlier answer but is shown to everyone. (uncertain)"
+    rule = {"id": "Q24_intent", "scope": "survey", "question_refs": ["Q1", "Q2"],
+            "evidence": {"rule": "demographics_heavy", "k": 2, "n": 5}}
+    assert neutral_description(rule) == "2 of 5 questions are demographic."
