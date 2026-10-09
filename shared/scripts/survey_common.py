@@ -1,4 +1,4 @@
-"""Shared helpers for blocksurvey-skills scripts: load and normalise the portable survey JSON.
+"""Shared helpers for survey-skills scripts: load and normalise the portable survey JSON.
 
 Stdlib only, Python >= 3.9. Never crashes on None / wrong types: a field of the wrong type counts as missing.
 

@@ -9,7 +9,7 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Skills](https://img.shields.io/badge/skills-9-8A2BE2.svg)](#the-skills)
 [![Agent Skills standard](https://img.shields.io/badge/Agent%20Skills-SKILL.md%20standard-111111.svg)](https://agentskills.io)
-[![Tests](https://github.com/BlockSurvey/blocksurvey-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/BlockSurvey/blocksurvey-skills/actions/workflows/ci.yml)
+[![Tests](https://github.com/BlockSurvey/survey-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/BlockSurvey/survey-skills/actions/workflows/ci.yml)
 [![Built with Claude Opus](https://img.shields.io/badge/built%20with-Claude%20Opus-D97757.svg)](https://www.anthropic.com/claude)
 
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-✓-D97757.svg)](#30-second-install)
@@ -33,24 +33,24 @@ Works for any survey: **Google Forms, Typeform, SurveyMonkey, Qualtrics, Microso
 **Any agent (recommended).** Installs all 9 skills into the agents you use, via the [skills CLI](https://github.com/vercel-labs/skills):
 
 ```bash
-npx skills add BlockSurvey/blocksurvey-skills
+npx skills add BlockSurvey/survey-skills
 ```
 
-Just one skill: `npx skills add BlockSurvey/blocksurvey-skills --skill survey-score`
+Just one skill: `npx skills add BlockSurvey/survey-skills --skill survey-score`
 
 <details>
 <summary><b>Manual install (Claude Code, Codex CLI, Cursor, Gemini CLI)</b></summary>
 
 ```bash
-git clone https://github.com/BlockSurvey/blocksurvey-skills.git
+git clone https://github.com/BlockSurvey/survey-skills.git
 ```
 
 | Agent | Copy the skills here |
 | --- | --- |
-| Claude Code | `cp -r blocksurvey-skills/skills/* ~/.claude/skills/` |
-| Codex CLI | `cp -r blocksurvey-skills/skills/* ~/.codex/skills/` |
-| Cursor | `cp -r blocksurvey-skills/skills/* .cursor/skills/` (inside your project) |
-| Gemini CLI | `cp -r blocksurvey-skills/skills/* ~/.gemini/skills/` (or `.gemini/skills/` in a project) |
+| Claude Code | `cp -r survey-skills/skills/* ~/.claude/skills/` |
+| Codex CLI | `cp -r survey-skills/skills/* ~/.codex/skills/` |
+| Cursor | `cp -r survey-skills/skills/* .cursor/skills/` (inside your project) |
+| Gemini CLI | `cp -r survey-skills/skills/* ~/.gemini/skills/` (or `.gemini/skills/` in a project) |
 
 Each skill folder is self-contained (its `references/` and `scripts/` come with it), so you can copy just the ones you want.
 
@@ -249,7 +249,7 @@ The script makes one batched request per survey and prints a cost estimate first
 ## What's inside
 
 ```
-blocksurvey-skills/
+survey-skills/
 ├── skills/                 9 installable skills (SKILL.md + references/ + scripts/)
 │   ├── survey-create/      survey-templates/ (12 templates)
 │   ├── survey-score/       survey-lint/
@@ -325,7 +325,7 @@ Not exactly. In plain chat with no code tool, the skill does a manual tally and 
 
 New skills, rubric items backed by evidence, templates and translations are all welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md). Short version: `python scripts/build.py && python scripts/validate_skills.py && python -m pytest -q && python scripts/build_catalog.py`.
 
-Found a bug? [Open an issue](https://github.com/BlockSurvey/blocksurvey-skills/issues/new/choose) and include the skill, the agent you used and a survey excerpt.
+Found a bug? [Open an issue](https://github.com/BlockSurvey/survey-skills/issues/new/choose) and include the skill, the agent you used and a survey excerpt.
 
 ## Roadmap
 
@@ -338,7 +338,7 @@ Found a bug? [Open an issue](https://github.com/BlockSurvey/blocksurvey-skills/i
 
 ## Star history
 
-[![Star History Chart](https://api.star-history.com/svg?repos=BlockSurvey/blocksurvey-skills&type=Date)](https://star-history.com/#BlockSurvey/blocksurvey-skills&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=BlockSurvey/survey-skills&type=Date)](https://star-history.com/#BlockSurvey/survey-skills&Date)
 
 ---
 

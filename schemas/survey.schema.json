@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://github.com/BlockSurvey/blocksurvey-skills/schemas/survey.schema.json",
+  "$id": "https://github.com/BlockSurvey/survey-skills/schemas/survey.schema.json",
   "title": "BlockSurvey portable survey",
-  "description": "Portable survey JSON used by all blocksurvey-skills. Lenient: unknown keys are allowed.",
+  "description": "Portable survey JSON used by all survey-skills. Lenient: unknown keys are allowed.",
   "type": "object",
   "required": [
     "title",

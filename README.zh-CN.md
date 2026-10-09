@@ -9,7 +9,7 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Skills](https://img.shields.io/badge/skills-9-8A2BE2.svg)](#技能目录)
 [![Agent Skills standard](https://img.shields.io/badge/Agent%20Skills-SKILL.md%20standard-111111.svg)](https://agentskills.io)
-[![Tests](https://github.com/BlockSurvey/blocksurvey-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/BlockSurvey/blocksurvey-skills/actions/workflows/ci.yml)
+[![Tests](https://github.com/BlockSurvey/survey-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/BlockSurvey/survey-skills/actions/workflows/ci.yml)
 [![Built with Claude Opus](https://img.shields.io/badge/built%20with-Claude%20Opus-D97757.svg)](https://www.anthropic.com/claude)
 
 </div>
@@ -25,10 +25,10 @@
 ## 30 秒安装
 
 ```bash
-npx skills add BlockSurvey/blocksurvey-skills
+npx skills add BlockSurvey/survey-skills
 ```
 
-只装一个：`npx skills add BlockSurvey/blocksurvey-skills --skill survey-score`。手动安装：把 `skills/*` 复制到 `~/.claude/skills/`（Claude Code）、`~/.codex/skills/`（Codex CLI）、`.cursor/skills/`（Cursor）或 `~/.gemini/skills/`（Gemini CLI）。
+只装一个：`npx skills add BlockSurvey/survey-skills --skill survey-score`。手动安装：把 `skills/*` 复制到 `~/.claude/skills/`（Claude Code）、`~/.codex/skills/`（Codex CLI）、`.cursor/skills/`（Cursor）或 `~/.gemini/skills/`（Gemini CLI）。
 
 ChatGPT / Claude.ai（没有文件系统）：把 [`prompts/<skill>.md`](prompts/) 上传到 Project 或自定义 GPT。
 
