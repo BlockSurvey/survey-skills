@@ -1,0 +1,371 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/BlockSurvey/blocksurvey-skills/schemas/survey.schema.json",
+  "title": "BlockSurvey portable survey",
+  "description": "Portable survey JSON used by all blocksurvey-skills. Lenient: unknown keys are allowed.",
+  "type": "object",
+  "required": [
+    "title",
+    "questions"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Survey title."
+    },
+    "description": {
+      "type": "string",
+      "description": "Short description of the survey."
+    },
+    "kind": {
+      "type": "string",
+      "description": "Kind of survey.",
+      "enum": [
+        "research",
+        "feedback",
+        "form",
+        "quiz",
+        "assessment",
+        "information"
+      ]
+    },
+    "audience": {
+      "type": "string",
+      "description": "Who the survey is for."
+    },
+    "purpose": {
+      "type": "string",
+      "description": "Why the survey exists / the decision it informs."
+    },
+    "sponsor": {
+      "type": "string",
+      "description": "Organisation running the survey."
+    },
+    "language": {
+      "type": "string",
+      "description": "BCP-47 language code.",
+      "default": "en"
+    },
+    "welcome": {
+      "type": "object",
+      "description": "Welcome screen.",
+      "additionalProperties": true,
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Heading."
+        },
+        "description": {
+          "type": "string",
+          "description": "Body text."
+        },
+        "button": {
+          "type": "string",
+          "description": "Button label."
+        }
+      }
+    },
+    "thank_you": {
+      "type": "object",
+      "description": "Thank-you screen.",
+      "additionalProperties": true,
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Heading."
+        },
+        "description": {
+          "type": "string",
+          "description": "Body text."
+        },
+        "button": {
+          "type": "string",
+          "description": "Button label."
+        }
+      }
+    },
+    "settings": {
+      "type": "object",
+      "description": "Survey-level settings.",
+      "additionalProperties": true,
+      "properties": {
+        "stated_minutes": {
+          "type": "number",
+          "description": "Completion time promised to respondents, in minutes.",
+          "default": 5
+        },
+        "progress_bar": {
+          "type": "boolean",
+          "description": "Show a progress bar.",
+          "default": true
+        },
+        "anonymous": {
+          "type": "boolean",
+          "description": "Responses are anonymous.",
+          "default": false
+        },
+        "randomize_questions": {
+          "type": "boolean",
+          "description": "Randomize question order.",
+          "default": false
+        },
+        "sign_in_required": {
+          "type": "boolean",
+          "description": "Respondents must sign in.",
+          "default": false
+        },
+        "captcha": {
+          "type": "boolean",
+          "description": "Require a captcha.",
+          "default": false
+        },
+        "multiple_submissions": {
+          "type": "boolean",
+          "description": "Allow repeat submissions from one respondent.",
+          "default": false
+        }
+      }
+    },
+    "questions": {
+      "type": "array",
+      "description": "Ordered list of questions.",
+      "items": {
+        "$ref": "#/definitions/question"
+      }
+    }
+  },
+  "definitions": {
+    "question": {
+      "type": "object",
+      "description": "One question (or statement/consent/group block) in the survey.",
+      "required": [
+        "ref",
+        "type",
+        "label"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "ref": {
+          "type": "string",
+          "description": "Stable question reference such as Q1, Q2. Used by shown_when and jumps."
+        },
+        "type": {
+          "type": "string",
+          "description": "Portable question type; mapped to BlockSurvey bType in references/blocksurvey-types.md.",
+          "enum": [
+            "single_choice",
+            "multi_choice",
+            "dropdown",
+            "yes_no",
+            "short_text",
+            "long_text",
+            "number",
+            "rating",
+            "nps",
+            "likert",
+            "matrix",
+            "ranking",
+            "slider",
+            "date",
+            "email",
+            "phone",
+            "file",
+            "statement",
+            "consent",
+            "group"
+          ]
+        },
+        "label": {
+          "type": "string",
+          "description": "The question text shown to respondents."
+        },
+        "description": {
+          "type": "string",
+          "description": "Optional help text under the label."
+        },
+        "required": {
+          "type": "boolean",
+          "description": "Whether an answer is mandatory."
+        },
+        "options": {
+          "type": "array",
+          "description": "Answer options for choice, dropdown and ranking types.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "has_other": {
+          "type": "boolean",
+          "description": "Adds an 'Other (please specify)' option.",
+          "default": false
+        },
+        "has_none": {
+          "type": "boolean",
+          "description": "Adds a 'None of the above' option.",
+          "default": false
+        },
+        "has_prefer_not_to_answer": {
+          "type": "boolean",
+          "description": "Adds a 'Prefer not to answer' option.",
+          "default": false
+        },
+        "randomize_options": {
+          "type": "boolean",
+          "description": "Shuffle option order for each respondent.",
+          "default": false
+        },
+        "exclusive_options": {
+          "type": "array",
+          "description": "Options that cannot be combined with others (multi_choice), e.g. 'None of the above'.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "rows": {
+          "type": "array",
+          "description": "Row statements (matrix, likert).",
+          "items": {
+            "type": "string"
+          }
+        },
+        "columns": {
+          "type": "array",
+          "description": "Column labels (matrix).",
+          "items": {
+            "type": "string"
+          }
+        },
+        "scale": {
+          "type": "object",
+          "description": "Numeric scale definition (rating, nps, slider, likert).",
+          "additionalProperties": true,
+          "properties": {
+            "min": {
+              "type": "number",
+              "description": "Lowest scale value."
+            },
+            "max": {
+              "type": "number",
+              "description": "Highest scale value."
+            },
+            "labels": {
+              "type": "object",
+              "description": "Anchor labels keyed by scale value, e.g. {\"0\": \"Not at all likely\"}.",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "selection": {
+          "type": "object",
+          "description": "Selection limits for multi_choice.",
+          "additionalProperties": true,
+          "properties": {
+            "min": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "description": "Minimum choices required; null for no limit."
+            },
+            "max": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "description": "Maximum choices allowed; null for no limit."
+            }
+          }
+        },
+        "shown_when": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Display logic as a plain-English condition, e.g. \"Q1 is 'Yes'\". Lint only parses the Qn ref prefix."
+        },
+        "jumps": {
+          "type": "array",
+          "description": "Skip logic evaluated after this question.",
+          "items": {
+            "type": "object",
+            "additionalProperties": true,
+            "required": [
+              "to"
+            ],
+            "properties": {
+              "when": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Plain-English condition; null means the default jump."
+              },
+              "to": {
+                "type": "string",
+                "description": "Target question ref (e.g. Q7) or the literal 'end'.",
+                "anyOf": [
+                  {
+                    "const": "end"
+                  },
+                  {
+                    "pattern": "^Q[0-9]+$"
+                  },
+                  {
+                    "minLength": 1
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "group": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Name or ref of the group/section this question belongs to; null if none."
+        },
+        "sensitive": {
+          "type": "boolean",
+          "description": "Asks about a sensitive topic (health, finances, politics, etc.).",
+          "default": false
+        },
+        "has_image": {
+          "type": "boolean",
+          "description": "Question includes an image.",
+          "default": false
+        },
+        "collects_pii": {
+          "type": "boolean",
+          "description": "Collects personally identifiable information.",
+          "default": false
+        },
+        "role": {
+          "type": "string",
+          "description": "Structural role of the item.",
+          "enum": [
+            "question",
+            "information",
+            "consent"
+          ]
+        },
+        "intent": {
+          "type": "string",
+          "description": "Purpose of the question within the survey.",
+          "enum": [
+            "screener",
+            "demographic",
+            "behaviour",
+            "attitude",
+            "outcome",
+            "open_feedback",
+            "contact_or_admin"
+          ]
+        }
+      }
+    }
+  }
+}
