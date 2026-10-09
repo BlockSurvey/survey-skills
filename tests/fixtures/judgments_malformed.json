@@ -1,0 +1,38 @@
+{
+ "rubric_version": "bs-skills-1.0",
+ "survey_kind": "not-a-kind",
+ "survey": {
+  "A1_title_specific": {
+   "level": 7
+  },
+  "A3_purpose_explained": {
+   "level": "2"
+  },
+  "A5_privacy_stated": {
+   "p": -0.2
+  },
+  "B5_redundant_questions": 0.4,
+  "K_survey_kind": {
+   "choice": "poll"
+  },
+  "Z1_unknown": {
+   "level": 0
+  }
+ },
+ "questions": {
+  "Q1": {
+   "Q1_clarity": {
+    "level": 2.5
+   },
+   "Q2_double_barreled": {
+    "p": true
+   }
+  },
+  "Q2": "not an object",
+  "Q99": {
+   "Q1_clarity": {
+    "level": 0
+   }
+  }
+ }
+}

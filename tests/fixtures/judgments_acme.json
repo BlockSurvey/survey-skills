@@ -1,0 +1,1110 @@
+{
+ "rubric_version": "bs-skills-1.0",
+ "survey": {
+  "A1_title_specific": {
+   "level": 2,
+   "confidence": 0.9
+  },
+  "A2_title_respondent_facing": {
+   "level": 2,
+   "confidence": 0.9
+  },
+  "A3_purpose_explained": {
+   "level": 3,
+   "confidence": 0.9
+  },
+  "A5_privacy_stated": {
+   "p": 1.0
+  },
+  "A6_audience_stated": {
+   "p": 1.0
+  },
+  "A7_objective_inferable": {
+   "level": 2,
+   "confidence": 0.9
+  },
+  "A8_respondent_benefit": {
+   "level": 2,
+   "confidence": 0.85,
+   "note": "we'll share the results in our May update"
+  },
+  "A9_sponsor_named": {
+   "p": 1.0
+  },
+  "A10_deadline_stated": {
+   "p": 0.95,
+   "note": "Open until 30 May"
+  },
+  "B1_logical_order": {
+   "level": 2,
+   "confidence": 0.9
+  },
+  "B2_opening_question": {
+   "level": 2,
+   "confidence": 0.9
+  },
+  "B3_demographics_placement": {
+   "level": 2,
+   "confidence": 0.9,
+   "note": "demographics at the end, with a reason"
+  },
+  "B4_sections_signposted": {
+   "p": 1.0
+  },
+  "B5_redundant_questions": {
+   "p": 0.0
+  },
+  "B7_end_loading": {
+   "level": 2,
+   "confidence": 0.9
+  },
+  "B8_scale_direction_consistent": {
+   "p": 0.0
+  },
+  "C1_objective_coverage": {
+   "level": 3,
+   "confidence": 0.9
+  },
+  "C2_has_screener": {
+   "p": 1.0
+  },
+  "C3_has_outcome_question": {
+   "p": 1.0
+  },
+  "C4_missing_why": {
+   "p": 0.0
+  },
+  "C5_obvious_gap": {
+   "level": 1,
+   "confidence": 0.65,
+   "note": "nothing on pricing"
+  },
+  "C6_demographics_proportionate": {
+   "level": 2,
+   "confidence": 0.9
+  },
+  "C7_has_attention_check": {
+   "p": 1.0
+  },
+  "E1_tone_consistent": {
+   "level": 2,
+   "confidence": 0.9
+  },
+  "E2_burden": {
+   "p": 0.0
+  },
+  "E3_thank_you_quality": {
+   "level": 2,
+   "confidence": 0.9
+  },
+  "E4_welcome_motivates": {
+   "level": 2,
+   "confidence": 0.9
+  },
+  "E5_reading_level": {
+   "level": 2,
+   "confidence": 0.9
+  },
+  "E6_length_feels_justified": {
+   "level": 2,
+   "confidence": 0.9
+  },
+  "E7_welcome_scannable": {
+   "level": 2,
+   "confidence": 0.9
+  },
+  "E8_straightlining_risk": {
+   "level": 1,
+   "confidence": 0.7,
+   "note": "one 3-row matrix between other types"
+  },
+  "E9_language_consistent": {
+   "p": 0.0
+  },
+  "F1_sensitive_topics": {
+   "p": 0.05
+  },
+  "F2_consent_language": {
+   "p": 1.0
+  },
+  "F3_incentive_clear": {
+   "p": 1.0
+  },
+  "F3a_incentive_mentioned": {
+   "p": 0.0
+  },
+  "F3b_incentive_delivery_clear": {
+   "p": 1.0
+  },
+  "F4_manipulative_framing": {
+   "p": 0.0
+  },
+  "F5_contact_provided": {
+   "p": 1.0
+  },
+  "C5_gap_topic": {
+   "choice": "pricing",
+   "confidence": 0.6
+  },
+  "K_survey_kind": {
+   "choice": "feedback",
+   "confidence": 0.9
+  },
+  "X2_audience_kind": {
+   "choice": "existing_customers",
+   "confidence": 0.9
+  }
+ },
+ "questions": {
+  "Q1": {
+   "Q1_clarity": {
+    "level": 3,
+    "confidence": 0.9
+   },
+   "Q2_double_barreled": {
+    "p": 0.0
+   },
+   "Q3a_leading": {
+    "p": 0.0
+   },
+   "Q3b_presuming": {
+    "p": 0.0
+   },
+   "Q4_jargon": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q5_relevance": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q6_options_not_exhaustive": {
+    "p": 0.0
+   },
+   "Q7_options_overlap": {
+    "p": 0.0
+   },
+   "Q8_scale_unbalanced": {
+    "p": 0.0
+   },
+   "Q9_type_fit": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q10_depends_on_prior": {
+    "p": 0.0
+   },
+   "Q11_requires_visual": {
+    "p": 0.0
+   },
+   "Q12_sensitive": {
+    "p": 0.0
+   },
+   "Q13_grammar": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q14_options_parallel": {
+    "p": 0.0
+   },
+   "Q15_abandon_risk": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q16_sensitive_reassured": {
+    "p": 1.0
+   },
+   "Q17_negative_wording": {
+    "p": 0.0
+   },
+   "Q18_hypothetical": {
+    "p": 0.0
+   },
+   "Q19_recall_period": {
+    "choice": "stated",
+    "confidence": 0.95,
+    "note": "in the last 3 months"
+   },
+   "Q20_option_double_barreled": {
+    "p": 0.0
+   },
+   "Q21_social_desirability": {
+    "p": 0.0
+   },
+   "Q22_units_stated": {
+    "p": 1.0
+   },
+   "Q23_actionable": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q24_intent": {
+    "choice": "screener",
+    "confidence": 0.9
+   },
+   "Q25_best_type": {
+    "choice": "current_type_is_best",
+    "confidence": 0.9
+   },
+   "L_needs_why": {
+    "p": 0.05
+   },
+   "L_hard_to_recall": {
+    "p": 0.05
+   },
+   "L_topic_jump": {
+    "p": 0.05
+   },
+   "L_is_demographic": {
+    "p": 0.05
+   },
+   "L_pressuring": {
+    "p": 0.05
+   },
+   "L_hard_to_read": {
+    "p": 0.05
+   },
+   "L_sensitive_topic": {
+    "p": 0.05
+   },
+   "L_duplicate_of_earlier": {
+    "p": 0.05
+   },
+   "R_role": {
+    "choice": "question",
+    "confidence": 0.9
+   }
+  },
+  "Q2": {
+   "Q1_clarity": {
+    "level": 3,
+    "confidence": 0.9
+   },
+   "Q2_double_barreled": {
+    "p": 0.0
+   },
+   "Q3a_leading": {
+    "p": 0.0
+   },
+   "Q3b_presuming": {
+    "p": 0.0
+   },
+   "Q4_jargon": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q5_relevance": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q6_options_not_exhaustive": {
+    "p": 0.0
+   },
+   "Q7_options_overlap": {
+    "p": 0.0
+   },
+   "Q8_scale_unbalanced": {
+    "p": 0.0
+   },
+   "Q9_type_fit": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q10_depends_on_prior": {
+    "p": 0.0
+   },
+   "Q11_requires_visual": {
+    "p": 0.0
+   },
+   "Q12_sensitive": {
+    "p": 0.0
+   },
+   "Q13_grammar": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q14_options_parallel": {
+    "p": 0.0
+   },
+   "Q15_abandon_risk": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q16_sensitive_reassured": {
+    "p": 1.0
+   },
+   "Q17_negative_wording": {
+    "p": 0.0
+   },
+   "Q18_hypothetical": {
+    "p": 0.0
+   },
+   "Q19_recall_period": {
+    "choice": "stated",
+    "confidence": 0.95,
+    "note": "in the last 3 months"
+   },
+   "Q20_option_double_barreled": {
+    "p": 0.0
+   },
+   "Q21_social_desirability": {
+    "p": 0.0
+   },
+   "Q22_units_stated": {
+    "p": 1.0
+   },
+   "Q23_actionable": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q24_intent": {
+    "choice": "behaviour",
+    "confidence": 0.9
+   },
+   "Q25_best_type": {
+    "choice": "current_type_is_best",
+    "confidence": 0.9
+   },
+   "L_needs_why": {
+    "p": 0.05
+   },
+   "L_hard_to_recall": {
+    "p": 0.05
+   },
+   "L_topic_jump": {
+    "p": 0.05
+   },
+   "L_is_demographic": {
+    "p": 0.05
+   },
+   "L_pressuring": {
+    "p": 0.05
+   },
+   "L_hard_to_read": {
+    "p": 0.05
+   },
+   "L_sensitive_topic": {
+    "p": 0.05
+   },
+   "L_duplicate_of_earlier": {
+    "p": 0.05
+   },
+   "R_role": {
+    "choice": "question",
+    "confidence": 0.9
+   }
+  },
+  "Q3": {
+   "Q1_clarity": {
+    "level": 3,
+    "confidence": 0.9
+   },
+   "Q2_double_barreled": {
+    "p": 0.0
+   },
+   "Q3a_leading": {
+    "p": 0.0
+   },
+   "Q3b_presuming": {
+    "p": 0.0
+   },
+   "Q4_jargon": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q5_relevance": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q6_options_not_exhaustive": {
+    "p": 0.0
+   },
+   "Q7_options_overlap": {
+    "p": 0.0
+   },
+   "Q8_scale_unbalanced": {
+    "p": 0.0
+   },
+   "Q9_type_fit": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q10_depends_on_prior": {
+    "p": 0.0
+   },
+   "Q11_requires_visual": {
+    "p": 0.0
+   },
+   "Q12_sensitive": {
+    "p": 0.0
+   },
+   "Q13_grammar": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q14_options_parallel": {
+    "p": 0.0
+   },
+   "Q15_abandon_risk": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q16_sensitive_reassured": {
+    "p": 1.0
+   },
+   "Q17_negative_wording": {
+    "p": 0.0
+   },
+   "Q18_hypothetical": {
+    "p": 0.0
+   },
+   "Q19_recall_period": {
+    "choice": "stated",
+    "confidence": 0.9
+   },
+   "Q20_option_double_barreled": {
+    "p": 0.0
+   },
+   "Q21_social_desirability": {
+    "p": 0.0
+   },
+   "Q22_units_stated": {
+    "p": 1.0
+   },
+   "Q23_actionable": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q24_intent": {
+    "choice": "outcome",
+    "confidence": 0.9
+   },
+   "Q25_best_type": {
+    "choice": "current_type_is_best",
+    "confidence": 0.9
+   },
+   "L_needs_why": {
+    "p": 0.05
+   },
+   "L_hard_to_recall": {
+    "p": 0.05
+   },
+   "L_topic_jump": {
+    "p": 0.05
+   },
+   "L_is_demographic": {
+    "p": 0.05
+   },
+   "L_pressuring": {
+    "p": 0.05
+   },
+   "L_hard_to_read": {
+    "p": 0.05
+   },
+   "L_sensitive_topic": {
+    "p": 0.05
+   },
+   "L_duplicate_of_earlier": {
+    "p": 0.05
+   },
+   "R_role": {
+    "choice": "question",
+    "confidence": 0.9
+   }
+  },
+  "Q4": {
+   "Q1_clarity": {
+    "level": 3,
+    "confidence": 0.9
+   },
+   "Q2_double_barreled": {
+    "p": 0.0
+   },
+   "Q3a_leading": {
+    "p": 0.0
+   },
+   "Q3b_presuming": {
+    "p": 0.0
+   },
+   "Q4_jargon": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q5_relevance": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q6_options_not_exhaustive": {
+    "p": 0.0
+   },
+   "Q7_options_overlap": {
+    "p": 0.0
+   },
+   "Q8_scale_unbalanced": {
+    "p": 0.0
+   },
+   "Q9_type_fit": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q10_depends_on_prior": {
+    "p": 0.0
+   },
+   "Q11_requires_visual": {
+    "p": 0.0
+   },
+   "Q12_sensitive": {
+    "p": 0.0
+   },
+   "Q13_grammar": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q14_options_parallel": {
+    "p": 0.0
+   },
+   "Q15_abandon_risk": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q16_sensitive_reassured": {
+    "p": 1.0
+   },
+   "Q17_negative_wording": {
+    "p": 0.0
+   },
+   "Q18_hypothetical": {
+    "p": 0.0
+   },
+   "Q19_recall_period": {
+    "choice": "stated",
+    "confidence": 0.9
+   },
+   "Q20_option_double_barreled": {
+    "p": 0.0
+   },
+   "Q21_social_desirability": {
+    "p": 0.0
+   },
+   "Q22_units_stated": {
+    "p": 1.0
+   },
+   "Q23_actionable": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q24_intent": {
+    "choice": "open_feedback",
+    "confidence": 0.9
+   },
+   "Q25_best_type": {
+    "choice": "current_type_is_best",
+    "confidence": 0.9
+   },
+   "L_needs_why": {
+    "p": 0.05
+   },
+   "L_hard_to_recall": {
+    "p": 0.05
+   },
+   "L_topic_jump": {
+    "p": 0.05
+   },
+   "L_is_demographic": {
+    "p": 0.05
+   },
+   "L_pressuring": {
+    "p": 0.05
+   },
+   "L_hard_to_read": {
+    "p": 0.05
+   },
+   "L_sensitive_topic": {
+    "p": 0.05
+   },
+   "L_duplicate_of_earlier": {
+    "p": 0.05
+   },
+   "R_role": {
+    "choice": "question",
+    "confidence": 0.9
+   }
+  },
+  "Q5": {
+   "Q1_clarity": {
+    "level": 3,
+    "confidence": 0.9
+   },
+   "Q2_double_barreled": {
+    "p": 0.0
+   },
+   "Q3a_leading": {
+    "p": 0.0
+   },
+   "Q3b_presuming": {
+    "p": 0.0
+   },
+   "Q4_jargon": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q5_relevance": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q6_options_not_exhaustive": {
+    "p": 0.0
+   },
+   "Q7_options_overlap": {
+    "p": 0.0
+   },
+   "Q8_scale_unbalanced": {
+    "p": 0.0
+   },
+   "Q9_type_fit": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q10_depends_on_prior": {
+    "p": 0.0
+   },
+   "Q11_requires_visual": {
+    "p": 0.0
+   },
+   "Q12_sensitive": {
+    "p": 0.0
+   },
+   "Q13_grammar": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q14_options_parallel": {
+    "p": 0.0
+   },
+   "Q15_abandon_risk": {
+    "level": 1,
+    "confidence": 0.7,
+    "note": "required 3-row grid"
+   },
+   "Q16_sensitive_reassured": {
+    "p": 1.0
+   },
+   "Q17_negative_wording": {
+    "p": 0.0
+   },
+   "Q18_hypothetical": {
+    "p": 0.0
+   },
+   "Q19_recall_period": {
+    "choice": "stated",
+    "confidence": 0.9
+   },
+   "Q20_option_double_barreled": {
+    "p": 0.0
+   },
+   "Q21_social_desirability": {
+    "p": 0.0
+   },
+   "Q22_units_stated": {
+    "p": 1.0
+   },
+   "Q23_actionable": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q24_intent": {
+    "choice": "attitude",
+    "confidence": 0.9
+   },
+   "Q25_best_type": {
+    "choice": "current_type_is_best",
+    "confidence": 0.9
+   },
+   "L_needs_why": {
+    "p": 0.05
+   },
+   "L_hard_to_recall": {
+    "p": 0.05
+   },
+   "L_topic_jump": {
+    "p": 0.05
+   },
+   "L_is_demographic": {
+    "p": 0.05
+   },
+   "L_pressuring": {
+    "p": 0.05
+   },
+   "L_hard_to_read": {
+    "p": 0.05
+   },
+   "L_sensitive_topic": {
+    "p": 0.05
+   },
+   "L_duplicate_of_earlier": {
+    "p": 0.05
+   },
+   "R_role": {
+    "choice": "question",
+    "confidence": 0.9
+   }
+  },
+  "Q6": {
+   "Q1_clarity": {
+    "level": 3,
+    "confidence": 0.9
+   },
+   "Q2_double_barreled": {
+    "p": 0.0
+   },
+   "Q3a_leading": {
+    "p": 0.0
+   },
+   "Q3b_presuming": {
+    "p": 0.0
+   },
+   "Q4_jargon": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q5_relevance": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q6_options_not_exhaustive": {
+    "p": 0.0
+   },
+   "Q7_options_overlap": {
+    "p": 0.0
+   },
+   "Q8_scale_unbalanced": {
+    "p": 0.0
+   },
+   "Q9_type_fit": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q10_depends_on_prior": {
+    "p": 0.0
+   },
+   "Q11_requires_visual": {
+    "p": 0.0
+   },
+   "Q12_sensitive": {
+    "p": 0.0
+   },
+   "Q13_grammar": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q14_options_parallel": {
+    "p": 0.0
+   },
+   "Q15_abandon_risk": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q16_sensitive_reassured": {
+    "p": 1.0
+   },
+   "Q17_negative_wording": {
+    "p": 0.0
+   },
+   "Q18_hypothetical": {
+    "p": 0.0
+   },
+   "Q19_recall_period": {
+    "choice": "stated",
+    "confidence": 0.9
+   },
+   "Q20_option_double_barreled": {
+    "p": 0.0
+   },
+   "Q21_social_desirability": {
+    "p": 0.0
+   },
+   "Q22_units_stated": {
+    "p": 1.0
+   },
+   "Q23_actionable": {
+    "level": 1,
+    "confidence": 0.7,
+    "note": "wish-list question"
+   },
+   "Q24_intent": {
+    "choice": "open_feedback",
+    "confidence": 0.9
+   },
+   "Q25_best_type": {
+    "choice": "current_type_is_best",
+    "confidence": 0.9
+   },
+   "L_needs_why": {
+    "p": 0.05
+   },
+   "L_hard_to_recall": {
+    "p": 0.05
+   },
+   "L_topic_jump": {
+    "p": 0.05
+   },
+   "L_is_demographic": {
+    "p": 0.05
+   },
+   "L_pressuring": {
+    "p": 0.05
+   },
+   "L_hard_to_read": {
+    "p": 0.05
+   },
+   "L_sensitive_topic": {
+    "p": 0.05
+   },
+   "L_duplicate_of_earlier": {
+    "p": 0.05
+   },
+   "R_role": {
+    "choice": "question",
+    "confidence": 0.9
+   }
+  },
+  "Q7": {
+   "Q1_clarity": {
+    "level": 3,
+    "confidence": 0.9
+   },
+   "Q2_double_barreled": {
+    "p": 0.0
+   },
+   "Q3a_leading": {
+    "p": 0.0
+   },
+   "Q3b_presuming": {
+    "p": 0.0
+   },
+   "Q4_jargon": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q5_relevance": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q6_options_not_exhaustive": {
+    "p": 0.0
+   },
+   "Q7_options_overlap": {
+    "p": 0.0
+   },
+   "Q8_scale_unbalanced": {
+    "p": 0.0
+   },
+   "Q9_type_fit": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q10_depends_on_prior": {
+    "p": 0.0
+   },
+   "Q11_requires_visual": {
+    "p": 0.0
+   },
+   "Q12_sensitive": {
+    "p": 0.0
+   },
+   "Q13_grammar": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q14_options_parallel": {
+    "p": 0.0
+   },
+   "Q15_abandon_risk": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q16_sensitive_reassured": {
+    "p": 1.0
+   },
+   "Q17_negative_wording": {
+    "p": 0.0
+   },
+   "Q18_hypothetical": {
+    "p": 0.0
+   },
+   "Q19_recall_period": {
+    "choice": "stated",
+    "confidence": 0.9
+   },
+   "Q20_option_double_barreled": {
+    "p": 0.0
+   },
+   "Q21_social_desirability": {
+    "p": 0.0
+   },
+   "Q22_units_stated": {
+    "p": 1.0
+   },
+   "Q23_actionable": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q24_intent": {
+    "choice": "demographic",
+    "confidence": 0.9
+   },
+   "Q25_best_type": {
+    "choice": "current_type_is_best",
+    "confidence": 0.9
+   },
+   "L_needs_why": {
+    "p": 0.05
+   },
+   "L_hard_to_recall": {
+    "p": 0.05
+   },
+   "L_topic_jump": {
+    "p": 0.05
+   },
+   "L_is_demographic": {
+    "p": 0.05
+   },
+   "L_pressuring": {
+    "p": 0.05
+   },
+   "L_hard_to_read": {
+    "p": 0.05
+   },
+   "L_sensitive_topic": {
+    "p": 0.05
+   },
+   "L_duplicate_of_earlier": {
+    "p": 0.05
+   },
+   "R_role": {
+    "choice": "question",
+    "confidence": 0.9
+   }
+  },
+  "Q8": {
+   "Q1_clarity": {
+    "level": 3,
+    "confidence": 0.9
+   },
+   "Q2_double_barreled": {
+    "p": 0.0
+   },
+   "Q3a_leading": {
+    "p": 0.0
+   },
+   "Q3b_presuming": {
+    "p": 0.0
+   },
+   "Q4_jargon": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q5_relevance": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q6_options_not_exhaustive": {
+    "p": 0.0
+   },
+   "Q7_options_overlap": {
+    "p": 0.0
+   },
+   "Q8_scale_unbalanced": {
+    "p": 0.0
+   },
+   "Q9_type_fit": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q10_depends_on_prior": {
+    "p": 0.0
+   },
+   "Q11_requires_visual": {
+    "p": 0.0
+   },
+   "Q12_sensitive": {
+    "p": 0.0
+   },
+   "Q13_grammar": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q14_options_parallel": {
+    "p": 0.2
+   },
+   "Q15_abandon_risk": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q16_sensitive_reassured": {
+    "p": 1.0
+   },
+   "Q17_negative_wording": {
+    "p": 0.0
+   },
+   "Q18_hypothetical": {
+    "p": 0.0
+   },
+   "Q19_recall_period": {
+    "choice": "stated",
+    "confidence": 0.9
+   },
+   "Q20_option_double_barreled": {
+    "p": 0.0
+   },
+   "Q21_social_desirability": {
+    "p": 0.0
+   },
+   "Q22_units_stated": {
+    "p": 1.0
+   },
+   "Q23_actionable": {
+    "level": 2,
+    "confidence": 0.9
+   },
+   "Q24_intent": {
+    "choice": "demographic",
+    "confidence": 0.9
+   },
+   "Q25_best_type": {
+    "choice": "current_type_is_best",
+    "confidence": 0.9
+   },
+   "L_needs_why": {
+    "p": 0.05
+   },
+   "L_hard_to_recall": {
+    "p": 0.05
+   },
+   "L_topic_jump": {
+    "p": 0.05
+   },
+   "L_is_demographic": {
+    "p": 0.05
+   },
+   "L_pressuring": {
+    "p": 0.05
+   },
+   "L_hard_to_read": {
+    "p": 0.05
+   },
+   "L_sensitive_topic": {
+    "p": 0.05
+   },
+   "L_duplicate_of_earlier": {
+    "p": 0.05
+   },
+   "R_role": {
+    "choice": "question",
+    "confidence": 0.9
+   }
+  }
+ },
+ "survey_kind": "feedback",
+ "audience_kind": "existing_customers"
+}
