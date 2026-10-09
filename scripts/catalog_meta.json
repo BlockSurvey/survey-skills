@@ -1,0 +1,11 @@
+{
+  "survey-create": {"try": "Create a churn survey for a B2B SaaS that cancelled in the last 30 days.", "rank": 1},
+  "survey-templates": {"try": "Give me an NPS survey template for Acme Projects that closes on 30 November."},
+  "survey-score": {"try": "Score this survey and tell me what to fix first.", "rank": 1},
+  "survey-lint": {"try": "Lint survey.json and fail CI on any blocker or high finding."},
+  "survey-fix": {"try": "Fix my survey using the score report.", "rank": 1},
+  "survey-pretest": {"try": "Pretest this questionnaire with simulated respondents. Where will people drop off?"},
+  "survey-logic": {"try": "Only show the follow-up to detractors and screen out non-customers."},
+  "survey-copy": {"try": "Write the welcome screen, invite email and two reminders for this survey."},
+  "survey-export": {"try": "Export this survey so I can paste it into Google Forms."}
+}

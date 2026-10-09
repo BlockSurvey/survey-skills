@@ -26,3 +26,5 @@ jobs:
       - run: python -m pytest -q
       - run: python scripts/validate_skills.py
       - run: python scripts/build.py --check
+      - run: python scripts/build_catalog.py --check
+      - run: python scripts/build_prompts.py --check
