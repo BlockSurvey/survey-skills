@@ -1,0 +1,4 @@
+{
+  "references": ["rubric.md"],
+  "scripts": ["survey_lint.py"]
+}
