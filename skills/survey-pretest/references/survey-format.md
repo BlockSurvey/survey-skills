@@ -1,6 +1,6 @@
 # Survey format
 
-Every skill reads and writes one portable survey format, defined by [`schemas/survey.schema.json`](../schemas/survey.schema.json). This file walks through it, gives a complete annotated example, defines the condition language used by `shown_when` and `jumps`, and specifies the canonical markdown form that `survey_export.py` writes and reads.
+Every skill reads and writes one portable survey format, defined by [`schemas/survey.schema.json`](https://github.com/BlockSurvey/survey-skills/blob/main/schemas/survey.schema.json) in the repository (not bundled with the skill; this file is the working reference). This file walks through it, gives a complete annotated example, defines the condition language used by `shown_when` and `jumps`, and specifies the canonical markdown form that `survey_export.py` writes and reads.
 
 The schema is lenient: unknown keys are allowed and kept, and only `title`, `questions`, and each question's `ref`, `type` and `label` are required. Scripts treat a field of the wrong type as missing and never crash on it.
 

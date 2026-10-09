@@ -66,7 +66,7 @@ Work in one pass. Load [playbook.md](references/playbook.md) once (it holds the 
    - **Every entry has a role**: questions collect, `statement`s inform (`role: information`), `consent` asks for agreement (`role: consent`). (R_role)
 6. **Set honest settings.** Save the draft as `survey.json` and run `python <skill-dir>/scripts/survey_lint.py survey.json --stats --json`. It prints the question counts, `open_ended_share`, `estimated_minutes` (from the seconds per type in [question-types.md](references/question-types.md#seconds-per-type)) and `estimated_minutes_rounded_up`. Set `settings.stated_minutes` to `estimated_minutes_rounded_up`, and use that same number in the welcome and title; never estimate by hand when the script can run. Re-run `--stats` after any change to the questions. Set `anonymous` (false if you collect contact details) and `progress_bar: true`. (S15, S16, S21, S24)
 7. **Self-check.**
-   - Run `python <skill-dir>/scripts/survey_lint.py survey.json --json`. Exit code 0 means no blocker or high finding. Fix every **blocker** and **high** finding, then re-run until clean. Fix medium and low findings too unless the brief justifies them; list any you keep, with the reason.
+   - Run `python <skill-dir>/scripts/survey_lint.py survey.json --json`. Exit code 0 means no blocker or high finding. Fix every **blocker** and **high** finding, then re-run until clean. Fix medium and low findings too unless the brief justifies them; list any you keep, with the reason. `info` findings are notes, not defects: act on them if cheap, and leave them out of the counts.
    - Walk the playbook's **Pre-flight checklist** (Decide, Start, Continue, Finish, Answer quality, Actionability) in one pass. Record the ids you satisfied per stage, and any rule you bent with the reason (for example "C2: no screener, the audience is everyone on the mailing list").
 8. **Score, if available.** If the `survey-score` skill is installed, score `survey.json` with it and revise against its top findings until the score is **≥ 85 or after two revision passes**, whichever comes first. Re-run lint after each revision. If it is not installed, skip this step and say so in the self-check.
 9. **Export and hand over.** Run `python <skill-dir>/scripts/survey_export.py survey.json --format md --out survey.md` and emit the output contract below. Keep `survey.json` and `survey.md` on disk when you have file access.
@@ -85,7 +85,7 @@ Emit exactly these sections, in this order, with these headings:
 
 ## Survey (JSON)
 ```json
-{ … the complete survey, valid against schemas/survey.schema.json, every question with ref, type, label, intent, required … }
+{ … the complete survey in the portable format from survey-format.md, every question with ref, type, label, intent, required … }
 ```
 
 ## Survey (markdown)
@@ -122,7 +122,7 @@ Before replying, confirm every line:
 - [ ] Open-ended ≤ 30 % and late; demographics last, optional, with reasons and "Prefer not to answer". (S34, B7, B3, C6, S23)
 - [ ] Options exhaustive, exclusive, parallel; scales balanced, labelled, one direction; NPS standard. (Q6, Q7, Q14, Q8, B8, S36, S37)
 - [ ] `stated_minutes`, the welcome and the title all equal `estimated_minutes_rounded_up` from `--stats`; no PII on an anonymous survey. (S16, S21)
-- [ ] `python <skill-dir>/scripts/survey_lint.py survey.json --json` shows no blocker or high finding; the JSON validates against the schema (only `title`, `questions`, and each question's `ref`, `type`, `label` are required; types are from the 20 portable types).
+- [ ] `python <skill-dir>/scripts/survey_lint.py survey.json --json` shows no blocker or high finding; the JSON follows [survey-format.md](references/survey-format.md) (only `title`, `questions`, and each question's `ref`, `type`, `label` are required; types are from the 20 portable types).
 - [ ] Output has exactly the five contract sections, and the markdown is the script's output, not hand-written (unless in fallback).
 
 ## Example

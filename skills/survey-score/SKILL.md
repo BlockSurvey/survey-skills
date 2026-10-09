@@ -46,11 +46,11 @@ Useful but optional (ask only if the user offers context; otherwise infer and sa
 
 2. **Lint → `lint.json`.** `python <skill-dir>/scripts/survey_lint.py survey.json --json > lint.json`
    - Exit `0` = no blocker/high; `1` = at least one blocker/high finding (not an error, keep going); `2` = invalid input: fix `survey.json` and rerun.
-   - Read the findings so your judgments do not contradict them (lint already counted lengths, ranges, duplicates, missing screens). Note the answerable-question count `n` (questions whose `type` is not `statement` or `group`); you need it for C7 and for chunking.
+   - Read the findings so your judgments do not contradict them (lint already counted lengths, ranges, duplicates, missing screens). Note the answerable-question count `n` (questions whose `type` is not `statement` or `group`; `python <skill-dir>/scripts/survey_lint.py survey.json --stats --json` prints it as `answerable_questions`); you need it for C7 and for chunking.
 
 3. **Classify.** Decide, with a confidence each:
    - Survey kind (`K_survey_kind`): `research`, `feedback`, `form`, `quiz`, `assessment` or `information`. If `survey.json` has a sensible `kind`, use it.
-   - Audience (`X2_audience_kind`): `existing_customers`, `prospects_or_general_public`, `employees`, `students`, `experts_or_professionals`, `event_attendees` or `unclear`.
+   - Audience (`X2_audience_kind`): `existing_customers`, `prospects_or_general_public`, `employees`, `students`, `experts_or_professionals`, `event_attendees` or `unclear`. Members of a club, community, association or user base count as `existing_customers`.
    - Role (`R_role`) of every question: `question`, `information` or `consent`.
    - The kind switches items off (see "How to judge"); the kind + audience pick the weight profile.
 
@@ -106,10 +106,11 @@ The shape `survey_score_calc.py` reads (full rules: [scoring.md](references/scor
 - **`p` is a calibrated probability that the item's statement is true.** 0.9 = clearly yes, 0.7 = probably, 0.5 = unsure (counts as no evidence), 0.1 = clearly no. Most Noul items are phrased so yes = problem; items marked (yes = good) in the guide are the reverse. Do not shade `p` to be kind or harsh: the calculator already downgrades findings between 0.7 and 0.85 to "uncertain".
 - **Confidence is how sure you are of the level**, not how bad the problem is. Below 0.35 a Score answer becomes an info note; 0.35–0.6 is reported one severity lower.
 - **Applicability (skip what does not apply):**
-  - `statement` / `group` entries: only `R_role`, `Q1_clarity`, `Q2_double_barreled`, `Q3a_leading`, `Q3b_presuming`, `Q13_grammar`.
+  - `statement` / `group` entries: only `R_role`, `Q1_clarity`, `Q2_double_barreled`, `Q3a_leading`, `Q3b_presuming`, `Q13_grammar`. This list wins over the role list below, whatever role the entry has.
   - Role `information` or `consent`: only `R_role`, `Q1_clarity`, `Q4_jargon`, `Q5_relevance`, `Q13_grammar`, `L_hard_to_read`, `L_pressuring`.
   - `shown_when` set: no `Q3b_presuming` (the display rule supplies the premise); no `Q5_relevance` when the condition names an earlier ref.
   - Option, scale, text and quantity items only where the question has them (the `applies` column in the guide). A `single_choice` or `dropdown` with 3+ options counts as a scale, so it gets `Q8` and `Q17`.
+- **When in doubt, judge it.** A judgment on an item that turns out not to apply is ignored by the calculator; a missing judgment on one that does apply makes the report partial.
 - **Kinds gate survey items.** Skip `A7`, `C3`, `C4`, `C6` unless the kind is research or feedback; `C2` and `F2` unless research; `C5_obvious_gap` unless research, feedback or assessment. Skipped items are not defects.
 - **Locators matter.** Answer the `L_*` items on every question they apply to. Without them a survey-level finding ("demographics come too early") cannot point at a question and is reported as a hunch.
 - **Don't count inside a judgment.** Lengths, word counts, ranges and duplicates are lint's job. Judge meaning, wording and fit.
